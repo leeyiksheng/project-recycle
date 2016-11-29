@@ -19,6 +19,8 @@
 		EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */; };
 		EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */; };
 		EB6267811DEC28CB00CC2C37 /* LoginSignup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */; };
+		EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */; };
+		EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeContainerViewController.swift; sourceTree = "<group>"; };
 		EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginSignup.storyboard; sourceTree = "<group>"; };
+		EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuProfileTableViewCell.swift; sourceTree = "<group>"; };
+		EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +89,8 @@
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
-				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
 				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
+				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
 				EB62676C1DEBD0D600CC2C37 /* Info.plist */,
 				EB6267721DEBD12400CC2C37 /* LoginViewController.swift */,
 				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
@@ -94,6 +98,8 @@
 				EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */,
 				EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */,
 				EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */,
+				EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */,
+				EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */,
 			);
 			path = "Project Recycle";
 			sourceTree = "<group>";
@@ -233,8 +239,10 @@
 			files = (
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
+				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
+				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
@@ -280,6 +288,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -330,6 +339,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
