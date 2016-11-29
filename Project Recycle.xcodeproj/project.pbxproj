@@ -260,11 +260,8 @@
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
-<<<<<<< HEAD
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
-=======
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
->>>>>>> master
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,

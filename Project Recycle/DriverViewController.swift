@@ -45,7 +45,16 @@ class DriverViewController: UIViewController {
             newData.email = dataDictionary["email"] as? String
             self.driverEmailLabel.text = newData.email
             newData.profilePic = (dataDictionary["profileImage"] as! String?)!
-            self.driverProImage.            
+            Downloader.getDataFromUrl(url: URL.init(string: "")!, completion: { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.driverProImage.image = UIImage (data: data!)
+                }
+            })
             
 //            if let profileImageUrl = newData.profilePic
 //            {
