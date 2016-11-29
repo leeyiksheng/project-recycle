@@ -61,7 +61,7 @@
                                             <outlet property="userProfileImage" destination="MPr-0J-tO7" id="6u6-RX-AOb"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="buttonCell" rowHeight="80" id="Qkm-t1-bac" customClass="MenuItemTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="itemCell" rowHeight="80" id="Qkm-t1-bac" customClass="MenuItemTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qkm-t1-bac" id="moc-v5-Txs">

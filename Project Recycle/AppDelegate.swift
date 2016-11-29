@@ -21,12 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let storyboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        
-        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeContainerView")
-        
-        window!.rootViewController = homeViewController
+        if FIRAuth.auth()?.currentUser != nil {
+            window!.rootViewController = instantiateHomeContainerViewController()
+        } else {
+            window!.rootViewController = instantiateLoginViewController()
+        }
+
         window!.makeKeyAndVisible()
+        observeAuthNotification()
         
         return true
     }
@@ -52,7 +54,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func observeAuthNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSignedInNotification(_:)), name: Notification.Name(rawValue: "SignedInNotification") , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSignedOutNotification(_:)), name: Notification.Name(rawValue: "SignedOutNotification") , object: nil)
+    }
+    
+    func handleSignedOutNotification(_ notification: Notification) {
+        // This will only be called if user gets logged out.
+        
+        window!.rootViewController = instantiateLoginViewController()
+    }
+    
+    func handleSignedInNotification(_ notification: Notification) {
+        window!.rootViewController = instantiateHomeContainerViewController()
+    }
 
-
+    func instantiateHomeContainerViewController() -> HomeContainerViewController {
+        let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
+        let homeContainerViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeContainerView")
+        return homeContainerViewController as! HomeContainerViewController
+    }
+    
+    func instantiateLoginViewController() -> LoginViewController {
+        let loginSignupStoryboard = UIStoryboard.init(name: "LoginSignup", bundle: Bundle.init(identifier: "LoginSignup"))
+        let loginViewController = loginSignupStoryboard.instantiateViewController(withIdentifier: "LoginView")
+        return loginViewController as! LoginViewController
+    }
 }
 

@@ -118,11 +118,3 @@ private extension UIStoryboard {
         return mainStoryboard().instantiateViewController(withIdentifier: "HomeView") as? HomeViewController
     }
 }
-
-extension UIViewController {
-    func instantiateHomeContainerViewController() -> HomeContainerViewController {
-        let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.main)
-        let homeContainerViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeContainerView")
-        return homeContainerViewController as! HomeContainerViewController
-    }
-}
