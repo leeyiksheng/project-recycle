@@ -21,11 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        let storyboard = UIStoryboard.init(name: "LoginSignup", bundle: Bundle.main)
+        let storyboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
         
-        let loginViewController = storyboard.instantiateViewController(withIdentifier: "Login")
+        let homeViewController = storyboard.instantiateViewController(withIdentifier: "HomeContainerView")
         
-        window!.rootViewController = loginViewController
+        window!.rootViewController = homeViewController
         window!.makeKeyAndVisible()
         
         return true

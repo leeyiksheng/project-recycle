@@ -18,8 +18,15 @@ class HomeContainerViewController: UIViewController {
     
     var homeNavigationController: UINavigationController!
     var homeViewController: HomeViewController!
-    var currentState: SlideOutState = .BothCollapsed
+    var currentState: SlideOutState = .BothCollapsed {
+        didSet {
+            let shouldShowShadow = currentState != .BothCollapsed
+            showShadowForHomeViewController(shouldShowShadow: shouldShowShadow)
+        }
+    }
     var menuPanelViewController: MenuPanelViewController?
+    
+    let homePanelExpandedOffset: CGFloat = 60
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +78,32 @@ extension HomeContainerViewController: HomeViewControllerDelegate {
     }
     
     func animateMenuPanel(shouldExpand: Bool) {
-        
+        if (shouldExpand) {
+            currentState = .MenuPanelExpanded
+            
+            animateHomePanelXPosition(targetPosition : homeNavigationController.view.frame.width - homePanelExpandedOffset)
+        } else {
+            animateHomePanelXPosition(targetPosition: 0) { (finished) in
+                self.currentState = .BothCollapsed
+                
+                self.menuPanelViewController!.view.removeFromSuperview()
+                self.menuPanelViewController = nil
+            }
+        }
+    }
+    
+    func animateHomePanelXPosition(targetPosition: CGFloat, completion: ((Bool) ->Void)! = nil) {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+            self.homeNavigationController.view.frame.origin.x = targetPosition
+        }, completion: completion)
+    }
+    
+    func showShadowForHomeViewController(shouldShowShadow: Bool) {
+        if (shouldShowShadow) {
+            homeNavigationController.view.layer.shadowOpacity = 0.8
+        } else {
+            homeNavigationController.view.layer.shadowOpacity = 0.0
+        }
     }
 }
 
@@ -79,11 +111,11 @@ private extension UIStoryboard {
     class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Home", bundle: Bundle.main) }
     
     class func menuPanelViewController() -> MenuPanelViewController? {
-        return mainStoryboard().instantiateViewController(withIdentifier: "MenuPanelViewController") as? MenuPanelViewController
+        return mainStoryboard().instantiateViewController(withIdentifier: "MenuPanelView") as? MenuPanelViewController
     }
     
     class func homeViewController() -> HomeViewController? {
-        return mainStoryboard().instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController
+        return mainStoryboard().instantiateViewController(withIdentifier: "HomeView") as? HomeViewController
     }
 }
 
