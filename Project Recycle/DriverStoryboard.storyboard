@@ -81,6 +81,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iL6-fY-fDT">
+                                <rect key="frame" x="166.5" y="32" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -92,7 +98,9 @@
                             <constraint firstItem="fSr-cX-V2p" firstAttribute="top" secondItem="dKv-9l-J46" secondAttribute="bottom" constant="40" id="Mqe-DM-Dk1"/>
                             <constraint firstItem="oWa-Tu-M6w" firstAttribute="centerX" secondItem="sfi-Tp-H1R" secondAttribute="centerX" id="UHL-LH-KIm"/>
                             <constraint firstItem="PDF-ub-Ys0" firstAttribute="leading" secondItem="sfi-Tp-H1R" secondAttribute="trailing" constant="56" id="UT0-1B-Nmj"/>
+                            <constraint firstItem="iL6-fY-fDT" firstAttribute="centerX" secondItem="WPK-8q-zPp" secondAttribute="centerX" id="Uu1-ey-WSW"/>
                             <constraint firstItem="bc6-PR-6NT" firstAttribute="centerY" secondItem="Nmx-hU-mkN" secondAttribute="centerY" id="eot-GF-MrV"/>
+                            <constraint firstItem="iL6-fY-fDT" firstAttribute="centerY" secondItem="dK0-Yv-Q26" secondAttribute="centerY" id="eqH-lu-Ong"/>
                             <constraint firstItem="dK0-Yv-Q26" firstAttribute="leading" secondItem="WPK-8q-zPp" secondAttribute="leading" id="jXf-pV-gL6"/>
                             <constraint firstItem="sfi-Tp-H1R" firstAttribute="top" secondItem="dKv-9l-J46" secondAttribute="bottom" constant="192" id="jfi-da-SrI"/>
                             <constraint firstItem="Nmx-hU-mkN" firstAttribute="top" secondItem="oWa-Tu-M6w" secondAttribute="bottom" constant="52" id="lL5-ry-cxi"/>
@@ -111,6 +119,7 @@
                         <outlet property="driverPhoneLabel" destination="bc6-PR-6NT" id="SZx-JP-ehn"/>
                         <outlet property="driverProImage" destination="fSr-cX-V2p" id="S5M-Wy-Ksw"/>
                         <outlet property="timeCountLabel" destination="dKv-9l-J46" id="dMZ-X9-Szj"/>
+                        <outlet property="titleVCLabel" destination="iL6-fY-fDT" id="EKY-UN-jgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QGv-lG-yyr" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -16,6 +16,7 @@ class DriverViewController: UIViewController {
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var driverEmailLabel: UILabel!
     @IBOutlet weak var driverPhoneLabel: UILabel!
+    @IBOutlet weak var titleVCLabel: UILabel!
     
     var firebaseDatabase : FIRDatabaseReference?
     var driverArray : [DriverDetails] = []
@@ -24,8 +25,21 @@ class DriverViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        driverProImage.layer.borderWidth = 1
+        driverProImage.layer.masksToBounds = false
+        driverProImage.layer.borderColor = UIColor.green.cgColor
+        driverProImage.layer.cornerRadius = driverProImage.frame.height/2
+        driverProImage.clipsToBounds = true
+        
+    
+
+        
         firebaseDatabase = FIRDatabase.database().reference()
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.titleVCLabel.text = "Driver Information"
     }
 
     private func fetchData()
@@ -45,7 +59,7 @@ class DriverViewController: UIViewController {
             newData.email = dataDictionary["email"] as? String
             self.driverEmailLabel.text = newData.email
             newData.profilePic = (dataDictionary["profileImage"] as! String?)!
-            Downloader.getDataFromUrl(url: URL.init(string: "")!, completion: { (data, response, error) in
+            Downloader.getDataFromUrl(url: URL.init(string: newData.profilePic!)!, completion: { (data, response, error) in
                 if error != nil {
                     print(error!)
                     return
