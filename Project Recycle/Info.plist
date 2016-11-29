@@ -21,9 +21,11 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.171172004329-gtd96nbk439otsi5r5mtpfojbnn6h3vg</string>
+				<string>com.yikshenglee.Project-Recycle</string>
 			</array>
 		</dict>
 		<dict>
@@ -31,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.yikshenglee.Project-Recycle</string>
+				<string>com.googleusercontent.apps.171172004329-gtd96nbk439otsi5r5mtpfojbnn6h3vg</string>
 			</array>
 		</dict>
 	</array>
@@ -42,7 +44,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>DriverStoryboard</string>
+	<string>Home</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

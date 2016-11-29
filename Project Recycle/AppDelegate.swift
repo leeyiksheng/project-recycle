@@ -82,4 +82,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return loginViewController as! LoginViewController
     }
 }
-
