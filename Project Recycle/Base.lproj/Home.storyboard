@@ -14,7 +14,7 @@
         <!--Menu Panel View Controller-->
         <scene sceneID="s9E-PB-c54">
             <objects>
-                <viewController id="ohH-TH-svV" customClass="MenuPanelViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuPanelView" id="ohH-TH-svV" customClass="MenuPanelViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="hp5-oC-e4x"/>
                         <viewControllerLayoutGuide type="bottom" id="61a-m3-X5i"/>
@@ -27,7 +27,7 @@
                                 <rect key="frame" x="16" y="20" width="343" height="647"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="164" id="cIq-Lj-4rX">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="profileCell" rowHeight="164" id="cIq-Lj-4rX" customClass="MenuProfileTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="343" height="164"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cIq-Lj-4rX" id="ao7-ph-LPD">
@@ -56,8 +56,12 @@
                                                 <constraint firstItem="gft-WZ-S8V" firstAttribute="leading" secondItem="ao7-ph-LPD" secondAttribute="leadingMargin" constant="16" id="u66-0C-3SB"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="userEmailLabel" destination="gft-WZ-S8V" id="UKg-UK-bT2"/>
+                                            <outlet property="userProfileImage" destination="MPr-0J-tO7" id="6u6-RX-AOb"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="buttonCell" rowHeight="80" id="Qkm-t1-bac">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="buttonCell" rowHeight="80" id="Qkm-t1-bac" customClass="MenuItemTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="343" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Qkm-t1-bac" id="moc-v5-Txs">
@@ -65,13 +69,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4ul-K3-COE">
-                                                    <rect key="frame" x="20" y="18" width="43.5" height="43.5"/>
+                                                    <rect key="frame" x="20" y="18" width="43" height="43"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="4ul-K3-COE" secondAttribute="height" multiplier="1:1" id="MZK-lQ-f40"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="button label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OW7-KS-SEC">
-                                                    <rect key="frame" x="87.5" y="24" width="231.5" height="31.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="item label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OW7-KS-SEC">
+                                                    <rect key="frame" x="87" y="24" width="232" height="31"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -87,6 +91,10 @@
                                                 <constraint firstAttribute="bottomMargin" secondItem="4ul-K3-COE" secondAttribute="bottom" constant="10" id="em4-44-PrU"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="menuItemImageView" destination="4ul-K3-COE" id="Sr8-hG-XhX"/>
+                                            <outlet property="menuItemLabel" destination="OW7-KS-SEC" id="c38-Zs-X0s"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -99,6 +107,9 @@
                             <constraint firstAttribute="trailingMargin" secondItem="qUx-YI-6k6" secondAttribute="trailing" id="Rog-47-t2A"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="menuPanelTableView" destination="qUx-YI-6k6" id="ldh-4y-p4U"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ae-Xw-c6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -125,7 +136,7 @@
         <!--Home View Controller-->
         <scene sceneID="Hc8-OZ-sv8">
             <objects>
-                <viewController id="Mz6-a7-cW9" customClass="HomeViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeView" id="Mz6-a7-cW9" customClass="HomeViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WSL-oA-hbA"/>
                         <viewControllerLayoutGuide type="bottom" id="EQg-1b-ava"/>
@@ -134,9 +145,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7VD-cx-I7C">
-                                <rect key="frame" x="83" y="235" width="209" height="196"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7VD-cx-I7C">
+                                <rect key="frame" x="87.5" y="239" width="200" height="188"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="7VD-cx-I7C" secondAttribute="height" multiplier="209:196" id="WQf-3p-FpT"/>
+                                    <constraint firstAttribute="width" constant="200" id="YKH-w5-2ps"/>
+                                </constraints>
                                 <state key="normal" title="Button" image="recycleIcon"/>
                                 <connections>
                                     <action selector="onRecycleButtonTouchUpInside:" destination="Mz6-a7-cW9" eventType="touchUpInside" id="dqU-49-BZB"/>
@@ -152,6 +166,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="7VD-cx-I7C" firstAttribute="centerX" secondItem="hnm-O9-auR" secondAttribute="centerX" id="FIS-wL-pae"/>
+                            <constraint firstItem="7VD-cx-I7C" firstAttribute="centerY" secondItem="hnm-O9-auR" secondAttribute="centerY" id="FPA-6g-hLd"/>
                             <constraint firstItem="TCj-nE-OMZ" firstAttribute="top" secondItem="WSL-oA-hbA" secondAttribute="bottom" constant="16" id="yvm-SG-yIa"/>
                             <constraint firstItem="TCj-nE-OMZ" firstAttribute="leading" secondItem="hnm-O9-auR" secondAttribute="leadingMargin" constant="8" id="zDZ-QB-9G0"/>
                         </constraints>
