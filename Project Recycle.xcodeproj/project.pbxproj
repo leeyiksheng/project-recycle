@@ -14,6 +14,8 @@
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
+		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
+		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
 		EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB6267671DEBD0D600CC2C37 /* Assets.xcassets */; };
@@ -39,6 +41,8 @@
 		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
+		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +85,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A13D9A311DEECAF500313699 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A13D9A321DEECB9D00313699 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		EB6267541DEBD0D500CC2C37 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +122,8 @@
 		EB62675F1DEBD0D500CC2C37 /* Project Recycle */ = {
 			isa = PBXGroup;
 			children = (
+				A13D9A321DEECB9D00313699 /* Storyboards */,
+				A13D9A311DEECAF500313699 /* Controllers */,
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
 				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
 				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
@@ -201,6 +223,7 @@
 				EB6267811DEC28CB00CC2C37 /* LoginSignup.storyboard in Resources */,
 				EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */,
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
+				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
@@ -273,6 +296,7 @@
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
+				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
@@ -403,6 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -416,6 +441,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
