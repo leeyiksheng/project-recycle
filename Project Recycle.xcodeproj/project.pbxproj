@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		464D795F99E48221C76DDF12 /* Pods_Project_Recycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87044D9206D64C395502282D /* Pods_Project_Recycle.framework */; };
+		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
+		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
 		EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB6267671DEBD0D600CC2C37 /* Assets.xcassets */; };
@@ -26,6 +28,8 @@
 /* Begin PBXFileReference section */
 		136394DC7A6BD0E1C087E6CB /* Pods-Project Recycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.release.xcconfig"; sourceTree = "<group>"; };
 		87044D9206D64C395502282D /* Pods_Project_Recycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Recycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
+		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -65,6 +69,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A13D9A311DEECAF500313699 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		A13D9A321DEECB9D00313699 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		EB6267541DEBD0D500CC2C37 = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +106,8 @@
 		EB62675F1DEBD0D500CC2C37 /* Project Recycle */ = {
 			isa = PBXGroup;
 			children = (
+				A13D9A321DEECB9D00313699 /* Storyboards */,
+				A13D9A311DEECAF500313699 /* Controllers */,
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
@@ -177,6 +199,7 @@
 				EB6267811DEC28CB00CC2C37 /* LoginSignup.storyboard in Resources */,
 				EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */,
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
+				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 			);
@@ -243,6 +266,7 @@
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
+				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
@@ -371,6 +395,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -384,6 +409,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
