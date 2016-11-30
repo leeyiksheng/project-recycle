@@ -12,31 +12,33 @@ import FirebaseDatabase
 
 class SignupViewController: UIViewController {
     
-    @IBOutlet weak var firstNameTextField: UITextField!
-    @IBOutlet weak var middleNameTextField: UITextField!
-    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordConfirmationTextField: UITextField!
-    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var addressFirstLineTextField: UITextField!
+    @IBOutlet weak var addressSecondLineTextField: UITextField!
+    @IBOutlet weak var addressThirdLineTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var postcodeTextField: UITextField!
+    @IBOutlet weak var stateTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
-    @IBOutlet weak var submitButton: UIButton!
     
     var usersFRDBRef : FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func onSubmitButtonTouchUpInside(_ sender: UIButton) {
-        let textFieldArray = [firstNameTextField, middleNameTextField, lastNameTextField, emailTextField, passwordTextField, passwordConfirmationTextField, titleTextField, phoneNumberTextField]
+    @IBAction func onSignupButtonTouchUpInside(_ sender: UIButton) {
+        let textFieldArray = [nameTextField, emailTextField, passwordTextField, passwordConfirmationTextField, addressFirstLineTextField, addressSecondLineTextField, addressThirdLineTextField, cityTextField, postcodeTextField, stateTextField, phoneNumberTextField]
         for textField: UITextField? in textFieldArray {
             if textField?.text != nil {
-            
+                
             } else {
                 let fieldEmptyAlert = UIAlertController.init(title: "Empty Field", message: "One of the fields is empty, please try again.", preferredStyle: .alert)
                 let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
@@ -60,18 +62,17 @@ class SignupViewController: UIViewController {
                 return
             } else {
                 let userData = ["address": [
-                                    "firstLine": "",
-                                    "formattedAddress": ["","",""],
-                                    "secondLine": "",
-                                    "thirdLine": ""
-                                ],
-                                "completedOrders": "",
-                                "currentOrders": "",
+                    "firstLine": self.addressFirstLineTextField.text!,
+                    "secondLine": self.addressSecondLineTextField.text!,
+                    "thirdLine": self.addressThirdLineTextField.text!,
+                    "city": self.cityTextField.text!,
+                    "state": self.stateTextField.text!,
+                    "postcode": self.postcodeTextField.text!],
                                 "email": self.emailTextField.text!,
-                                "name": "\(self.firstNameTextField.text!) \(self.middleNameTextField.text!) \(self.lastNameTextField.text!)",
                                 "phoneNumber": self.phoneNumberTextField.text!,
-                                "profileImage": "",
-                                "title": self.titleTextField.text!] as [String : Any]
+                                "currentOrders": "",
+                                "completedOrders": "",
+                                "profileImage": ""] as [String : Any]
                 
                 let userUID : String? = user!.uid
                 let childUpdate = ["\(userUID!)/": userData]
