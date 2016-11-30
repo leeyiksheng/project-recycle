@@ -11,6 +11,8 @@
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
+		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
+		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
 		EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB6267671DEBD0D600CC2C37 /* Assets.xcassets */; };
@@ -34,6 +36,8 @@
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
+		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
+		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,24 +101,26 @@
 			isa = PBXGroup;
 			children = (
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
+				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
+				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
 				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
-				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
-				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
-				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
-				EB62676C1DEBD0D600CC2C37 /* Info.plist */,
-				EB6267721DEBD12400CC2C37 /* LoginViewController.swift */,
-				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
 				EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */,
 				EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */,
+				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
+				EB6267721DEBD12400CC2C37 /* LoginViewController.swift */,
+				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
 				EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */,
-				EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */,
 				EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */,
 				EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
 				EB6267881DED392C00CC2C37 /* Downloader.swift */,
+				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
+				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
+				EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */,
+				EB62676C1DEBD0D600CC2C37 /* Info.plist */,
 			);
 			path = "Project Recycle";
 			sourceTree = "<group>";
@@ -194,6 +200,7 @@
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
+				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +270,7 @@
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
+				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
