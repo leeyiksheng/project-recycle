@@ -21,6 +21,12 @@ class MenuPanelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         menuPanelTableView.delegate = self
+        menuPanelTableView.dataSource = self
+        
+        menuPanelTableView.rowHeight = UITableViewAutomaticDimension
+        menuPanelTableView.estimatedRowHeight = 120.0
+        
+        generateMenuItemSections()
         
         menuPanelTableView.reloadData()
     }
@@ -30,13 +36,12 @@ class MenuPanelViewController: UIViewController {
     }
     
     func generateMenuItemSections() {
-        profileMenuPanelItemArray = [generateProfileMenuItem()]
+        downloadImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/recycle-ece8c.appspot.com/o/C0s5XPPa.png?alt=media&token=b8f9dc75-a6e3-4d0d-b1ab-9d40cf7c14fa")!)
         ordersMenuPanelItemArray = [generateOrderHistoryMenuItem(), generateScheduledOrdersMenuItem()]
         supportMenuPanelItemArray = [generateSupportMenuItem(), generateDriveWithUsMenuItem(), generateSignOutMenuItem()]
     }
     
     func generateProfileMenuItem() -> MenuPanelItem {
-        downloadImage(url: URL(string: "https://firebasestorage.googleapis.com/v0/b/recycle-ece8c.appspot.com/o/C0s5XPPa.png?alt=media&token=b8f9dc75-a6e3-4d0d-b1ab-9d40cf7c14fa")!)
         return MenuPanelItem.init(image: userProfileImage!, name: (FIRAuth.auth()?.currentUser?.email)!)
     }
     
@@ -68,6 +73,8 @@ class MenuPanelViewController: UIViewController {
             print("Download Finished")
             DispatchQueue.main.async() { () -> Void in
                 self.userProfileImage = UIImage(data: data)
+                self.profileMenuPanelItemArray = [self.generateProfileMenuItem()]
+                self.menuPanelTableView.reloadData()
             }
         }
     }

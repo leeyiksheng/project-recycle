@@ -108,7 +108,7 @@ extension HomeContainerViewController: HomeViewControllerDelegate {
 }
 
 private extension UIStoryboard {
-    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Home", bundle: Bundle.main) }
+    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Home", bundle: Bundle.init(identifier: "Home")) }
     
     class func menuPanelViewController() -> MenuPanelViewController? {
         return mainStoryboard().instantiateViewController(withIdentifier: "MenuPanelView") as? MenuPanelViewController
