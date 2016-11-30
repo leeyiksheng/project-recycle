@@ -108,7 +108,7 @@ extension HomeContainerViewController: HomeViewControllerDelegate {
 }
 
 private extension UIStoryboard {
-    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Home", bundle: Bundle.main) }
+    class func mainStoryboard() -> UIStoryboard { return UIStoryboard(name: "Home", bundle: Bundle.init(identifier: "Home")) }
     
     class func menuPanelViewController() -> MenuPanelViewController? {
         return mainStoryboard().instantiateViewController(withIdentifier: "MenuPanelView") as? MenuPanelViewController
@@ -116,13 +116,5 @@ private extension UIStoryboard {
     
     class func homeViewController() -> HomeViewController? {
         return mainStoryboard().instantiateViewController(withIdentifier: "HomeView") as? HomeViewController
-    }
-}
-
-extension UIViewController {
-    func instantiateHomeContainerViewController() -> HomeContainerViewController {
-        let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.main)
-        let homeContainerViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeContainerView")
-        return homeContainerViewController as! HomeContainerViewController
     }
 }
