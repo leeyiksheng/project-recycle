@@ -17,10 +17,38 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNumberText: UITextField!
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
+    
+    var personalDetails: [User] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        frDBref = FIRDatabase.database().reference()
+        fetchUserInfo()
+    }
+    
+    private func fetchUserInfo()
+    {
+        let user = FIRAuth.auth()?.currentUser?.email
+        frDBref.child("users").observe(.childAdded, with: {(snapshot) in
+            let newUser = User()
+            
+            guard let userDictionary = snapshot.value as? [String : AnyObject]
+            else
+            {
+                return
+            }
+            
+            if (userDictionary["email"] as? String) != user
+            {
+                return
+            }
+            
+            newUser.name = userDictionary["name"] as? String
+            newUser.email = userDictionary["email"] as? String
+            newUser.phoneNum = userDictionary["phoneNumber"] as? String
+            
+        })
+        
     }
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
@@ -41,7 +69,30 @@ class ProfileViewController: UIViewController {
     
     @IBAction func signOutButtPressed(_ sender: UIButton)
     {
+        let popUp = UIAlertController(title: "Log Out", message: "yes or no", preferredStyle: .alert)
+        let noButton = UIAlertAction(title: "NO", style: .cancel, handler: nil)
+        let yesButton = UIAlertAction(title: "YES", style: .default){ (action) in
+            do
+            {
+                try FIRAuth.auth()?.signOut()
+            }
+            catch let logoutError {
+                print(logoutError)
+            }
+            self.notifySuccessLogout()
+        }
+        popUp.addAction(noButton)
+        popUp.addAction(yesButton)
+        present(popUp, animated: true, completion: nil)
+        
     }
+    
+    func notifySuccessLogout()
+        {
+            let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(UserLogoutNotification)
+        }
+    
 
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {

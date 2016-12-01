@@ -21,8 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
+        
         if FIRAuth.auth()?.currentUser != nil {
-            window!.rootViewController = instantiateDriverViewController()
+            window!.rootViewController = instantiateUserViewController()
 //            window!.rootViewController = instantiateHomeContainerViewController()
         } else {
             window!.rootViewController = instantiateLoginViewController()
@@ -88,4 +89,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let driverViewController = driverStoryboard.instantiateViewController(withIdentifier: "Driver")
         return driverViewController as! DriverViewController
     }
+    
+    func instantiateUserViewController() -> ProfileViewController {
+        let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
+        let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
+        return userViewController as! ProfileViewController
+    }
+
 }

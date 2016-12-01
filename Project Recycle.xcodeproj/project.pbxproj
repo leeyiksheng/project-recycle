@@ -13,6 +13,7 @@
 		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
+		AFB177E11DEFCED900AB54F9 /* ProfileDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* ProfileDetail.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
@@ -39,6 +40,7 @@
 		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AFB177E01DEFCED900AB54F9 /* ProfileDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileDetail.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
 				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
 				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
+				AFB177E01DEFCED900AB54F9 /* ProfileDetail.swift */,
 				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
@@ -267,6 +270,7 @@
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
+				AFB177E11DEFCED900AB54F9 /* ProfileDetail.swift in Sources */,
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
