@@ -69,6 +69,7 @@ class SignupViewController: UIViewController {
                     "state": self.stateTextField.text!,
                     "postcode": self.postcodeTextField.text!],
                                 "email": self.emailTextField.text!,
+                                "name": self.nameTextField.text!,
                                 "phoneNumber": self.phoneNumberTextField.text!,
                                 "currentOrders": "",
                                 "completedOrders": "",
