@@ -15,16 +15,7 @@ extension UIColor {
     }
     
     @nonobjc static let forestGreen = UIColor(r: 34, g: 139, b: 34)
-    @nonobjc static let viewLightGray = UIColor(r: 240, g: 240, b: 240)
-    
-}
-
-extension UIButton {
-    
-    func buttonAttributes() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 15
-    }
+    @nonobjc static let viewLightGray = UIColor(r: 245, g: 245, b: 245)
     
 }
 
@@ -45,12 +36,3 @@ extension UIImageView {
     
 }
 
-extension UILabel {
-    
-    func labelAttributes() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.boldSystemFont(ofSize: 16)
-        self.textColor = UIColor(r: 169, g: 169, b: 169)
-        self.textAlignment = .center
-    }
-}

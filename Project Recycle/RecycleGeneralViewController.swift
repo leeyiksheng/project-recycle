@@ -36,7 +36,7 @@ class RecycleGeneralViewController: UIViewController {
     
     lazy var paperButton : UIButton = {
         let button = UIButton(type: .system)
-        button.buttonAttributes()
+        button.basicItemsButtonAttributes()
         button.addTarget(self, action: #selector(handlePaperButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -45,24 +45,26 @@ class RecycleGeneralViewController: UIViewController {
         if paperButtonTapped{
             self.paperButtonTapped = false
             print(12)
+            paperButton.backgroundColor = UIColor.viewLightGray
             paperButton.layer.borderWidth = 0
         } else {
             self.paperButtonTapped = true
             paperButton.layer.borderWidth = 2.5
+            paperButton.backgroundColor = UIColor.white
             paperButton.layer.borderColor = UIColor.forestGreen.cgColor
         }
     }
     
     let paperLabel : UILabel = {
         let label = UILabel()
-        label.labelAttributes()
+        label.basicItemsLabelAttributes()
         label.text = "PAPER"
         return label
     }()
     
     lazy var glassButton : UIButton = {
         let button = UIButton(type: .system)
-        button.buttonAttributes()
+        button.basicItemsButtonAttributes()
         button.setImage(#imageLiteral(resourceName: "Glass"), for: .normal)
         button.addTarget(self, action: #selector(handleGlassButtonTapped), for: .touchUpInside)
         return button
@@ -71,11 +73,12 @@ class RecycleGeneralViewController: UIViewController {
     func handleGlassButtonTapped() {
         if glassButtonTapped{
             self.glassButtonTapped = false
-            print(12)
+            glassButton.backgroundColor = UIColor.viewLightGray
             glassButton.layer.borderWidth = 0
         } else {
             self.glassButtonTapped = true
             glassButton.layer.borderWidth = 2.5
+            glassButton.backgroundColor = UIColor.white
             glassButton.layer.borderColor = UIColor.forestGreen.cgColor
         }
     }
@@ -83,14 +86,14 @@ class RecycleGeneralViewController: UIViewController {
     
     let glassLabel : UILabel = {
         let label = UILabel()
-        label.labelAttributes()
+        label.basicItemsLabelAttributes()
         label.text = "GLASS"
         return label
     }()
     
     lazy var aluminiumButton : UIButton = {
         let button = UIButton(type: .system)
-        button.buttonAttributes()
+        button.basicItemsButtonAttributes()
         button.setImage(#imageLiteral(resourceName: "Aluminium"), for: .normal)
         button.addTarget(self, action: #selector(handleAluminiumButtonTapped), for: .touchUpInside)
         return button
@@ -99,25 +102,26 @@ class RecycleGeneralViewController: UIViewController {
     func handleAluminiumButtonTapped() {
         if aluminiumButtonTapped{
             self.aluminiumButtonTapped = false
-            print(12)
+            aluminiumButton.backgroundColor = UIColor.viewLightGray
             aluminiumButton.layer.borderWidth = 0
         } else {
             self.aluminiumButtonTapped = true
             aluminiumButton.layer.borderWidth = 2.5
+            aluminiumButton.backgroundColor = UIColor.white
             aluminiumButton.layer.borderColor = UIColor.forestGreen.cgColor
         }
     }
     
     let aluminiumLabel : UILabel = {
         let label = UILabel()
-        label.labelAttributes()
+        label.basicItemsLabelAttributes()
         label.text = "ALUMINIUM"
         return label
     }()
     
     lazy var plasticButton : UIButton = {
         let button = UIButton(type: .system)
-        button.buttonAttributes()
+        button.basicItemsButtonAttributes()
         button.setImage(#imageLiteral(resourceName: "Plastic"), for: .normal)
         button.addTarget(self, action: #selector(handlePlasticButtonTapped), for: .touchUpInside)
         return button
@@ -126,18 +130,19 @@ class RecycleGeneralViewController: UIViewController {
     func handlePlasticButtonTapped() {
         if plasticButtonTapped{
             self.plasticButtonTapped = false
-            print(12)
+            plasticButton.backgroundColor = UIColor.viewLightGray
             plasticButton.layer.borderWidth = 0
         } else {
             self.plasticButtonTapped = true
             plasticButton.layer.borderWidth = 2.5
+            plasticButton.backgroundColor = UIColor.white
             plasticButton.layer.borderColor = UIColor.forestGreen.cgColor
         }
     }
     
     let plasticLabel : UILabel = {
         let label = UILabel()
-        label.labelAttributes()
+        label.basicItemsLabelAttributes()
         label.text = "PLASTIC"
         return label
     }()
@@ -155,9 +160,10 @@ class RecycleGeneralViewController: UIViewController {
     }()
     
     func moveToNextController() {
-        let nextController = AlternativeAddressViewController()
-        //let navController = UINavigationController(rootViewController: nextController)
-        present(nextController, animated: true, completion: nil)
+        let nextController = self.storyboard?.instantiateViewController(withIdentifier: "PickupAddressViewController")
+//        let nextController = AlternativeAddressViewController()
+        let navController = UINavigationController(rootViewController: nextController!)
+        self.present(navController, animated: true, completion: nil)
     }
 
     let infoLabel : UILabel = {
@@ -172,6 +178,7 @@ class RecycleGeneralViewController: UIViewController {
         label.clipsToBounds = true
         return label
     }()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -278,7 +285,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupConfirmButton() {
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -293,6 +300,30 @@ class RecycleGeneralViewController: UIViewController {
     
     
     
+}
+
+
+extension UIButton {
+    
+    
+    func basicItemsButtonAttributes() {
+        let buttonImageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10)
+        self.imageEdgeInsets = buttonImageEdgeInsets
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.layer.cornerRadius = 15
+        
+    }
+    
+}
+
+extension UILabel {
+    
+    func basicItemsLabelAttributes() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.font = UIFont.boldSystemFont(ofSize: 16)
+        self.textColor = UIColor(r: 169, g: 169, b: 169)
+        self.textAlignment = .center
+    }
 }
 
 

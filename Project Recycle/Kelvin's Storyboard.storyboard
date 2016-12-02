@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,12 +23,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IV2-VB-Kye" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="173"/>
+            <point key="canvasLocation" x="-146" y="168"/>
         </scene>
-        <!--View Controller-->
+        <!--Pickup Address View Controller-->
         <scene sceneID="lA1-H8-AV2">
             <objects>
-                <viewController id="FMR-e5-3hu" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PickupAddressViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FMR-e5-3hu" customClass="PickupAddressViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eIn-HB-mCg"/>
                         <viewControllerLayoutGuide type="bottom" id="B16-eM-fTj"/>
@@ -35,12 +36,36 @@
                     <view key="view" contentMode="scaleToFill" id="g6f-ct-RRY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="xL5-Lw-yrc">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="u7B-dw-zSv" customClass="PickupAddressTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u7B-dw-zSv" id="eLF-ny-WVM">
+                                            <frame key="frameInset" width="343" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="xL5-Lw-yrc" secondAttribute="trailing" id="1fE-k0-gqO"/>
+                            <constraint firstItem="B16-eM-fTj" firstAttribute="top" secondItem="xL5-Lw-yrc" secondAttribute="bottom" constant="88" id="FQk-zU-Fcm"/>
+                            <constraint firstItem="xL5-Lw-yrc" firstAttribute="leading" secondItem="g6f-ct-RRY" secondAttribute="leadingMargin" id="S8Q-D6-Wds"/>
+                            <constraint firstItem="xL5-Lw-yrc" firstAttribute="top" secondItem="eIn-HB-mCg" secondAttribute="bottom" constant="12" id="cfe-rv-uYe"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pickUpAddressTableView" destination="xL5-Lw-yrc" id="lsF-8g-wh2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSI-z3-Khv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="791" y="168"/>
+            <point key="canvasLocation" x="522" y="168"/>
         </scene>
     </scenes>
 </document>

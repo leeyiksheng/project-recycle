@@ -8,10 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		464D795F99E48221C76DDF12 /* Pods_Project_Recycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87044D9206D64C395502282D /* Pods_Project_Recycle.framework */; };
+		A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */; };
 		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
 		A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */; };
 		A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */; };
+		A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */; };
+		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
@@ -45,10 +48,13 @@
 /* Begin PBXFileReference section */
 		136394DC7A6BD0E1C087E6CB /* Pods-Project Recycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.release.xcconfig"; sourceTree = "<group>"; };
 		87044D9206D64C395502282D /* Pods_Project_Recycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Recycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralRecylables.swift; sourceTree = "<group>"; };
 		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
 		A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
+		A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressViewController.swift; sourceTree = "<group>"; };
+		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
 				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
+				A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -173,6 +180,7 @@
 				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
 				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
+				A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -188,6 +196,7 @@
 				EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */,
 				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
+				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -345,6 +354,8 @@
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
 				A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */,
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
+				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
+				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
@@ -354,6 +365,7 @@
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
+				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
