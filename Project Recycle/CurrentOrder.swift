@@ -13,46 +13,32 @@ import FirebaseAuth
 class CurrentOrder: Order {
     
     var processedTimestamp: Int
-    var assignedDriver: String // change to driver class
-    var estimatedPrice: Double
-    var estimatedWeight: Double
+    var assignedDriver: Driver
     
     override init() {
-        super.init()
         self.processedTimestamp = 0
-        self.assignedDriver = ""
-        self.estimatedPrice = 0.0
-        self.estimatedWeight = 0.0
+        self.assignedDriver = Driver()
+        super.init()
     }
     
-    func fetchCurrentOrdersRawData(orderUID: String) {
+    func initWithOrderUID(orderUID: String) {
         let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/current/\(orderUID)")
         ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
             guard let rawCurrentOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
             
-            self.addressDictionary = rawCurrentOrdersDictionary["address"] as! [String: String]
-            self.formattedAddress = self.addressDictionary["formattedAddress"]!
+            self.customerAddressDictionary = rawCurrentOrdersDictionary["address"] as! [String: String]
+            self.customerFormattedAddress = self.customerAddressDictionary["formattedAddress"]!
             
             self.estimatedPrice = rawCurrentOrdersDictionary["estimatedPrice"] as! Double
             self.estimatedWeight = rawCurrentOrdersDictionary["estimatedWeight"] as! Double
             
             self.orderCategories = rawCurrentOrdersDictionary["orderCategories"] as! [String]
-            self.creationTimestamp = rawCurrentOrdersDictionary["orderCreatedOn"] as! Int
+            self.creationTimestamp = rawCurrentOrdersDictionary["orderCreatedOn"] as! TimeInterval
+            
+            let driverUID = rawCurrentOrdersDictionary["assignedDriver"] as! String
+            self.assignedDriver.initWithDriverUID(driverUID: driverUID)
             
             print("ordersDatabaseRef data fetch for order \(orderUID) completed.")
-        })
-    }
-    
-    func fetchCompletedOrdersRawData(orderUID: String) {
-        let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/completed/\(orderUID)")
-        
-        ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
-            guard let rawCompletedOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
-            
-            self.addressDictionary = rawCompletedOrdersDictionary["address"] as! [String: String]
-            self.formattedAddress = self.addressDictionary["formattedAddress"]!
-            
-            self.estimatedPrice =
         })
     }
 }

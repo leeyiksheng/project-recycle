@@ -78,7 +78,7 @@ class SignupViewController: UIViewController {
                 
                 self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
                 
-                let userUID : String? = FIRAuth.auth()?.currentUser().uid
+                let userUID : String? = FIRAuth.auth()?.currentUser?.uid
                 let childUpdate = ["\(userUID!)/": userData]
                 self.usersFRDBRef.updateChildValues(childUpdate)
                 

@@ -7,14 +7,34 @@
 //
 
 import Foundation
+import FirebaseAuth
+import FirebaseDatabase
 import UIKit
 
 class Driver{
     
-    var name : String? = nil
-    var email : String? = nil
-    var phoneNumber : String? = nil
-    var timeDown : String? = nil
-    var profilePic : String?
+    var name : String
+    var email : String
+    var phoneNumber : String
+    var profileImage : String
     
+    init() {
+        name = ""
+        email = ""
+        phoneNumber = ""
+        profileImage = ""
+    }
+    
+    func initWithDriverUID(driverUID: String) {
+        let driverDatabaseReference = FIRDatabase.database().reference(withPath: "drivers/\(driverUID)")
+        
+        driverDatabaseReference.observe(FIRDataEventType.value, with: { (snapshot) in
+            guard let driverRawDataDictionary = snapshot.value as? [String: AnyObject] else { return }
+            
+            self.name = driverRawDataDictionary["name"] as! String
+            self.email = driverRawDataDictionary["email"] as! String
+            self.phoneNumber = driverRawDataDictionary["phoneNumber"] as! String
+            self.profileImage = driverRawDataDictionary["profileImage"] as! String  //: MARK - (TBD FEATURE) CONVERT TO URL AND DOWNLOAD THEN ASSIGN AS UIIMAGE
+        })
+    }
 }

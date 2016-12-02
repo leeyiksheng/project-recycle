@@ -11,10 +11,10 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class CurrentOrdersViewController: UIViewController {
-
+    
     @IBOutlet weak var currentOrdersTableView: UITableView!
     
-    var orderItemsArray: [OrderItem] = []
+    var orderItemsArray: [Order] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,15 +23,15 @@ class CurrentOrdersViewController: UIViewController {
         currentOrdersTableView.dataSource = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
     }
     
-    func generateCurrentOrders() -> [OrderItem] {
+    func generateCurrentOrders() -> [Order] {
         guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
-            return
+            return []
         }
         
         let userDatabaseRef = FIRDatabase.database().reference(withPath: "users/\(currentUserUID)")
@@ -40,6 +40,8 @@ class CurrentOrdersViewController: UIViewController {
         for orderUID : String in currentOrders {
             
         }
+        
+        return []
     }
 }
 
@@ -58,18 +60,24 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if orderItemsArray[indexPath.row].isCompleted {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
-            
-            
-            
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessingOrderCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
-            
-            
-            
-            return cell
-        }
+        //        if orderItemsArray[indexPath.row].isCompleted {
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
+        //
+        //
+        //
+        //            return cell
+        //        } else {
+        //            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessingOrderCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
+        //
+        //
+        //
+        //            return cell
+        //        }
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
+        
+        
+        
+        return cell
     }
 }

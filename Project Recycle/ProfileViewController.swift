@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userAddText: UITextView!
     
     var personalDetails: [User] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userProImage.layer.borderWidth = 5
@@ -34,49 +34,25 @@ class ProfileViewController: UIViewController {
     
     private func fetchUserInfo()
     {
-        let user = FIRAuth.auth()?.currentUser?.email
-        frDBref.child("users").observe(.childAdded, with: {(snapshot) in
-            let newUser = User()
-            
-            guard let userDictionary = snapshot.value as? [String : AnyObject]
-            else
+        
+        let newUser = User()
+        newUser.initWithCurrentUser()
+        
+        self.userNameText.text = newUser.name
+        self.userEmailText.text = newUser.email
+        self.userNumberText.text = newUser.phoneNumber
+        self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
+        
+        Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+            if error != nil
             {
+                print(error!)
                 return
             }
             
-            if (userDictionary["email"] as? String) != user
-            {
-                return
+            DispatchQueue.main.async {
+                self.userProImage.image = UIImage (data: data!)
             }
-            
-            newUser.name = userDictionary["name"] as? String
-            self.userNameText.text = newUser.name
-            newUser.email = userDictionary["email"] as? String
-            self.userEmailText.text = newUser.email
-            newUser.phoneNum = userDictionary["phoneNumber"] as? String
-            self.userNumberText.text = newUser.phoneNum
-            
-            let addr = userDictionary["address"] as! NSDictionary
-            newUser.firstAdd = addr["firstLine"] as? String
-            newUser.secondAdd = addr["secondLine"] as? String
-            newUser.thirdAdd = addr["thirdLine"] as? String
-            newUser.postcode = addr["postcode"] as? String
-            newUser.city = addr["city"] as? String
-            newUser.state = addr["state"] as? String
-            self.userAddText.text = "\(newUser.firstAdd!), \(newUser.secondAdd!), \(newUser.thirdAdd!), \(newUser.postcode!) \(newUser.city!), \(newUser.state!)"
-            
-            newUser.proImage = userDictionary["profileImage"] as? String
-            Downloader.getDataFromUrl(url: URL.init(string: newUser.proImage!)!, completion: { (data, response, error) in
-                if error != nil
-                {
-                    print(error!)
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.userProImage.image = UIImage (data: data!)
-                }
-            })
         })
     }
     
@@ -87,7 +63,7 @@ class ProfileViewController: UIViewController {
         noti.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "New Name"
             inputChangesText = textField
-            })
+        })
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             let changeRequest = FIRAuth.auth()?.currentUser?.uid
@@ -97,7 +73,7 @@ class ProfileViewController: UIViewController {
         present(noti, animated: true, completion: nil)
         
     }
-  
+    
     @IBAction func editNumberButPressed(_ sender: UIButton)
     {
         var inputChangesText: UITextField?
@@ -114,9 +90,9 @@ class ProfileViewController: UIViewController {
         }))
         present(noti, animated: true, completion: nil)
         
-
+        
     }
-
+    
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
         var emailText: UITextField?
@@ -208,7 +184,7 @@ class ProfileViewController: UIViewController {
             frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
             if add3.text != nil
             {
-            self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
+                self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
             }
             else
             {
@@ -240,12 +216,12 @@ class ProfileViewController: UIViewController {
     }
     
     func notifySuccessLogout()
-        {
-            let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
-            NotificationCenter.default.post(UserLogoutNotification)
-        }
+    {
+        let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(UserLogoutNotification)
+    }
     
-
+    
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {
         var oldPassText: UITextField?
@@ -291,25 +267,25 @@ class ProfileViewController: UIViewController {
                         }
                         else
                         {   if (newPassText != conPassText)
-                            {
-                                print(error!)
-                                print("not match2")
-                            }
-                            else
-                            {
+                        {
+                            print(error!)
+                            print("not match2")
+                        }
+                        else
+                        {
                             let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
                             alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
                             print("match")
                             }
-                           
+                            
                         }
                     })
                 }
             })
-          
-
-            }))
-    
-                present(noti, animated: true, completion: nil)
+            
+            
+        }))
+        
+        present(noti, animated: true, completion: nil)
     }
 }
