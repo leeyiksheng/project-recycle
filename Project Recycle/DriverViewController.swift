@@ -19,7 +19,7 @@ class DriverViewController: UIViewController {
     @IBOutlet weak var titleVCLabel: UILabel!
     
     var firebaseDatabase : FIRDatabaseReference?
-    var driverArray : [DriverDetails] = []
+    var driverArray : [Driver] = []
     
 
     override func viewDidLoad()
@@ -45,7 +45,7 @@ class DriverViewController: UIViewController {
     private func fetchData()
     {
         firebaseDatabase?.child("drivers").observe(.childAdded, with:{ (snapshot) in
-            let newData = DriverDetails()
+            let newData = Driver()
             guard let dataDictionary = snapshot.value as? [String : AnyObject]
                 else
             {

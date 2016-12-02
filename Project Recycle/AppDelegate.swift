@@ -19,11 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
+
         if FIRAuth.auth()?.currentUser != nil {
+
             // window!.rootViewController = instantiateDriverViewController()
+
             
-            window!.rootViewController = instantiateHomeContainerViewController()
+            //window!.rootViewController = instantiateHomeContainerViewController()
             // window!.rootViewController = instantiateLoginViewController()
+            window!.rootViewController = instantiateUserViewController()
             
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -38,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.window!.rootViewController?.present(signedOutAlert, animated: true, completion: nil)
                 }
             }
+
         } else {
             window!.rootViewController = instantiateLoginViewController()
         }
@@ -102,4 +107,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let driverViewController = driverStoryboard.instantiateViewController(withIdentifier: "Driver")
         return driverViewController as! DriverViewController
     }
+    
+    func instantiateUserViewController() -> ProfileViewController {
+        let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
+        let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
+        return userViewController as! ProfileViewController
+    }
+
 }
