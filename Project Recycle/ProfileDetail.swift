@@ -8,6 +8,8 @@
 
 import Foundation
 
+
+
 class User {
     var name : String? = nil
     var firstAdd : String? = nil
@@ -18,4 +20,7 @@ class User {
     var state : String? = nil
     var email : String? = nil
     var phoneNum : String? = nil
+    var proImage : String? = nil
+
 }
+
