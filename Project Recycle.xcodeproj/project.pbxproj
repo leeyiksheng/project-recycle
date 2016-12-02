@@ -10,6 +10,8 @@
 		464D795F99E48221C76DDF12 /* Pods_Project_Recycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87044D9206D64C395502282D /* Pods_Project_Recycle.framework */; };
 		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
+		A14586B21DF116B200CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */; };
+		A14586B41DF116CF00CAB9F0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */; };
 		A147873A1DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14787391DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift */; };
 		A147873D1DEFCF2E007CD5D9 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A147873C1DEFCF2E007CD5D9 /* UIExtensions.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
@@ -47,6 +49,8 @@
 		87044D9206D64C395502282D /* Pods_Project_Recycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Recycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
+		A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
+		A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		A14787391DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
 		A147873C1DEFCF2E007CD5D9 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
@@ -103,15 +107,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		A13D9A311DEECAF500313699 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
-				A14787391DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
 		A13D9A321DEECB9D00313699 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,14 +119,6 @@
 				EB8068581DEFC7A5003FCB9B /* Orders.storyboard */,
 			);
 			name = Storyboards;
-			sourceTree = "<group>";
-		};
-		A147873B1DEFCEFC007CD5D9 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				A147873C1DEFCF2E007CD5D9 /* UIExtensions.swift */,
-			);
-			name = Extensions;
 			sourceTree = "<group>";
 		};
 		EB6267541DEBD0D500CC2C37 = {
@@ -169,6 +156,7 @@
 		EB8068861DF1133C003FCB9B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */,
 				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */,
@@ -203,6 +191,7 @@
 				EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */,
 				EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */,
 				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
+				A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -361,6 +350,7 @@
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				A147873A1DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
+				A14586B41DF116CF00CAB9F0 /* UIExtensions.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
@@ -374,6 +364,7 @@
 				A147873D1DEFCF2E007CD5D9 /* UIExtensions.swift in Sources */,
 				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
+				A14586B21DF116B200CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
