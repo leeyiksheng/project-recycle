@@ -17,9 +17,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNumberText: UITextField!
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
-    
+
     var personalDetails: [User] = []
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         userProImage.layer.borderWidth = 5
@@ -27,40 +27,39 @@ class ProfileViewController: UIViewController {
         userProImage.layer.borderColor = UIColor.red.cgColor
         userProImage.layer.cornerRadius = userProImage.frame.height/2
         userProImage.clipsToBounds = true
-        
+
         frDBref = FIRDatabase.database().reference()
         fetchUserInfo()
-        
-        
+
+
     }
-    
-    
-    
+
+
     private func fetchUserInfo()
     {
-        
+
         let newUser = User()
         newUser.initWithCurrentUser()
-        
+
         self.userNameText.text = newUser.name
         self.userEmailText.text = newUser.email
         self.userNumberText.text = newUser.phoneNumber
         self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
-        
+
         Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
             if error != nil
             {
                 print(error!)
                 return
             }
-                
+
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
         })
-    
     }
-    
+
+
     @IBAction func editNameButtPressed(_ sender: UIButton)
     {
         var inputChangesText: UITextField?
@@ -76,9 +75,9 @@ class ProfileViewController: UIViewController {
             self.userNameText.text = inputChangesText?.text
         }))
         present(noti, animated: true, completion: nil)
-        
+
     }
-    
+
     @IBAction func editNumberButPressed(_ sender: UIButton)
     {
         var inputChangesText: UITextField?
@@ -94,10 +93,10 @@ class ProfileViewController: UIViewController {
             self.userNumberText.text = inputChangesText?.text
         }))
         present(noti, animated: true, completion: nil)
-        
-        
+
+
     }
-    
+
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
         var emailText: UITextField?
@@ -133,17 +132,17 @@ class ProfileViewController: UIViewController {
                             alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
                         }
                     })
-                    
+
                 }
-                
-                
+
+
             }
             frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
             self.userEmailText.text = emailText?.text
         }))
         present(noti,animated: true, completion:  nil)
     }
-    
+
     @IBAction func editAddButtPressed(_ sender: UIButton)
     {
         var add1: UITextField!
@@ -152,7 +151,7 @@ class ProfileViewController: UIViewController {
         var post: UITextField!
         var siti: UITextField!
         var state: UITextField!
-        
+
         let noti = UIAlertController(title: "Change Address", message: "Please enter your address", preferredStyle: .alert)
         noti.addTextField(configurationHandler: {(line1: UITextField!) in
             line1.placeholder = "First Line Address"
@@ -198,7 +197,7 @@ class ProfileViewController: UIViewController {
         }))
         present(noti, animated: true, completion: nil)
     }
-    
+
     @IBAction func signOutButtPressed(_ sender: UIButton)
     {
         let popUp = UIAlertController(title: "Log Out", message: "yes or no", preferredStyle: .alert)
@@ -207,7 +206,7 @@ class ProfileViewController: UIViewController {
             do
             {
                 try FIRAuth.auth()?.signOut()
-                
+
             }
             catch let logoutError {
                 print(logoutError)
@@ -217,16 +216,16 @@ class ProfileViewController: UIViewController {
         popUp.addAction(noButton)
         popUp.addAction(yesButton)
         present(popUp, animated: true, completion: nil)
-        
+
     }
-    
+
     func notifySuccessLogout()
     {
         let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
         NotificationCenter.default.post(UserLogoutNotification)
     }
-    
-    
+
+
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {
         var oldPassText: UITextField?
@@ -248,13 +247,13 @@ class ProfileViewController: UIViewController {
             con.isSecureTextEntry = true
             conPassText = con
         })
-        
+
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             if newPassText?.text != conPassText?.text
             {
                 self.secondAlert(message : "Not match")
-                
+
             }
             else
             {
@@ -271,23 +270,38 @@ class ProfileViewController: UIViewController {
                         if ((error) != nil)
                         {
                             print(error!)
-                            
+
                         }
                         else
                         {
                             self.secondAlert(message: "match")
 
                         }
-            
+
                     })
                 }
             })
-        })
-        
+            }
+        }))
+
         present(noti, animated: true, completion: nil)
 
     }
-    
 
-    
+        func secondAlert(message : String)
+        {
+            if message == "Not match"
+            {
+                let alert = UIAlertController(title: "Not match", message: "New Password is not match to confirm password", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+            else if message == "match"
+            {
+                let alert = UIAlertController(title: "Update Successful", message: "You have successfully update your password", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+        }
+
 }
