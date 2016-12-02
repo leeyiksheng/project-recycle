@@ -35,6 +35,7 @@ class DriverViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.titleVCLabel.text = "Driver Information"
     }
+    
     private func fetchData(driverUID: String)
     {
         firebaseDatabase?.child("drivers/\(driverUID)").observe(.childAdded, with:{ (snapshot) in

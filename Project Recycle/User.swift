@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
+
 class User {
     var name : String
     var email : String

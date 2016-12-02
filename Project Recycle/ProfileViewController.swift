@@ -19,7 +19,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userAddText: UITextView!
     
     var personalDetails: [User] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         userProImage.layer.borderWidth = 5
@@ -57,7 +57,6 @@ class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
-        })
     
     }
     
@@ -68,7 +67,7 @@ class ProfileViewController: UIViewController {
         noti.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "New Name"
             inputChangesText = textField
-            })
+        })
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             let changeRequest = FIRAuth.auth()?.currentUser?.uid
@@ -78,7 +77,7 @@ class ProfileViewController: UIViewController {
         present(noti, animated: true, completion: nil)
         
     }
-  
+    
     @IBAction func editNumberButPressed(_ sender: UIButton)
     {
         var inputChangesText: UITextField?
@@ -95,9 +94,9 @@ class ProfileViewController: UIViewController {
         }))
         present(noti, animated: true, completion: nil)
         
-
+        
     }
-
+    
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
         var emailText: UITextField?
@@ -189,7 +188,7 @@ class ProfileViewController: UIViewController {
             frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
             if add3.text != nil
             {
-            self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
+                self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
             }
             else
             {
@@ -221,12 +220,12 @@ class ProfileViewController: UIViewController {
     }
     
     func notifySuccessLogout()
-        {
-            let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
-            NotificationCenter.default.post(UserLogoutNotification)
-        }
+    {
+        let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(UserLogoutNotification)
+    }
     
-
+    
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {
         var oldPassText: UITextField?
@@ -276,35 +275,19 @@ class ProfileViewController: UIViewController {
                         else
                         {
                             self.secondAlert(message: "match")
+
                         }
             
                     })
                 }
             })
-            }
 
-          }))
+            
+            
+        }))
         
         present(noti, animated: true, completion: nil)
-        
 
-    }
-    
-    func secondAlert(message: String)
-    {
-        if message == "Not match"
-        {
-            let alertController = UIAlertController(title: "Password not match", message: "New password is not match with confirm password", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-            present(alertController, animated: true, completion: nil)
-        }
-        else if message == "match"
-        {
-            let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
-            present(alertController, animated: true, completion: nil)
-
-        }
     }
     
 
