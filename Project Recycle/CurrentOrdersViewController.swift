@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class CurrentOrdersViewController: UIViewController {
 
@@ -25,6 +27,19 @@ class CurrentOrdersViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    func generateCurrentOrders() -> [OrderItem] {
+        guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
+            return
+        }
+        
+        let userDatabaseRef = FIRDatabase.database().reference(withPath: "users/\(currentUserUID)")
+        let currentOrders : [String] = userDatabaseRef.value(forKey: "currentOrders") as! [String]
+        
+        for orderUID : String in currentOrders {
+            
+        }
     }
 }
 
@@ -45,7 +60,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItemsArray[indexPath.row].isCompleted {
             let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
-        
+            
             
             
             return cell
