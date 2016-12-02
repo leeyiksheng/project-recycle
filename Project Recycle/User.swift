@@ -1,5 +1,5 @@
 //
-//  ProfileDetail.swift
+//  User.swift
 //  Project Recycle
 //
 //  Created by Students on 12/1/16.
@@ -7,8 +7,6 @@
 //
 
 import Foundation
-
-
 
 class User {
     var name : String? = nil
@@ -18,9 +16,11 @@ class User {
     var postcode : String? = nil
     var city : String? = nil
     var state : String? = nil
+    var formattedAddress: String? = nil
     var email : String? = nil
     var phoneNum : String? = nil
     var proImage : String? = nil
-
+    var currentOrders: [String] = []
+    var completedOrders: [String] = []
 }
 

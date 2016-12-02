@@ -119,37 +119,79 @@ class ProfileViewController: UIViewController {
 
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
+        var emailText: UITextField?
+        var passText: UITextField?
+        let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
+        noti.addTextField(configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Enter a new Email"
+            emailText = textField
+        })
+        noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
+            textFeed.placeholder = "Enter password to confirm update password"
+            textFeed.isSecureTextEntry = true
+            passText = textFeed
+        })
+        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            let changeRequest = FIRAuth.auth()?.currentUser
+            changeRequest?.updateEmail((emailText?.text)!){(error) in
+                if let error = error{
+                    print(error.localizedDescription)
+                }
+                else
+                {
+                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (emailText?.text)!, password: (passText?.text)!)
+                    changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                        if (error != nil)
+                        {
+                            print(error?.localizedDescription)
+                        }
+                        else
+                        {
+                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
+                        }
+                    })
+                    
+                }
+                
+                
+            }
+            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
+            self.userEmailText.text = emailText?.text
+        }))
+        present(noti,animated: true, completion:  nil)
     }
     
     @IBAction func editAddButtPressed(_ sender: UIButton)
     {
-        var add1: UITextField?
-        var add2: UITextField?
-        var add3: UITextField?
-        var post: UITextField?
-        var siti: UITextField?
-        var state: UITextField?
+        var add1: UITextField!
+        var add2: UITextField!
+        var add3: UITextField!
+        var post: UITextField!
+        var siti: UITextField!
+        var state: UITextField!
         
         let noti = UIAlertController(title: "Change Address", message: "Please enter your address", preferredStyle: .alert)
         noti.addTextField(configurationHandler: {(line1: UITextField!) in
             line1.placeholder = "First Line Address"
-            add1 = line1
+            add1 = line1!
         })
         noti.addTextField(configurationHandler: {(line2: UITextField!) in
             line2.placeholder = "Second Line Address"
-            add2 = line2
+            add2 = line2!
         })
         noti.addTextField(configurationHandler: {(line3: UITextField!) in
             line3.placeholder = "Third Line Address"
-            add3 = line3
+            add3 = line3!
         })
         noti.addTextField(configurationHandler: {(code: UITextField!) in
             code.placeholder = "Postcode"
-            post = code
+            post = code!
         })
         noti.addTextField(configurationHandler: {(town: UITextField!) in
             town.placeholder = "City"
-            siti = town
+            siti = town!
         })
         noti.addTextField(configurationHandler: {(district: UITextField!) in
             district.placeholder = "State"
@@ -164,8 +206,14 @@ class ProfileViewController: UIViewController {
             frDBref.child("users/\(changeRequest!)/address/postcode").setValue(post!.text)
             frDBref.child("users/\(changeRequest!)/address/city").setValue(siti!.text)
             frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
-            self.userAddText.text = "\(add1!.text), \(add2!.text), \(add3!.text), \(post!.text) \(siti!.text), \(state!.text)"
-            
+            if add3.text != nil
+            {
+            self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
+            }
+            else
+            {
+                self.userAddText.text = "\(add1.text!), \(add2.text!), \(post.text!) \(siti.text!), \(state.text!)"
+            }
         }))
         present(noti, animated: true, completion: nil)
     }
@@ -200,5 +248,68 @@ class ProfileViewController: UIViewController {
 
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {
+        var oldPassText: UITextField?
+        var newPassText: UITextField?
+        var conPassText: UITextField?
+        let noti = UIAlertController(title: "Change Password", message: "Fill in the fields to change password", preferredStyle: .alert)
+        noti.addTextField(configurationHandler: {(old: UITextField!) in
+            old.placeholder = "Enter current password"
+            old.isSecureTextEntry = true
+            oldPassText = old
+        })
+        noti.addTextField(configurationHandler: {(new: UITextField!) in
+            new.placeholder = "Enter a new password"
+            new.isSecureTextEntry = true
+            newPassText = new
+        })
+        noti.addTextField(configurationHandler: {(con: UITextField!) in
+            con.placeholder = "Confirm your new password"
+            con.isSecureTextEntry = true
+            conPassText = con
+        })
+        
+        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            
+            let changeRequest = FIRAuth.auth()?.currentUser
+            changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
+                if error != nil
+                {
+                    print(error?.localizedDescription)
+                }
+                else
+                {
+                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
+                    changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                        if ((error) != nil)
+                        {
+                            if (newPassText != conPassText)
+                            {
+                                print(error!)
+                                print("not match1")
+                            }
+                        }
+                        else
+                        {   if (newPassText != conPassText)
+                            {
+                                print(error!)
+                                print("not match2")
+                            }
+                            else
+                            {
+                            let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
+                            print("match")
+                            }
+                           
+                        }
+                    })
+                }
+            })
+          
+
+            }))
+    
+                present(noti, animated: true, completion: nil)
     }
 }

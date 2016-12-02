@@ -19,15 +19,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        
-        
+
         if FIRAuth.auth()?.currentUser != nil {
 
             // window!.rootViewController = instantiateDriverViewController()
+
+            
             //window!.rootViewController = instantiateHomeContainerViewController()
-            window!.rootViewController = instantiateUserViewController()
             // window!.rootViewController = instantiateLoginViewController()
+            window!.rootViewController = instantiateUserViewController()
+            
+            FIRAuth.auth()?.addStateDidChangeListener { auth, user in
+                if user != nil {
+                    return
+                } else {
+                    let signedOutAlert = UIAlertController.init(title: "Signed Out", message: "You have been signed out from Project Recycle. Please login again.", preferredStyle: .alert)
+                    let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: {(alert: UIAlertAction!) in
+                        let signedOutNotification = Notification(name: Notification.Name(rawValue: "SignedOutNotification"), object: nil, userInfo: nil)
+                        NotificationCenter.default.post(signedOutNotification)
+                    })
+                    signedOutAlert.addAction(okAlertAction)
+                    self.window!.rootViewController?.present(signedOutAlert, animated: true, completion: nil)
+                }
+            }
 
         } else {
             window!.rootViewController = instantiateLoginViewController()

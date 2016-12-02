@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -40,7 +41,7 @@ class HomeViewController: UIViewController {
     }
     
     func generateNavigationMenuItems() {
-        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings")]
+        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out")]
         self.navigationMenuCollectionView.reloadData()
     }
     
@@ -68,6 +69,13 @@ extension HomeViewController: UICollectionViewDelegate {
             print("Tapped Profile Button")
         case "Settings":
             print("Tapped Settings Button")
+        case "Sign Out":
+            print("Tapped Sign Out Button")
+            do {
+                try FIRAuth.auth()?.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
         default: break
         }
     }
