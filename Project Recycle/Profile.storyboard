@@ -124,7 +124,7 @@
                                 </constraints>
                                 <state key="normal" image="edit"/>
                                 <connections>
-                                    <action selector="editNameButtPressed:" destination="Cor-gW-Nwo" eventType="touchUpInside" id="RSP-Am-ysb"/>
+                                    <action selector="editNameButtPressed:" destination="Cor-gW-Nwo" eventType="touchUpInside" id="HoR-yi-LFQ"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="179-mM-9e9">

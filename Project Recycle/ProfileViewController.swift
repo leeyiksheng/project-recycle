@@ -33,9 +33,8 @@ class ProfileViewController: UIViewController {
         
         
     }
-    
-    
-    
+ 
+
     private func fetchUserInfo()
     {
         
@@ -57,8 +56,9 @@ class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
-    
+        })
     }
+        
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
     {
@@ -282,14 +282,28 @@ class ProfileViewController: UIViewController {
                 }
             })
 
-            
-            
+            }
         }))
+        
         
         present(noti, animated: true, completion: nil)
 
     }
     
-
+        func secondAlert(message : String)
+        {
+            if message == "Not match"
+            {
+                let alert = UIAlertController(title: "Not match", message: "New Password is not match to confirm password", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+            else if message == "match"
+            {
+                let alert = UIAlertController(title: "Update Successful", message: "You have successfully update your password", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+        }
     
 }
