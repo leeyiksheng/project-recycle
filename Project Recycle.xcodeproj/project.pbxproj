@@ -110,6 +110,7 @@
 			children = (
 				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
 				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
+				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
@@ -162,7 +163,6 @@
 				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
 				EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */,
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
-				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
 			);
 			name = Controllers;

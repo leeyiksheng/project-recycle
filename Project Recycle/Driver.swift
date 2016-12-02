@@ -5,12 +5,10 @@
 //  Created by Students on 11/29/16.
 //  Copyright © 2016 Lee Yik Sheng. All rights reserved.
 //
-
 import Foundation
 import FirebaseAuth
 import FirebaseDatabase
 import UIKit
-
 class Driver{
     
     var name : String

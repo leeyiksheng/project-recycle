@@ -5,7 +5,6 @@
 //  Created by Students on 12/1/16.
 //  Copyright © 2016 Lee Yik Sheng. All rights reserved.
 //
-
 import Foundation
 import FirebaseDatabase
 import FirebaseAuth
@@ -116,4 +115,3 @@ class User {
         })
     }
 }
-

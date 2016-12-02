@@ -30,7 +30,11 @@ class ProfileViewController: UIViewController {
         
         frDBref = FIRDatabase.database().reference()
         fetchUserInfo()
+        
+        
     }
+    
+    
     
     private func fetchUserInfo()
     {
@@ -49,11 +53,11 @@ class ProfileViewController: UIViewController {
                 print(error!)
                 return
             }
-            
+                
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
-        })
+    
     }
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
@@ -246,7 +250,13 @@ class ProfileViewController: UIViewController {
         
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            
+            if newPassText?.text != conPassText?.text
+            {
+                self.secondAlert(message : "Not match")
+                
+            }
+            else
+            {
             let changeRequest = FIRAuth.auth()?.currentUser
             changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
                 if error != nil
@@ -259,33 +269,27 @@ class ProfileViewController: UIViewController {
                     changeRequest?.reauthenticate(with: credential, completion: {(error) in
                         if ((error) != nil)
                         {
-                            if (newPassText != conPassText)
-                            {
-                                print(error!)
-                                print("not match1")
-                            }
-                        }
-                        else
-                        {   if (newPassText != conPassText)
-                        {
                             print(error!)
-                            print("not match2")
-                        }
-                        else
-                        {
-                            let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
-                            print("match")
-                            }
                             
                         }
+                        else
+                        {
+                            self.secondAlert(message: "match")
+
+                        }
+            
                     })
                 }
             })
+
             
             
         }))
         
         present(noti, animated: true, completion: nil)
+
     }
+    
+
+    
 }
