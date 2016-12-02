@@ -30,54 +30,35 @@ class ProfileViewController: UIViewController {
         
         frDBref = FIRDatabase.database().reference()
         fetchUserInfo()
+        
+        
     }
+    
+    
     
     private func fetchUserInfo()
     {
-        let user = FIRAuth.auth()?.currentUser?.email
-        frDBref.child("users").observe(.childAdded, with: {(snapshot) in
-            let newUser = User()
-            
-            guard let userDictionary = snapshot.value as? [String : AnyObject]
-            else
+        
+        let newUser = User()
+        newUser.initWithCurrentUser()
+        
+        self.userNameText.text = newUser.name
+        self.userEmailText.text = newUser.email
+        self.userNumberText.text = newUser.phoneNumber
+        self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
+        
+        Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+            if error != nil
             {
+                print(error!)
                 return
             }
-            
-            if (userDictionary["email"] as? String) != user
-            {
-                return
-            }
-            
-            newUser.name = userDictionary["name"] as? String
-            self.userNameText.text = newUser.name
-            newUser.email = userDictionary["email"] as? String
-            self.userEmailText.text = newUser.email
-            newUser.phoneNum = userDictionary["phoneNumber"] as? String
-            self.userNumberText.text = newUser.phoneNum
-            
-            let addr = userDictionary["address"] as! NSDictionary
-            newUser.firstAdd = addr["firstLine"] as? String
-            newUser.secondAdd = addr["secondLine"] as? String
-            newUser.thirdAdd = addr["thirdLine"] as? String
-            newUser.postcode = addr["postcode"] as? String
-            newUser.city = addr["city"] as? String
-            newUser.state = addr["state"] as? String
-            self.userAddText.text = "\(newUser.firstAdd!), \(newUser.secondAdd!), \(newUser.thirdAdd!), \(newUser.postcode!) \(newUser.city!), \(newUser.state!)"
-            
-            newUser.proImage = userDictionary["profileImage"] as? String
-            Downloader.getDataFromUrl(url: URL.init(string: newUser.proImage!)!, completion: { (data, response, error) in
-                if error != nil
-                {
-                    print(error!)
-                    return
-                }
                 
-                DispatchQueue.main.async {
-                    self.userProImage.image = UIImage (data: data!)
-                }
-            })
+            DispatchQueue.main.async {
+                self.userProImage.image = UIImage (data: data!)
+            }
         })
+    
     }
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
@@ -270,7 +251,13 @@ class ProfileViewController: UIViewController {
         
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            
+            if newPassText?.text != conPassText?.text
+            {
+                self.secondAlert(message : "Not match")
+                
+            }
+            else
+            {
             let changeRequest = FIRAuth.auth()?.currentUser
             changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
                 if error != nil
@@ -283,33 +270,43 @@ class ProfileViewController: UIViewController {
                     changeRequest?.reauthenticate(with: credential, completion: {(error) in
                         if ((error) != nil)
                         {
-                            if (newPassText != conPassText)
-                            {
-                                print(error!)
-                                print("not match1")
-                            }
+                            print(error!)
+                            
                         }
                         else
-                        {   if (newPassText != conPassText)
-                            {
-                                print(error!)
-                                print("not match2")
-                            }
-                            else
-                            {
-                            let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
-                            print("match")
-                            }
-                           
+                        {
+                            self.secondAlert(message: "match")
                         }
+            
                     })
                 }
             })
-          
+            }
 
-            }))
-    
-                present(noti, animated: true, completion: nil)
+          }))
+        
+        present(noti, animated: true, completion: nil)
+        
+
     }
+    
+    func secondAlert(message: String)
+    {
+        if message == "Not match"
+        {
+            let alertController = UIAlertController(title: "Password not match", message: "New password is not match with confirm password", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        }
+        else if message == "match"
+        {
+            let alertController = UIAlertController(title: "Update Password", message: "You have successfully updated your password", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Ok, Thanks", style: UIAlertActionStyle.default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+
+        }
+    }
+    
+
+    
 }
