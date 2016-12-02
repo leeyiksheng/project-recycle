@@ -30,6 +30,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func onLoginButtonTouchUpInside(_ sender: UIButton) {
         loginUser()
+        
     }
     
     @IBAction func onSignupButtonTouchUpInside(_ sender: UIButton) {
@@ -42,6 +43,9 @@ class LoginViewController: UIViewController {
                 if let authError = error {
                     print("Authentication error :\(authError)")
                     return
+                } else {
+                    let signedInNotification = Notification(name: Notification.Name(rawValue: "SignedInNotification"), object: nil, userInfo: nil)
+                    NotificationCenter.default.post(signedInNotification)
                 }
             })
         } else {
@@ -49,20 +53,6 @@ class LoginViewController: UIViewController {
             let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
             fieldEmptyAlert.addAction(okAlertAction)
             self.present(fieldEmptyAlert, animated: true, completion: nil)
-        }
-        
-        FIRAuth.auth()?.addStateDidChangeListener { auth, user in
-            if user != nil {
-                return
-            } else {
-                let signedOutAlert = UIAlertController.init(title: "Signed Out", message: "You have been signed out from Project Recycle. Please login again.", preferredStyle: .alert)
-                let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: {(alert: UIAlertAction!) in
-                    let signedOutNotification = Notification(name: Notification.Name(rawValue: "SignedOutNotification"), object: nil, userInfo: nil)
-                    NotificationCenter.default.post(signedOutNotification)
-                })
-                signedOutAlert.addAction(okAlertAction)
-                self.present(signedOutAlert, animated: true, completion: nil)
-            }
         }
     }
 }

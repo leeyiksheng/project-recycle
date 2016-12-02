@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
@@ -40,7 +41,7 @@ class HomeViewController: UIViewController {
     }
     
     func generateNavigationMenuItems() {
-        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Item 1"), createMenuPanelItem(imageName: "errorIcon", itemName: "Item 1"), createMenuPanelItem(imageName: "errorIcon", itemName: "Item 3"), createMenuPanelItem(imageName: "errorIcon", itemName: "Item 4"), createMenuPanelItem(imageName: "errorIcon", itemName: "Item 5")]
+        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out")]
         self.navigationMenuCollectionView.reloadData()
     }
     
@@ -55,7 +56,28 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        switch navigationMenuItemArray[indexPath.row].itemName {
+        case "Learn":
+            print("Tapped Learn Button")
+        case "Non-recyclable":
+            print("Tapped Non-recyclable Button")
+        case "Current Orders":
+            print("Tapped Current Orders Button")
+        case "Past Orders":
+            print("Tapped Past Orders Button")
+        case "Profile":
+            print("Tapped Profile Button")
+        case "Settings":
+            print("Tapped Settings Button")
+        case "Sign Out":
+            print("Tapped Sign Out Button")
+            do {
+                try FIRAuth.auth()?.signOut()
+            } catch let signOutError as NSError {
+                print ("Error signing out: %@", signOutError)
+            }
+        default: break
+        }
     }
 }
 

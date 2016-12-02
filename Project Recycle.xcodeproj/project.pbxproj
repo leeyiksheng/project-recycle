@@ -33,6 +33,13 @@
 		EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */; };
 		EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */; };
 		EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267881DED392C00CC2C37 /* Downloader.swift */; };
+		EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */; };
+		EB8068591DEFC7A5003FCB9B /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8068581DEFC7A5003FCB9B /* Orders.storyboard */; };
+		EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */; };
+		EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685C1DEFD816003FCB9B /* OrderItem.swift */; };
+		EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */; };
+		EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */; };
+		EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +73,13 @@
 		EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
 		EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuPanelItem.swift; sourceTree = "<group>"; };
 		EB6267881DED392C00CC2C37 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
+		EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewController.swift; sourceTree = "<group>"; };
+		EB8068581DEFC7A5003FCB9B /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
+		EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrdersViewController.swift; sourceTree = "<group>"; };
+		EB80685C1DEFD816003FCB9B /* OrderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
+		EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessedTableViewCell.swift; sourceTree = "<group>"; };
+		EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessingTableViewCell.swift; sourceTree = "<group>"; };
+		EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrderTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +116,12 @@
 			isa = PBXGroup;
 			children = (
 				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
+				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
+				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
+				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
+				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
+				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
+				EB8068581DEFC7A5003FCB9B /* Orders.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -135,33 +155,65 @@
 		EB62675F1DEBD0D500CC2C37 /* Project Recycle */ = {
 			isa = PBXGroup;
 			children = (
-				A147873B1DEFCEFC007CD5D9 /* Extensions */,
+				EB8068891DF113A8003FCB9B /* Property Lists */,
+				EB8068881DF11392003FCB9B /* Helpers */,
+				EB8068871DF11376003FCB9B /* Models */,
+				EB8068861DF1133C003FCB9B /* Controllers */,
 				A13D9A321DEECB9D00313699 /* Storyboards */,
-				A13D9A311DEECAF500313699 /* Controllers */,
 				EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */,
-				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
+				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
+			);
+			path = "Project Recycle";
+			sourceTree = "<group>";
+		};
+		EB8068861DF1133C003FCB9B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
-				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
-				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
-				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */,
 				EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */,
-				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
 				EB6267721DEBD12400CC2C37 /* LoginViewController.swift */,
 				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
 				EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */,
+				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
+				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
+				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		EB8068871DF11376003FCB9B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
+				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
+				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		EB8068881DF11392003FCB9B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
 				EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */,
 				EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */,
-				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
 				EB6267881DED392C00CC2C37 /* Downloader.swift */,
-				EB6267671DEBD0D600CC2C37 /* Assets.xcassets */,
-				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
+				EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */,
+				EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */,
+				EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */,
+				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		EB8068891DF113A8003FCB9B /* Property Lists */ = {
+			isa = PBXGroup;
+			children = (
 				EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */,
 				EB62676C1DEBD0D600CC2C37 /* Info.plist */,
-				EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */,
 			);
-			path = "Project Recycle";
+			name = "Property Lists";
 			sourceTree = "<group>";
 		};
 		ED73DB31C33E15CEA6443F3E /* Frameworks */ = {
@@ -238,6 +290,7 @@
 				EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */,
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
 				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
+				EB8068591DEFC7A5003FCB9B /* Orders.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
@@ -300,6 +353,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
@@ -311,11 +365,16 @@
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
+				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
+				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
+				EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				A147873D1DEFCF2E007CD5D9 /* UIExtensions.swift in Sources */,
+				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
+				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
