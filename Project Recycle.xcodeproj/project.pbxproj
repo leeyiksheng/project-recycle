@@ -10,10 +10,8 @@
 		464D795F99E48221C76DDF12 /* Pods_Project_Recycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87044D9206D64C395502282D /* Pods_Project_Recycle.framework */; };
 		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
-		A14586B21DF116B200CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */; };
-		A14586B41DF116CF00CAB9F0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */; };
-		A147873A1DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14787391DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift */; };
-		A147873D1DEFCF2E007CD5D9 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A147873C1DEFCF2E007CD5D9 /* UIExtensions.swift */; };
+		A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */; };
+		A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
@@ -49,10 +47,8 @@
 		87044D9206D64C395502282D /* Pods_Project_Recycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Recycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
-		A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
-		A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
-		A14787391DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
-		A147873C1DEFCF2E007CD5D9 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
+		A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
+		A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
@@ -156,7 +152,7 @@
 		EB8068861DF1133C003FCB9B /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				A14586B11DF116B200CAB9F0 /* AlternativeAddressViewController.swift */,
+				A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */,
 				AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */,
@@ -191,7 +187,7 @@
 				EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */,
 				EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */,
 				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
-				A14586B31DF116CF00CAB9F0 /* UIExtensions.swift */,
+				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -347,10 +343,9 @@
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
+				A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */,
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
-				A147873A1DEFC8EC007CD5D9 /* AlternativeAddressViewController.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
-				A14586B41DF116CF00CAB9F0 /* UIExtensions.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
@@ -360,11 +355,10 @@
 				EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
+				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
-				A147873D1DEFCF2E007CD5D9 /* UIExtensions.swift in Sources */,
 				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
-				A14586B21DF116B200CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
 			);
@@ -497,6 +491,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -511,6 +506,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

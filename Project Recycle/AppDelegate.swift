@@ -20,18 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         
         if FIRAuth.auth()?.currentUser != nil {
-<<<<<<< HEAD
-            
-            
     
             window!.rootViewController = instantiateKelvinViewController()
-//            window!.rootViewController = instantiateDriverViewController()
-//            window!.rootViewController = instantiateHomeContainerViewController()
-=======
-            // window!.rootViewController = instantiateDriverViewController()
-            
-            window!.rootViewController = instantiateHomeContainerViewController()
-            // window!.rootViewController = instantiateLoginViewController()
             
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -46,7 +36,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.window!.rootViewController?.present(signedOutAlert, animated: true, completion: nil)
                 }
             }
->>>>>>> a9c356649da81f3b3785660e2ef02dddb511474d
         } else {
             window!.rootViewController = instantiateLoginViewController()
         }
