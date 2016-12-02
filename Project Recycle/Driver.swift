@@ -1,5 +1,5 @@
 //
-//  DriverDetail.swift
+//  Driver.swift
 //  Project Recycle
 //
 //  Created by Students on 11/29/16.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class DriverDetails{
+class Driver{
     
     var name : String? = nil
     var email : String? = nil

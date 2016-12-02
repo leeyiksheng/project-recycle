@@ -12,12 +12,13 @@
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
-		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
+		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */; };
 		EB21B71D1DF1520900F65ECD /* ProcessingCurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71C1DF1520900F65ECD /* ProcessingCurrentOrder.swift */; };
+		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
@@ -50,9 +51,10 @@
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
-		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
+		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrder.swift; sourceTree = "<group>"; };
 		EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrder.swift; sourceTree = "<group>"; };
@@ -171,12 +173,14 @@
 		EB8068871DF11376003FCB9B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
+				AF3706381DED2CBE00BF953F /* Driver.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
 				EB80685C1DEFD816003FCB9B /* Order.swift */,
 				EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */,
 				EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */,
 				EB21B71C1DF1520900F65ECD /* ProcessingCurrentOrder.swift */,
+				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
+				AFB177E01DEFCED900AB54F9 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -346,12 +350,13 @@
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
+				AFB177E11DEFCED900AB54F9 /* User.swift in Sources */,
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
-				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
+				AF3706391DED2CBE00BF953F /* Driver.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
