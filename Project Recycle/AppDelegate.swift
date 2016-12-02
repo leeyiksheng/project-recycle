@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        
         if FIRAuth.auth()?.currentUser != nil {
             // window!.rootViewController = instantiateDriverViewController()
             
