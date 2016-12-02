@@ -13,10 +13,10 @@ class OrderItem {
     var orderImages: [UIImage]
     var timestamp: String
     var estimatedPrice: String
-    var assignedDriver: DriverDetails
+    var assignedDriver: Driver
     var isCompleted: Bool
     
-    init(orderImages: [UIImage], timestamp: String, estimatedPrice: String, assignedDriver: DriverDetails, isCompleted: Bool) {
+    init(orderImages: [UIImage], timestamp: String, estimatedPrice: String, assignedDriver: Driver, isCompleted: Bool) {
         self.orderImages = orderImages
         self.timestamp = timestamp
         self.estimatedPrice = estimatedPrice

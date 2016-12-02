@@ -19,9 +19,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
+
         if FIRAuth.auth()?.currentUser != nil {
+
     
             window!.rootViewController = instantiateKelvinViewController()
+
+
+            // window!.rootViewController = instantiateDriverViewController()
+
+            
+            //window!.rootViewController = instantiateHomeContainerViewController()
+            // window!.rootViewController = instantiateLoginViewController()
+            //window!.rootViewController = instantiateUserViewController()
             
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -36,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     self.window!.rootViewController?.present(signedOutAlert, animated: true, completion: nil)
                 }
             }
+
         } else {
             window!.rootViewController = instantiateLoginViewController()
         }
@@ -105,5 +116,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
         let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
         return kelvinViewController as! RecycleGeneralViewController
+    }
+        func instantiateUserViewController() -> ProfileViewController {
+        let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
+        let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
+        return userViewController as! ProfileViewController
     }
 }

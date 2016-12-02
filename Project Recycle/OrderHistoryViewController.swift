@@ -12,7 +12,7 @@ class OrderHistoryViewController: UIViewController {
 
     @IBOutlet weak var completedOrdersTableView: UITableView!
     
-    var completedOrderItems: [OrderItem] = []
+    var completedOrderItems: [Order] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

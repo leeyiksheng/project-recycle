@@ -17,9 +17,12 @@
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
-		AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* DriverDetail.swift */; };
+		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
+		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
+		EB21B7191DF151DF00F65ECD /* CurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */; };
+		EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
@@ -39,7 +42,7 @@
 		EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */; };
 		EB8068591DEFC7A5003FCB9B /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB8068581DEFC7A5003FCB9B /* Orders.storyboard */; };
 		EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */; };
-		EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685C1DEFD816003FCB9B /* OrderItem.swift */; };
+		EB80685D1DEFD816003FCB9B /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685C1DEFD816003FCB9B /* Order.swift */; };
 		EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */; };
 		EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */; };
 		EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */; };
@@ -57,10 +60,13 @@
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
-		AF3706381DED2CBE00BF953F /* DriverDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverDetail.swift; sourceTree = "<group>"; };
+		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
+		EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrder.swift; sourceTree = "<group>"; };
+		EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrder.swift; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -82,7 +88,7 @@
 		EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewController.swift; sourceTree = "<group>"; };
 		EB8068581DEFC7A5003FCB9B /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrdersViewController.swift; sourceTree = "<group>"; };
-		EB80685C1DEFD816003FCB9B /* OrderItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItem.swift; sourceTree = "<group>"; };
+		EB80685C1DEFD816003FCB9B /* Order.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessedTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessingTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrderTableViewCell.swift; sourceTree = "<group>"; };
@@ -114,6 +120,7 @@
 			children = (
 				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
 				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
+				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
@@ -167,7 +174,6 @@
 				EB6267741DEBD13000CC2C37 /* SignupViewController.swift */,
 				EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */,
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
-				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
 				A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */,
 			);
@@ -177,10 +183,14 @@
 		EB8068871DF11376003FCB9B /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF3706381DED2CBE00BF953F /* DriverDetail.swift */,
+				AF3706381DED2CBE00BF953F /* Driver.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
 				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
 				A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */,
+				EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */,
+				EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */,
+				EB80685C1DEFD816003FCB9B /* Order.swift */,
+				AFB177E01DEFCED900AB54F9 /* User.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -356,18 +366,22 @@
 				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
 				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
+				AFB177E11DEFCED900AB54F9 /* User.swift in Sources */,
+				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
+				EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
-				AF3706391DED2CBE00BF953F /* DriverDetail.swift in Sources */,
+				AF3706391DED2CBE00BF953F /* Driver.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
-				EB80685D1DEFD816003FCB9B /* OrderItem.swift in Sources */,
+				EB80685D1DEFD816003FCB9B /* Order.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
+				EB21B7191DF151DF00F65ECD /* CurrentOrder.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,

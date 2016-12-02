@@ -67,7 +67,8 @@ class SignupViewController: UIViewController {
                     "thirdLine": self.addressThirdLineTextField.text!,
                     "city": self.cityTextField.text!,
                     "state": self.stateTextField.text!,
-                    "postcode": self.postcodeTextField.text!],
+                    "postcode": self.postcodeTextField.text!,
+                    "formattedAddress": [self.addressFirstLineTextField.text!, self.addressSecondLineTextField.text!, self.addressThirdLineTextField.text!, self.cityTextField.text!, self.postcodeTextField.text!, self.cityTextField.text!, self.stateTextField.text!, "Malaysia"]],
                                 "email": self.emailTextField.text!,
                                 "name": self.nameTextField.text!,
                                 "phoneNumber": self.phoneNumberTextField.text!,
@@ -75,11 +76,13 @@ class SignupViewController: UIViewController {
                                 "completedOrders": "",
                                 "profileImage": ""] as [String : Any]
                 
-                let userUID : String? = user!.uid
+                self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                
+                let userUID : String? = FIRAuth.auth()?.currentUser?.uid
                 let childUpdate = ["\(userUID!)/": userData]
                 self.usersFRDBRef.updateChildValues(childUpdate)
                 
-                self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                
             }
         }
     }
@@ -99,7 +102,7 @@ class SignupViewController: UIViewController {
             if user != nil {
                 return
             } else {
-                let signedOutAlert = UIAlertController.init(title: "Signed Out", message: "You have been signed out from Project Recycle. Please login again.", preferredStyle: .alert)
+                let signedOutAlert = UIAlertController.init(title: "Signed Out", message: "You have been signed out from Project Recycle.", preferredStyle: .alert)
                 let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: {(alert: UIAlertAction!) in
                     let signedOutNotification = Notification(name: Notification.Name(rawValue: "SignedOutNotification"), object: nil, userInfo: nil)
                     NotificationCenter.default.post(signedOutNotification)
