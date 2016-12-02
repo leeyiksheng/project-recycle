@@ -22,7 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         
         if FIRAuth.auth()?.currentUser != nil {
-            window!.rootViewController = instantiateDriverViewController()
+            
+            
+    
+            window!.rootViewController = instantiateKelvinViewController()
+//            window!.rootViewController = instantiateDriverViewController()
 //            window!.rootViewController = instantiateHomeContainerViewController()
         } else {
             window!.rootViewController = instantiateLoginViewController()
@@ -87,5 +91,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let driverStoryboard = UIStoryboard.init(name: "DriverStoryboard", bundle: Bundle.init(identifier: "DriverStoryboard"))
         let driverViewController = driverStoryboard.instantiateViewController(withIdentifier: "Driver")
         return driverViewController as! DriverViewController
+    }
+    
+    func instantiateKelvinViewController() -> RecycleGeneralViewController {
+        let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
+        let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
+        return kelvinViewController as! RecycleGeneralViewController
     }
 }

@@ -27,7 +27,7 @@ class RecycleGeneralViewController: UIViewController {
     let titleLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "CHOOSE TYPE TO RECYCLE"
+        label.text = "CHOOSE TYPES TO RECYCLE"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.textColor = UIColor(r: 169, g: 169, b: 169)
         label.textAlignment = .center
@@ -142,7 +142,7 @@ class RecycleGeneralViewController: UIViewController {
         return label
     }()
     
-    let confirmButton : UIButton = {
+    lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
@@ -150,23 +150,32 @@ class RecycleGeneralViewController: UIViewController {
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(moveToNextController), for: .touchUpInside)
         return button
     }()
     
+    func moveToNextController() {
+        let nextController = AlternativeAddressViewController()
+        //let navController = UINavigationController(rootViewController: nextController)
+        present(nextController, animated: true, completion: nil)
+    }
+
     let infoLabel : UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.cornerRadius = 10
         label.text = "For large items and more varieties tap here"
         label.textColor = UIColor.forestGreen
         label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.backgroundColor = UIColor.white
-        label.layer.cornerRadius = 20
+        label.clipsToBounds = true
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.viewLightGray
         
         view.addSubview(headerImageView)
         view.addSubview(titleLabel)
@@ -267,13 +276,14 @@ class RecycleGeneralViewController: UIViewController {
         plasticLabel.rightAnchor.constraint(equalTo: plasticButton.rightAnchor).isActive = true
         plasticLabel.topAnchor.constraint(equalTo: plasticButton.bottomAnchor).isActive = true
     }
+    
     func setupConfirmButton() {
         confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
-    
+
     func setupLabelForBigItems() {
         infoLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 20).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -285,32 +295,6 @@ class RecycleGeneralViewController: UIViewController {
     
 }
 
-extension UIColor {
-    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
-    }
-    
-    @nonobjc static let forestGreen = UIColor(r: 34, g: 139, b: 34)
-    
-    
-}
 
-extension UIButton {
-    
-    func buttonAttributes() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.cornerRadius = 15
-    }
-}
-
-extension UILabel {
-    
-    func labelAttributes() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.boldSystemFont(ofSize: 16)
-        self.textColor = UIColor(r: 169, g: 169, b: 169)
-        self.textAlignment = .center
-    }
-}
 
 
