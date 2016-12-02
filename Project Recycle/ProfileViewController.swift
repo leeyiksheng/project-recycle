@@ -57,6 +57,7 @@ class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
+        })
     
     }
     
@@ -281,10 +282,7 @@ class ProfileViewController: UIViewController {
                     })
                 }
             })
-
-            
-            
-        }))
+        })
         
         present(noti, animated: true, completion: nil)
 
