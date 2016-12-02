@@ -22,12 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if FIRAuth.auth()?.currentUser != nil {
 
+    
+            window!.rootViewController = instantiateKelvinViewController()
+
+
             // window!.rootViewController = instantiateDriverViewController()
 
             
             //window!.rootViewController = instantiateHomeContainerViewController()
             // window!.rootViewController = instantiateLoginViewController()
-            window!.rootViewController = instantiateUserViewController()
+            //window!.rootViewController = instantiateUserViewController()
             
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -108,10 +112,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return driverViewController as! DriverViewController
     }
     
-    func instantiateUserViewController() -> ProfileViewController {
+    func instantiateKelvinViewController() -> RecycleGeneralViewController {
+        let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
+        let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
+        return kelvinViewController as! RecycleGeneralViewController
+    }
+        func instantiateUserViewController() -> ProfileViewController {
         let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
         let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
         return userViewController as! ProfileViewController
     }
-
 }
