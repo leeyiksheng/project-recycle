@@ -21,8 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         if FIRAuth.auth()?.currentUser != nil {
+
+    
+//            window!.rootViewController = instantiateKelvinViewController()
+
+
+            // window!.rootViewController = instantiateDriverViewController()
+
             
-            window!.rootViewController = instantiateHomeViewController()
+            //window!.rootViewController = instantiateHomeContainerViewController()
+            // window!.rootViewController = instantiateLoginViewController()
+            window!.rootViewController = instantiateUserViewController()
+
+            
+//            window!.rootViewController = instantiateHomeViewController()
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -86,6 +98,8 @@ extension AppDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
     }
     
+
+    
     func handleSignedOutNotification(_ notification: Notification) {
         // This will only be called if user gets logged out.
         
@@ -132,10 +146,11 @@ extension AppDelegate {
         return driverViewController as! DriverViewController
     }
     
-    func instantiateKelvinViewController() -> RecycleGeneralViewController {
+    func instantiateKelvinViewController() -> UINavigationController {
         let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
         let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
-        return kelvinViewController as! RecycleGeneralViewController
+        let navController = UINavigationController(rootViewController: kelvinViewController)
+        return navController
     }
     
     func instantiateUserViewController() -> ProfileViewController {

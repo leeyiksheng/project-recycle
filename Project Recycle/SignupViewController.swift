@@ -68,7 +68,7 @@ class SignupViewController: UIViewController {
                     "city": self.cityTextField.text!,
                     "state": self.stateTextField.text!,
                     "postcode": self.postcodeTextField.text!,
-                    "formattedAddress": [self.addressFirstLineTextField.text!, self.addressSecondLineTextField.text!, self.addressThirdLineTextField.text!, self.cityTextField.text!, self.postcodeTextField.text!, self.cityTextField.text!, self.stateTextField.text!, "Malaysia"]],
+                    "formattedAddress": self.concatenateAddressFields()],
                                 "email": self.emailTextField.text!,
                                 "name": self.nameTextField.text!,
                                 "phoneNumber": self.phoneNumberTextField.text!,
@@ -85,6 +85,50 @@ class SignupViewController: UIViewController {
                 
             }
         }
+    }
+    
+    func concatenateAddressFields() -> String {
+        var formattedAddress : String = ""
+        
+        if let add1 = addressFirstLineTextField.text {
+            if add1 != "" {
+                formattedAddress = add1 + String(", ")
+            }
+        }
+        
+        if let add2 = addressSecondLineTextField.text {
+            if add2 != "" {
+                formattedAddress =  formattedAddress + add2 + String(", ")
+            }
+        }
+        
+        if let add3 = addressThirdLineTextField.text {
+            if add3 != "" {
+                formattedAddress =  formattedAddress + add3 + String(", ")
+            }
+        }
+        
+        if let postcode = postcodeTextField.text {
+            if postcode != "" {
+                formattedAddress =  formattedAddress + postcode + String(", ")
+            }
+        }
+        
+        if let city = cityTextField.text {
+            if city != "" {
+                formattedAddress =  formattedAddress + city + String(", ")
+            }
+        }
+        
+        if let state = stateTextField.text {
+            if state != "" {
+                formattedAddress =  formattedAddress + state
+            }
+        }
+        
+        formattedAddress += ", Malaysia."
+        
+        return formattedAddress
     }
     
     func loginUser(email: String, password: String) {
