@@ -185,7 +185,6 @@
 			children = (
 				AF3706381DED2CBE00BF953F /* Driver.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
-				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
 				A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */,
 				EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */,
 				EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */,
@@ -367,7 +366,6 @@
 				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
 				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
 				AFB177E11DEFCED900AB54F9 /* User.swift in Sources */,
-				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,

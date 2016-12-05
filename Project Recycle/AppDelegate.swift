@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FIRAuth.auth()?.currentUser != nil {
 
     
-            window!.rootViewController = instantiateKelvinViewController()
+//            window!.rootViewController = instantiateKelvinViewController()
 
 
             // window!.rootViewController = instantiateDriverViewController()
@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //window!.rootViewController = instantiateHomeContainerViewController()
             // window!.rootViewController = instantiateLoginViewController()
-            //window!.rootViewController = instantiateUserViewController()
+            window!.rootViewController = instantiateUserViewController()
             
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
