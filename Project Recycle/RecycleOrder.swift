@@ -160,7 +160,7 @@ class RecycleOrder {
         completion(userName)
     }
     
-    private func createOrderImagesWithMainRecycleCategories() {
+    func createOrderImagesWithMainRecycleCategories() {
         if hasAluminium {
             guard let image = UIImage.init(named: "recycle-aluminium") else { return }
             orderImages.append(image)

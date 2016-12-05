@@ -42,9 +42,8 @@ class CurrentOrdersViewController: UIViewController {
         let currentOrders : [String] = userDatabaseRef.value(forKey: "currentOrders") as! [String]
         
         for orderUID : String in currentOrders {
-            CurrentRecycleOrder.init(withOrderUID: orderUID, completion: { (currentOrder) -> () in
-                self.orderItemsArray.append(currentOrder)
-            })
+            let order = CurrentRecycleOrder.init(currentOrderWithOrderUID: orderUID)
+            orderItemsArray.append(order)
         }
         
         return []
@@ -66,19 +65,6 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        //        if orderItemsArray[indexPath.row].isCompleted {
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
-        //
-        //
-        //
-        //            return cell
-        //        } else {
-        //            let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessingOrderCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
-        //
-        //
-        //
-        //            return cell
-        //        }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
         

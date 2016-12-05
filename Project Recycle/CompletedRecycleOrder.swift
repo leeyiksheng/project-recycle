@@ -14,40 +14,45 @@ class CompletedRecycleOrder: RecycleOrder {
     var assignedDriver: Driver
     var processedTimestamp: TimeInterval
     var completionTimestamp: TimeInterval
-    var actualPrice: Double
-    var actualWeight: Double
     
     override init() {
         self.assignedDriver = Driver()
         self.processedTimestamp = 0
         self.completionTimestamp = 0
-        self.actualPrice = 0.0
-        self.actualWeight = 0.0
         
         super.init()
     }
     
-    convenience init(withOrderUID: String, completion: @escaping (() -> ())) {
+    convenience init(withOrderUID: String) {
         self.init()
         
         let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/completed/\(withOrderUID)")
         
-        ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
-            guard let rawCompletedOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
+        fetchRawCompletedOrderDataFromDatabaseWith(databaseReference: ordersDatabaseRef, completion: { (rawOrderDataDictionary) -> () in
+            self.creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as! TimeInterval
+            self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as! TimeInterval
+            self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as! TimeInterval
             
-            self.creationTimestamp = rawCompletedOrdersDictionary["orderCreatedOn"] as! TimeInterval
-            self.processedTimestamp = rawCompletedOrdersDictionary["orderProcessedOn"] as! TimeInterval
-            self.completionTimestamp = rawCompletedOrdersDictionary["orderCompletedOn"] as! TimeInterval
-            
-            let driverUID = rawCompletedOrdersDictionary["driverAssigned"] as! String
+            let driverUID = rawOrderDataDictionary["assignedDriver"] as! String
             self.assignedDriver.initWithDriverUID(driverUID: driverUID)
             
-            self.actualWeight = rawCompletedOrdersDictionary["actualWeight"] as! Double
-            self.actualPrice = rawCompletedOrdersDictionary["actualPrice"] as! Double
+            self.receiverName = rawOrderDataDictionary["receiverName"] as! String
+            self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
+            self.receiverFormattedAddress = rawOrderDataDictionary["receiverFormattedAddress"] as! String
+            
+            self.userUID = rawOrderDataDictionary["userID"] as! String
             
             print("ordersDatabaseRef data fetch for order \(withOrderUID) completed.")
-            
-            completion()
+        })
+    }
+    
+    private func fetchRawCompletedOrderDataFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ dataDictionary: [String: AnyObject]) -> ()) {
+        databaseReference.observe(FIRDataEventType.childChanged, with: { (snapshot) in
+            guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
+                print("Error: Could not retrieve data from database. Please check whether you are online or the database reference is valid.")
+                return
+            }
+            completion(rawOrderDataDictionary)
         })
     }
 }

@@ -21,42 +21,56 @@ class CurrentRecycleOrder: RecycleOrder {
         super.init()
     }
     
-    convenience init(withOrderUID: String, completion: @escaping ((_ currentOrder: CurrentRecycleOrder) -> ())) {
+    convenience init(currentOrderWithOrderUID orderUID: String) {
         self.init()
         
-        let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/current/\(withOrderUID)")
-        ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
-            guard let rawCurrentOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
-            
-            self.creationTimestamp = rawCurrentOrdersDictionary["orderCreatedOn"] as! TimeInterval
-            self.processedTimestamp = rawCurrentOrdersDictionary["orderProcessedOn"] as! TimeInterval
-            
-            let driverUID = rawCurrentOrdersDictionary["assignedDriver"] as! String
-            self.assignedDriver.initWithDriverUID(driverUID: driverUID)
-            
-            print("ordersDatabaseRef data fetch for order \(withOrderUID) completed.")
-            
-            completion(self)
-        })
-    }
-    
-    private func fetchRawCurrentOrderDataFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: () -> ()) {
-        databaseReference.observe(FIRDataEventType.childChanged, with: { (snapshot) in
-            guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
-                print("Error: Could not retrieve data from database. Please check whether you are online or the database reference is valid.")
-                return
-            }
-            
+        let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/current/\(orderUID)")
+        
+        fetchRawCurrentOrderDataFromDatabaseWith(databaseReference: ordersDatabaseRef, completion: { (rawOrderDataDictionary) -> () in
             self.creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as! TimeInterval
             self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as! TimeInterval
             
             let driverUID = rawOrderDataDictionary["assignedDriver"] as! String
             self.assignedDriver.initWithDriverUID(driverUID: driverUID)
             
+            let orderCategories = rawOrderDataDictionary["orderCategories"] as! [String: Bool]
+            self.populateRecycleMaterialsBooleanChecks(categories: orderCategories)
             
+            self.createOrderImagesWithMainRecycleCategories()
             
+            self.receiverName = rawOrderDataDictionary["receiverName"] as! String
+            self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
+            self.receiverFormattedAddress = rawOrderDataDictionary["receiverFormattedAddress"] as! String
+            
+            self.userUID = rawOrderDataDictionary["userID"] as! String
         })
+    }
+    
+    private func fetchRawCurrentOrderDataFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ dataDictionary: [String: AnyObject]) -> ()) {
+        databaseReference.observe(FIRDataEventType.childChanged, with: { (snapshot) in
+            guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
+                print("Error: Could not retrieve data from database. Please check whether you are online or the database reference is valid.")
+                return
+            }
+            completion(rawOrderDataDictionary)
+        })
+    }
+    
+    private func populateRecycleMaterialsBooleanChecks(categories: [String: Bool]) {
+        if categories["hasAluminium"]! {
+            hasAluminium = true
+        }
         
-        completion()
+        if categories["hasGlass"]! {
+            hasGlass = true
+        }
+        
+        if categories["hasPaper"]! {
+            hasPaper = true
+        }
+        
+        if categories["hasPlastic"]! {
+            hasPlastic = true
+        }
     }
 }
