@@ -86,6 +86,8 @@ extension AppDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
     }
     
+
+    
     func handleSignedOutNotification(_ notification: Notification) {
         // This will only be called if user gets logged out.
         

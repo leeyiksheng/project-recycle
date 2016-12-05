@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RecycleGeneralViewController: UIViewController {
 
@@ -14,6 +15,7 @@ class RecycleGeneralViewController: UIViewController {
     var glassButtonTapped = false
     var aluminiumButtonTapped = false
     var plasticButtonTapped = false
+  
     
     
     let headerImageView : UIImageView = {
@@ -160,9 +162,17 @@ class RecycleGeneralViewController: UIViewController {
     }()
     
     func moveToNextController() {
-        let nextController = self.storyboard?.instantiateViewController(withIdentifier: "PickupAddressViewController")
+        let nextController = self.storyboard?.instantiateViewController(withIdentifier: "PickupAddressViewController") as! PickupAddressViewController
 //        let nextController = AlternativeAddressViewController()
-        let navController = UINavigationController(rootViewController: nextController!)
+        
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        
+        let order = RecycleOrder.init(orderWithUserUID: currentUser, hasAluminium: self.aluminiumButtonTapped, hasGlass: self.glassButtonTapped, hasPaper: self.paperButtonTapped, hasPlastic: self.plasticButtonTapped)
+        
+        nextController.newOrder = order
+        
+        
+        let navController = UINavigationController(rootViewController: nextController)
         self.present(navController, animated: true, completion: nil)
     }
 

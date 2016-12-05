@@ -8,9 +8,13 @@
 
 import UIKit
 
+protocol createANewAddressDelegate {
+    func createNewAddress(newAddress: RecycleOrder)
+}
+
 class AlternativeAddressViewController: UIViewController {
 
-    
+
 
     let inputsAddressContainerView: UIView = {
         let view = UIView()
@@ -39,12 +43,23 @@ class AlternativeAddressViewController: UIViewController {
         var name = ""
         
         
+        
 //        guard let name = receiverNameTextField.text else {return}
 //        guard let contact = phoneNoTextField.text else {return}
         
-        if let contact = phoneNoTextField.text {
-            if contact != "" {
-                
+        if let receiverName = receiverNameTextField.text {
+            if receiverName != "" {
+                name = receiverName
+            } else {
+                return
+            }
+        }
+        
+        if let contactNo = phoneNoTextField.text {
+            if contactNo != "" {
+                contact = contactNo
+            } else {
+                return
             }
         }
         
@@ -96,6 +111,12 @@ class AlternativeAddressViewController: UIViewController {
         
         formattedAddress =  formattedAddress + String(", Malaysia.")
         print(formattedAddress)
+        
+        self.newOrder.receiverFormattedAddress = formattedAddress
+        self.newOrder.receiverContact = contact
+        self.newOrder.receiverName = name
+        
+        delegate?.createNewAddress(newAddress: self.newOrder)
         
         dismiss(animated: true, completion: nil)
     }
@@ -216,6 +237,9 @@ class AlternativeAddressViewController: UIViewController {
     var navigationBarHeight: CGFloat = 0
     let spaceBetweenLabel: CGFloat = 18
     let spaceBetweenTextField: CGFloat = 4
+    var delegate: createANewAddressDelegate?
+    var newOrder = RecycleOrder()
+    
 
     
     override func viewDidLoad() {
