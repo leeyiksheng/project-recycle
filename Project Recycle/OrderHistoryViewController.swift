@@ -12,7 +12,7 @@ class OrderHistoryViewController: UIViewController {
 
     @IBOutlet weak var completedOrdersTableView: UITableView!
     
-    var completedOrderItems: [Order] = []
+//    var completedOrderItems: [CompletedRecycleOrder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ extension OrderHistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return completedOrderItems.count
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
