@@ -180,10 +180,14 @@ class RecycleGeneralViewController: UIViewController {
     }()
     
     
+    var navigationBarHeight : CGFloat = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.viewLightGray
-        
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         view.addSubview(headerImageView)
         view.addSubview(titleLabel)
         view.addSubview(paperButton)
@@ -212,12 +216,14 @@ class RecycleGeneralViewController: UIViewController {
         
     }
     
-    
+    func handleBack() {
+        dismiss(animated: true, completion: nil)
+    }
     
     func setupHeaderImageView() {
         
         headerImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        headerImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 8).isActive = true
         headerImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         headerImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
@@ -233,7 +239,7 @@ class RecycleGeneralViewController: UIViewController {
     
     func setupPaperButton() {
         paperButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
-        paperButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 275).isActive = true
+        paperButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
         paperButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         paperButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
         paperButton.setImage(#imageLiteral(resourceName: "Paper"), for: .normal)
@@ -247,7 +253,7 @@ class RecycleGeneralViewController: UIViewController {
     
     func setupGlassButton() {
         glassButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -100).isActive = true
-        glassButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 275).isActive = true
+        glassButton.topAnchor.constraint(equalTo: paperButton.topAnchor).isActive = true
         glassButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         glassButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
     }
