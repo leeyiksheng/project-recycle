@@ -12,27 +12,39 @@ import FirebaseDatabase
 var frDBref : FIRDatabaseReference!
 
 class ProfileViewController: UIViewController {
-    @IBOutlet weak var userProImage: UIImageView!
+    @IBOutlet weak var userProImage: UIImageView?
     @IBOutlet weak var userNameText: UITextField!
     @IBOutlet weak var userNumberText: UITextField!
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
 
     var personalDetails: [User] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        userProImage.layer.borderWidth = 5
-        userProImage.layer.masksToBounds = false
-        userProImage.layer.borderColor = UIColor.red.cgColor
-        userProImage.layer.cornerRadius = userProImage.frame.height/2
-        userProImage.clipsToBounds = true
-
+        userProImage?.layer.borderWidth = 5
+        userProImage?.layer.masksToBounds = false
+        userProImage?.layer.borderColor = UIColor.white.cgColor
+        userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/2
+        userProImage?.clipsToBounds = true
+        userProImage?.isUserInteractionEnabled = true
+        
         frDBref = FIRDatabase.database().reference()
         
         fetchUserInfo()
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(sender:)))
+        userProImage?.addGestureRecognizer(tap)
+        
     }
-
+    
+    func imageTapped(sender: UIGestureRecognizer)
+    {
+        if let imagePressed = sender.view as? UIImageView
+        {
+            self.performSegue(withIdentifier: "imageSegue", sender: self)
+        }
+    }
 
     private func fetchUserInfo()
     {
@@ -44,17 +56,28 @@ class ProfileViewController: UIViewController {
             self.userNumberText.text = newUser.phoneNumber
             self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
         
+            if newUser.profileImage == ""
+            {
+                
+                self.userProImage?.image = UIImage(named: "noone")
+            }
+            else
+            {
             Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+               
+                self.userProImage?.layer.borderColor = UIColor.red.cgColor
                 if error != nil
                 {
                     print(error!)
                     return
                 }
                 
+                
                 DispatchQueue.main.async {
-                    self.userProImage.image = UIImage (data: data!)
+                    self.userProImage?.image = UIImage (data: data!)
                 }
             })
+            }
         }
     }
 

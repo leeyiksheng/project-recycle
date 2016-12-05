@@ -20,6 +20,7 @@
 		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
+		AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */; };
 		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */; };
@@ -62,6 +63,7 @@
 		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageLibraryViewController.swift; sourceTree = "<group>"; };
 		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrder.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
+				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */,
 				EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */,
 				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
