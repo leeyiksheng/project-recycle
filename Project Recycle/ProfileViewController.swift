@@ -29,36 +29,35 @@ class ProfileViewController: UIViewController {
         userProImage.clipsToBounds = true
         
         frDBref = FIRDatabase.database().reference()
+        
         fetchUserInfo()
-        
-        
     }
-    
     
     
     private func fetchUserInfo()
     {
         
         let newUser = User()
-        newUser.initWithCurrentUser()
-        
-        self.userNameText.text = newUser.name
-        self.userEmailText.text = newUser.email
-        self.userNumberText.text = newUser.phoneNumber
-        self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
-        
-        Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
-            if error != nil
-            {
-                print(error!)
-                return
-            }
+        newUser.initWithCurrentUser { () -> () in
+            self.userNameText.text = newUser.name
+            self.userEmailText.text = newUser.email
+            self.userNumberText.text = newUser.phoneNumber
+            self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
+            
+            Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+                if error != nil
+                {
+                    print(error!)
+                    return
+                }
                 
-            DispatchQueue.main.async {
-                self.userProImage.image = UIImage (data: data!)
-            }
-        })
+                DispatchQueue.main.async {
+                    self.userProImage.image = UIImage (data: data!)
+                }
+            })
+        }
     }
+    
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
     {
@@ -257,39 +256,51 @@ class ProfileViewController: UIViewController {
             }
             else
             {
-            let changeRequest = FIRAuth.auth()?.currentUser
-            changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
-                if error != nil
-                {
-                    print(error?.localizedDescription)
-                }
-                else
-                {
-                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
-                    changeRequest?.reauthenticate(with: credential, completion: {(error) in
-                        if ((error) != nil)
-                        {
-                            print(error!)
+                let changeRequest = FIRAuth.auth()?.currentUser
+                changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
+                    if error != nil
+                    {
+                        print(error?.localizedDescription)
+                    }
+                    else
+                    {
+                        let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
+                        changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                            if ((error) != nil)
+                            {
+                                print(error!)
+                                
+                            }
+                            else
+                            {
+                                self.secondAlert(message: "match")
+                                
+                            }
                             
-                        }
-                        else
-                        {
-                            self.secondAlert(message: "match")
-
-                        }
-            
-                    })
-                }
-            })
-
-            
-            
-        })
+                        })
+                    }
+                })
+            }
+        }))
         
         present(noti, animated: true, completion: nil)
-
+        
     }
     
-
+    func secondAlert(message : String)
+    {
+        if message == "Not match"
+        {
+            let alert = UIAlertController(title: "Not match", message: "New Password is not match to confirm password", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        else if message == "match"
+        {
+            let alert = UIAlertController(title: "Update Successful", message: "You have successfully update your password", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+    }
     
 }
