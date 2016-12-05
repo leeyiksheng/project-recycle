@@ -11,33 +11,24 @@ import FirebaseAuth
 
 class HomeViewController: UIViewController {
 
-    @IBOutlet weak var menuButton: UIButton!
-    @IBOutlet weak var recycleButton: UIButton!
     @IBOutlet weak var navigationMenuCollectionView: UICollectionView!
     
-    var delegate: HomeViewControllerDelegate?
+    @IBOutlet weak var contentView: UIView!
     
     var navigationMenuItemArray : [MenuPanelItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationMenuCollectionView.delegate = self
-        self.navigationMenuCollectionView.dataSource = self
+        navigationMenuCollectionView.delegate = self
+        navigationMenuCollectionView.dataSource = self
         
         generateNavigationMenuItems()
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    @IBAction func onRecycleButtonTouchUpInside(_ sender: UIButton) {
-        
-    }
-    
-    @IBAction func onMenuButtonTouchUpInside(_ sender: UIButton) {
-        delegate?.toggleMenuPanel()
     }
     
     func generateNavigationMenuItems() {
@@ -62,20 +53,27 @@ extension HomeViewController: UICollectionViewDelegate {
         case "Non-recyclable":
             print("Tapped Non-recyclable Button")
         case "Current Orders":
+            
+            let transitionToCurrentOrdersNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(transitionToCurrentOrdersNotification)
             print("Tapped Current Orders Button")
         case "Past Orders":
+            let transitionToCompletedOrdersNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(transitionToCompletedOrdersNotification)
             print("Tapped Past Orders Button")
         case "Profile":
+            let transitionToProfileNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToProfile"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(transitionToProfileNotification)
             print("Tapped Profile Button")
         case "Settings":
             print("Tapped Settings Button")
         case "Sign Out":
-            print("Tapped Sign Out Button")
             do {
                 try FIRAuth.auth()?.signOut()
             } catch let signOutError as NSError {
                 print ("Error signing out: %@", signOutError)
             }
+            print("Tapped Sign Out Button")
         default: break
         }
     }
@@ -96,7 +94,3 @@ extension HomeViewController: UICollectionViewDataSource {
     }
 }
 
-protocol HomeViewControllerDelegate {
-    func toggleMenuPanel()
-    func collapseSidePanels()
-}
