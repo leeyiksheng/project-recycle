@@ -29,9 +29,8 @@ class ProfileViewController: UIViewController {
         userProImage.clipsToBounds = true
 
         frDBref = FIRDatabase.database().reference()
+        
         fetchUserInfo()
-
-
     }
 
 
@@ -39,24 +38,24 @@ class ProfileViewController: UIViewController {
     {
 
         let newUser = User()
-        newUser.initWithCurrentUser()
-
-        self.userNameText.text = newUser.name
-        self.userEmailText.text = newUser.email
-        self.userNumberText.text = newUser.phoneNumber
-        self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
-
-        Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
-            if error != nil
-            {
-                print(error!)
-                return
-            }
-
-            DispatchQueue.main.async {
-                self.userProImage.image = UIImage (data: data!)
-            }
-        })
+        newUser.initWithCurrentUser { () -> () in
+            self.userNameText.text = newUser.name
+            self.userEmailText.text = newUser.email
+            self.userNumberText.text = newUser.phoneNumber
+            self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
+        
+            Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+                if error != nil
+                {
+                    print(error!)
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.userProImage.image = UIImage (data: data!)
+                }
+            })
+        }
     }
 
 

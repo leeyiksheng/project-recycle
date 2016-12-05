@@ -21,18 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         if FIRAuth.auth()?.currentUser != nil {
-
-    
-            window!.rootViewController = instantiateKelvinViewController()
-
-
-            // window!.rootViewController = instantiateDriverViewController()
-
             
-            //window!.rootViewController = instantiateHomeContainerViewController()
-            // window!.rootViewController = instantiateLoginViewController()
-            //window!.rootViewController = instantiateUserViewController()
-            
+            window!.rootViewController = instantiateHomeViewController()
+
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
                     return
@@ -52,7 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         window!.makeKeyAndVisible()
+        
         observeAuthNotification()
+        observeTransitionNotification()
         
         return true
     }
@@ -78,10 +71,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+}
+
+extension AppDelegate {
     func observeAuthNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleSignedInNotification(_:)), name: Notification.Name(rawValue: "SignedInNotification") , object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleSignedOutNotification(_:)), name: Notification.Name(rawValue: "SignedOutNotification") , object: nil)
+    }
+    
+    func observeTransitionNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToRecycleGeneralViewController), name: Notification.Name(rawValue: "UserTransitionToRecycleGeneral"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToProfileViewController), name: Notification.Name(rawValue: "UserTransitionToProfile"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCurrentOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
     }
     
     func handleSignedOutNotification(_ notification: Notification) {
@@ -91,13 +93,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func handleSignedInNotification(_ notification: Notification) {
-        window!.rootViewController = instantiateHomeContainerViewController()
+        window!.rootViewController = instantiateHomeViewController()
     }
     
-    func instantiateHomeContainerViewController() -> HomeContainerViewController {
+    func handleUserTransitionToRecycleGeneralViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateKelvinViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToProfileViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateUserViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToCurrentOrdersViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateCurrentOrdersViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToCompletedOrdersViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateCompletedOrdersViewController(), animated: true, completion: nil)
+    }
+}
+
+extension AppDelegate {
+    func instantiateHomeViewController() -> HomeViewController {
         let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let homeContainerViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeContainerView")
-        return homeContainerViewController as! HomeContainerViewController
+        let homeViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeView")
+        return homeViewController as! HomeViewController
     }
     
     func instantiateLoginViewController() -> LoginViewController {
@@ -117,9 +137,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
         return kelvinViewController as! RecycleGeneralViewController
     }
-        func instantiateUserViewController() -> ProfileViewController {
+    
+    func instantiateUserViewController() -> ProfileViewController {
         let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
         let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
         return userViewController as! ProfileViewController
+    }
+    
+    func instantiateCurrentOrdersViewController() -> CurrentOrdersViewController {
+        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
+        let currentOrdersViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Current Orders")
+        return currentOrdersViewController as! CurrentOrdersViewController
+    }
+    
+    func instantiateCompletedOrdersViewController() -> OrderHistoryViewController {
+        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
+        let orderHistoryViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order History")
+        return orderHistoryViewController as! OrderHistoryViewController
     }
 }

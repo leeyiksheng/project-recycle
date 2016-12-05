@@ -44,7 +44,7 @@ class User {
         self.formattedAddress = ""
     }
     
-    func initWithCurrentUser() {
+    func initWithCurrentUser(completion: @escaping (() -> ())) {
         guard let user = FIRAuth.auth()?.currentUser else {
             print("User not signed in.")
             return
@@ -60,9 +60,18 @@ class User {
             
             self.name = userRawDataDictionary["name"] as! String
             self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
-            self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
-            self.currentOrders = userRawDataDictionary["currentOrders"] as! [String]
-            self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
+            
+            if userRawDataDictionary["profileImage"] as? String != nil {
+                self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
+            }
+            
+            if userRawDataDictionary["currentOrders"] as? [String] != nil {
+                self.currentOrders = userRawDataDictionary["currentOrders"] as! [String]
+            }
+            
+            if userRawDataDictionary["completedOrders"] as? [String] != nil {
+                self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
+            }
             
             let addressDictionary = userRawDataDictionary["address"] as! [String: String]
             self.firstAddressLine = addressDictionary["firstLine"]!
@@ -79,10 +88,12 @@ class User {
             self.city = addressDictionary["city"]!
             self.state = addressDictionary["state"]!
             self.formattedAddress = addressDictionary["formattedAddress"]!
+            
+            completion()
         })
     }
     
-    func initWithUserUID(userUID: String) {
+    func initWithUserUID(userUID: String, completion: @escaping (() -> ())) {
         
         self.userUID = userUID
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
@@ -93,9 +104,18 @@ class User {
             self.email = userRawDataDictionary["email"] as! String
             self.name = userRawDataDictionary["name"] as! String
             self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
-            self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
-            self.currentOrders = userRawDataDictionary["currentOrders"] as! [String]
-            self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
+            
+            if userRawDataDictionary["profileImage"] as? String != nil {
+                self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
+            }
+            
+            if userRawDataDictionary["currentOrders"] as? [String] != nil {
+                self.currentOrders = userRawDataDictionary["currentOrders"] as! [String]
+            }
+            
+            if userRawDataDictionary["completedOrders"] as? [String] != nil {
+                self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
+            }
             
             let addressDictionary = userRawDataDictionary["address"] as! [String: String]
             self.firstAddressLine = addressDictionary["firstLine"]!
@@ -112,6 +132,8 @@ class User {
             self.city = addressDictionary["city"]!
             self.state = addressDictionary["state"]!
             self.formattedAddress = addressDictionary["formattedAddress"]!
+            
+            completion()
         })
     }
 }
