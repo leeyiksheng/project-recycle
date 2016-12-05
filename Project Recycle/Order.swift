@@ -30,7 +30,7 @@ class Order {
         self.estimatedWeight = 0.0
     }
     
-    func initWithOrderUIDAndOrderType(orderUID: String, type: String) {
+    func initWithOrderUIDAndOrderType(orderUID: String, type: String, completion: @escaping (() -> ())) {
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/\(type)/\(orderUID)")
         
         orderDatabaseReference.observe(FIRDataEventType.value, with: { (snapshot) in
@@ -49,6 +49,8 @@ class Order {
             self.orderCategories = rawOrderDataDictionary["orderCategories"] as! [String]
             self.estimatedPrice = rawOrderDataDictionary["estimatedPrice"] as! Double
             self.estimatedWeight = rawOrderDataDictionary["estimatedWeight"] as! Double
+            
+            completion()
         })
     }
     

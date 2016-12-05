@@ -27,7 +27,7 @@ class CompletedOrder: Order {
         super.init()
     }
     
-    func initWithOrderUID(orderUID: String) {
+    func initWithOrderUID(orderUID: String, completion: @escaping (() -> ())) {
         let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/completed/\(orderUID)")
         
         ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
@@ -52,6 +52,8 @@ class CompletedOrder: Order {
             self.actualPrice = rawCompletedOrdersDictionary["actualPrice"] as! Double
             
             print("ordersDatabaseRef data fetch for order \(orderUID) completed.")
+            
+            completion()
         })
     }
 }
