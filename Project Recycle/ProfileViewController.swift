@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
             DispatchQueue.main.async {
                 self.userProImage.image = UIImage (data: data!)
             }
-    
+        })
     }
     
     @IBAction func editNameButtPressed(_ sender: UIButton)
@@ -284,7 +284,7 @@ class ProfileViewController: UIViewController {
 
             
             
-        }))
+        })
         
         present(noti, animated: true, completion: nil)
 

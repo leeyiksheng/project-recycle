@@ -30,7 +30,6 @@
 		EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */; };
 		EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267721DEBD12400CC2C37 /* LoginViewController.swift */; };
 		EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267741DEBD13000CC2C37 /* SignupViewController.swift */; };
-		EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */; };
 		EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62677A1DEC018300CC2C37 /* MenuPanelViewController.swift */; };
 		EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB62677C1DEC01A400CC2C37 /* HomeContainerViewController.swift */; };
 		EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */; };
@@ -185,7 +184,6 @@
 			children = (
 				AF3706381DED2CBE00BF953F /* Driver.swift */,
 				EB6267861DED36B300CC2C37 /* MenuPanelItem.swift */,
-				EB80685C1DEFD816003FCB9B /* OrderItem.swift */,
 				A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */,
 				EB21B7181DF151DF00F65ECD /* CurrentOrder.swift */,
 				EB21B71A1DF151EA00F65ECD /* CompletedOrder.swift */,
@@ -363,11 +361,9 @@
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
 				EB62677B1DEC018300CC2C37 /* MenuPanelViewController.swift in Sources */,
 				A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */,
-				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
 				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
 				AFB177E11DEFCED900AB54F9 /* User.swift in Sources */,
-				EB6267791DEBD7C800CC2C37 /* HomeViewController.swift in Sources */,
 				EB21B71B1DF151EA00F65ECD /* CompletedOrder.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB62677D1DEC01A400CC2C37 /* HomeContainerViewController.swift in Sources */,
