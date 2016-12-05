@@ -5,7 +5,6 @@
 //  Created by Lee Yik Sheng on 01/12/2016.
 //  Copyright © 2016 Lee Yik Sheng. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import FirebaseAuth
@@ -47,14 +46,14 @@ class RecycleOrder {
         self.hasPaper = hasPaper
         self.hasPlastic = hasPlastic
         
-        fetchUserAddressFromDatabaseWith(databaseReference: userDatabaseReference, completion: { (address) in
-            receiverFormattedAddress = address
-        })
-        fetchUserContactFromDatabaseWith(databaseReference: userDatabaseReference, completion: { (contact) in
-            receiverContact = contact
-        })
-        fetchUserNameFromDatabaseWith(databaseReference: userDatabaseReference, completion: { (name) in
-            receiverName = name
+        fetchUserDataFromDatabaseWith(databaseReference: userDatabaseReference, completion: { (address, name, contact) in
+            self.receiverFormattedAddress = address
+            self.receiverName = name
+            self.receiverContact = contact
+            
+            let fetchingCompletionNotification = Notification(name: Notification.Name(rawValue: "UserDataFetchingCompletion"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(fetchingCompletionNotification)
+            
         })
         
         createOrderImagesWithMainRecycleCategories()
@@ -80,7 +79,7 @@ class RecycleOrder {
         })
     }
     
-    func submitOrderWithDefaults() {
+    func submitOrder() {
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
         let orderUID = orderDatabaseReference.childByAutoId().key
@@ -106,58 +105,17 @@ class RecycleOrder {
         userDatabaseReference.updateChildValues(userDatabaseUpdate)
     }
     
-    func submitOrderWithCustomOptions(customAddress: String, customContact: String, customName: String) {
-        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
-        let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
-        let orderUID = orderDatabaseReference.childByAutoId().key
-        
-        receiverFormattedAddress = customAddress
-        receiverName = customName
-        receiverContact = customContact
-        
-        let order = [
-            "formattedAddress": receiverFormattedAddress,
-            "orderCategories": [
-                "aluminium": hasAluminium,
-                "glass": hasGlass,
-                "paper": hasPaper,
-                "plastic": hasPlastic
-            ],
-            "orderCreatedOn": Date.timeIntervalSinceReferenceDate,
-            "receiverContact": receiverContact,
-            "receiverName": receiverName,
-            "userID": userUID
-            ] as [String : Any]
-        
-        let orderDatabaseUpdate = [orderUID: order]
-        let userDatabaseUpdate = ["processingOrders": orderUID]
-        
-        orderDatabaseReference.updateChildValues(orderDatabaseUpdate)
-        userDatabaseReference.updateChildValues(userDatabaseUpdate)
-    }
-    
-    private func fetchUserAddressFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: (_ address: String) -> ()) {
-        guard let userAddress = databaseReference.child("address").value(forKey: "formattedAddress") as? String else {
-            print("Error: User address not found on database. Please check whether you are online or the user UID is valid.")
-            return
-        }
-        completion(userAddress)
-    }
-    
-    private func fetchUserContactFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: (_ address: String) -> ()) {
-        guard let userContact = databaseReference.value(forKey: "phoneNumber") as? String else {
-            print("Error: User contact not found on database. Please check whether you are online or the user UID is valid.")
-            return
-        }
-        completion(userContact)
-    }
-    
-    private func fetchUserNameFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: (_ address: String) -> ()) {
-        guard let userName = databaseReference.value(forKey: "name") as? String else {
-            print("Error: User name not found on database. Please check whether you are online or the user UID is valid.")
-            return
-        }
-        completion(userName)
+    private func fetchUserDataFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ address: String,_ name: String,_ contact: String) -> ()) {
+        databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            let userDataDictionary = snapshot.value as! [String: AnyObject]
+            let addressDictionary = userDataDictionary["address"] as! [String: AnyObject]
+            
+            let formattedAddress = addressDictionary["formattedAddress"] as! String
+            let name = userDataDictionary["name"] as! String
+            let contact = userDataDictionary["phoneNumber"] as! String
+            
+            completion(formattedAddress, name, contact)
+        })
     }
     
     func createOrderImagesWithMainRecycleCategories() {

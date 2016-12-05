@@ -22,6 +22,7 @@ class CurrentOrdersViewController: UIViewController {
         currentOrdersTableView.delegate = self
         currentOrdersTableView.dataSource = self
         
+        generateCurrentOrders()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,20 +34,23 @@ class CurrentOrdersViewController: UIViewController {
         
     }
     
-    func generateCurrentOrders() -> [RecycleOrder] {
+    func generateCurrentOrders() {
         guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
-            return []
+            return
         }
         
         let userDatabaseRef = FIRDatabase.database().reference(withPath: "users/\(currentUserUID)")
-        let currentOrders : [String] = userDatabaseRef.value(forKey: "currentOrders") as! [String]
+        var currentOrders : [String] = []
         
-        for orderUID : String in currentOrders {
-            let order = CurrentRecycleOrder.init(currentOrderWithOrderUID: orderUID)
-            orderItemsArray.append(order)
-        }
-        
-        return []
+        userDatabaseRef.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            guard let userDataDictionary = snapshot.value as? [String: AnyObject] else { return }
+            currentOrders = userDataDictionary["currentOrders"] as! [String]
+            for orderUID : String in currentOrders {
+                let order = CurrentRecycleOrder.init(currentOrderWithOrderUID: orderUID)
+                self.orderItemsArray.append(order)
+            }
+            self.currentOrdersTableView.reloadData()
+        })
     }
 }
 
@@ -65,10 +69,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
         
-        
+        cell.timestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
+        cell.receiverNameLabel.text = "\(orderItemsArray[indexPath.row].receiverName)"
+        cell.receiverContactLabel.text = "\(orderItemsArray[indexPath.row].receiverContact)"
+        cell.receiverAddressLabel.text = "\(orderItemsArray[indexPath.row].receiverFormattedAddress)"
+        cell.driverNameLabel.text = "\(orderItemsArray[indexPath.row].assignedDriver.name)"
         
         return cell
     }

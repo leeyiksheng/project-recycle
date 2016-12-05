@@ -9,14 +9,15 @@
 import UIKit
 
 class CurrentOrderProcessedTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var priceTagLabel: UILabel!
-    @IBOutlet weak var orderImagesCollectionView: UICollectionView!
+    
     @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var orderAssignedDriverImageView: UIImageView!
-    @IBOutlet weak var orderAssignedDriverNameLabel: UILabel!
-    @IBOutlet weak var orderAssignedDriverProfileLabel: UILabel!
-    @IBOutlet weak var orderAssignedDriverNameBackgroundView: UIView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var receiverNameLabel: UILabel!
+    @IBOutlet weak var receiverContactLabel: UILabel!
+    @IBOutlet weak var receiverAddressLabel: UILabel!
+    @IBOutlet weak var driverProfileImage: UIImageView!
+    @IBOutlet weak var driverNameLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
