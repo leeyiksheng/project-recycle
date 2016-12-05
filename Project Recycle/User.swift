@@ -106,7 +106,7 @@ class User {
             self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
             
             if userRawDataDictionary["profileImage"] as? String != nil {
-                self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
+                self.profileImage = (userRawDataDictionary["profileImage"] as! String) //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
             }
             
             if userRawDataDictionary["currentOrders"] as? [String] != nil {
