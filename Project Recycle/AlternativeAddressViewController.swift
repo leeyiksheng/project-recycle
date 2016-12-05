@@ -34,6 +34,69 @@ class AlternativeAddressViewController: UIViewController {
     }()
     
     func handleNewAddress() {
+        var formattedAddress = ""
+        var contact = ""
+        var name = ""
+        
+        
+//        guard let name = receiverNameTextField.text else {return}
+//        guard let contact = phoneNoTextField.text else {return}
+        
+        if let contact = phoneNoTextField.text {
+            if contact != "" {
+                
+            }
+        }
+        
+        
+        if let add1 = alternativeAddress1TextField.text {
+            if add1 != "" {
+                formattedAddress = add1 + String(", ")
+            } else {
+                return
+            }
+        }
+        
+        if let add2 = alternativeAddress2TextField.text {
+            if add2 != "" {
+                formattedAddress =  formattedAddress + add2 + String(", ")
+            }
+        }
+        
+        if let add3 = alternativeAddress3TextField.text {
+            if add3 != "" {
+                formattedAddress =  formattedAddress + add3 + String(", ")
+            }
+        }
+        
+        if let postcode = postcodeTextField.text {
+            if postcode != "" {
+                formattedAddress =  formattedAddress + postcode + String(", ")
+            } else {
+                return
+            }
+        }
+        
+        if let city = cityTextField.text {
+            if city != "" {
+                formattedAddress =  formattedAddress + city + String(", ")
+            } else {
+                return
+            }
+        }
+        
+        if let state = stateTextField.text {
+            if state != "" {
+                formattedAddress =  formattedAddress + state
+            } else {
+                return
+            }
+        }
+        
+        
+        formattedAddress =  formattedAddress + String(", Malaysia.")
+        print(formattedAddress)
+        
         dismiss(animated: true, completion: nil)
     }
 

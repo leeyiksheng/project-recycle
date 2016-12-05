@@ -144,10 +144,11 @@ extension AppDelegate {
         return driverViewController as! DriverViewController
     }
     
-    func instantiateKelvinViewController() -> RecycleGeneralViewController {
+    func instantiateKelvinViewController() -> UINavigationController {
         let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
         let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
-        return kelvinViewController as! RecycleGeneralViewController
+        let navController = UINavigationController(rootViewController: kelvinViewController)
+        return navController
     }
     
     func instantiateUserViewController() -> ProfileViewController {

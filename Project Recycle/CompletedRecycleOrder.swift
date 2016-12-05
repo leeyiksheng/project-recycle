@@ -10,7 +10,7 @@ import Foundation
 import FirebaseDatabase
 import FirebaseAuth
 
-class CompletedOrder: Order {
+class CompletedRecycleOrder: RecycleOrder {
     var assignedDriver: Driver
     var processedTimestamp: TimeInterval
     var completionTimestamp: TimeInterval
@@ -26,20 +26,14 @@ class CompletedOrder: Order {
         
         super.init()
     }
-    
-    func initWithOrderUID(orderUID: String, completion: @escaping (() -> ())) {
-        let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/completed/\(orderUID)")
+
+    convenience init(withOrderUID: String, completion: @escaping (() -> ())) {
+        self.init()
+        
+        let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/completed/\(withOrderUID)")
         
         ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
             guard let rawCompletedOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
-            
-            self.customerAddressDictionary = rawCompletedOrdersDictionary["address"] as! [String: String]
-            self.customerFormattedAddress = self.customerAddressDictionary["formattedAddress"]!
-            
-            self.estimatedPrice = rawCompletedOrdersDictionary["estimatedPrice"] as! Double
-            self.estimatedWeight = rawCompletedOrdersDictionary["estimatedWeight"] as! Double
-            
-            self.orderCategories = rawCompletedOrdersDictionary["orderCategories"] as! [String]
             
             self.creationTimestamp = rawCompletedOrdersDictionary["orderCreatedOn"] as! TimeInterval
             self.processedTimestamp = rawCompletedOrdersDictionary["orderProcessedOn"] as! TimeInterval
@@ -51,8 +45,8 @@ class CompletedOrder: Order {
             self.actualWeight = rawCompletedOrdersDictionary["actualWeight"] as! Double
             self.actualPrice = rawCompletedOrdersDictionary["actualPrice"] as! Double
             
-            print("ordersDatabaseRef data fetch for order \(orderUID) completed.")
-            
+
+            print("ordersDatabaseRef data fetch for order \(withOrderUID) completed.")
             completion()
         })
     }

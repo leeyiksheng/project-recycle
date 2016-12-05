@@ -14,7 +14,7 @@ class CurrentOrdersViewController: UIViewController {
     
     @IBOutlet weak var currentOrdersTableView: UITableView!
     
-    var orderItemsArray: [Order] = []
+    var orderItemsArray: [CurrentRecycleOrder] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class CurrentOrdersViewController: UIViewController {
         
     }
     
-    func generateCurrentOrders() -> [Order] {
+    func generateCurrentOrders() -> [RecycleOrder] {
         guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
             return []
         }
@@ -42,7 +42,9 @@ class CurrentOrdersViewController: UIViewController {
         let currentOrders : [String] = userDatabaseRef.value(forKey: "currentOrders") as! [String]
         
         for orderUID : String in currentOrders {
-            
+            CurrentRecycleOrder.init(withOrderUID: orderUID, completion: { (currentOrder) -> () in
+                self.orderItemsArray.append(currentOrder)
+            })
         }
         
         return []
