@@ -21,7 +21,7 @@ class CurrentOrder: Order {
         super.init()
     }
     
-    func initWithOrderUID(orderUID: String) {
+    func initWithOrderUID(orderUID: String, completion: @escaping (() -> ())) {
         let ordersDatabaseRef = FIRDatabase.database().reference(withPath: "orders/recycle-main/current/\(orderUID)")
         ordersDatabaseRef.observe(FIRDataEventType.value, with: { (snapshot) in
             guard let rawCurrentOrdersDictionary = snapshot.value as? [String: AnyObject] else { return }
@@ -39,6 +39,8 @@ class CurrentOrder: Order {
             self.assignedDriver.initWithDriverUID(driverUID: driverUID)
             
             print("ordersDatabaseRef data fetch for order \(orderUID) completed.")
+            
+            completion()
         })
     }
 }
