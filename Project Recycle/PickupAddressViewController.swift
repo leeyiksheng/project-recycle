@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-class PickupAddressViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, createANewAddressDelegate {
+class PickupAddressViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var pickUpAddressLabel: UILabel!{
         didSet{
             pickUpAddressLabel.font = UIFont.boldSystemFont(ofSize: 18)
@@ -21,8 +23,13 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     var selectedRow: Int?
-    var newOrder = RecycleOrder()
+    var categoriesChoosed = CategoriesChosen()
     var OrderList = [RecycleOrder]()
+    var ref: FIRDatabaseReference!
+    var addressUID = "addressUniqueId"
+    var currentUser = ""
+    
+
 
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
@@ -40,6 +47,12 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         
         guard let index = self.selectedRow else {return}
         let orderToSubmit = OrderList[index]
+        orderToSubmit.userUID = self.currentUser
+        orderToSubmit.hasGlass = self.categoriesChoosed.hasGlass
+        orderToSubmit.hasPaper = self.categoriesChoosed.hasPaper
+        orderToSubmit.hasPlastic = self.categoriesChoosed.hasPlastic
+        orderToSubmit.hasAluminium = self.categoriesChoosed.hasAluminium
+
         orderToSubmit.submitOrder()
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
     }
@@ -48,7 +61,11 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.OrderList.append(newOrder)
+        ref = FIRDatabase.database().reference()
+        guard let thisUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        self.currentUser = thisUser
+        self.OrderList = []
+        fetchAddressesID()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addAddress"), style: .plain, target: self, action: #selector(handleAddAddress))
         navigationItem.title = "Pick Up Address"
@@ -64,10 +81,45 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        pickUpAddressTableView.reloadData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.pickUpAddressTableView.reloadData()
+    }
+    
+
+    func fetchAddressesID() {
+        ref.child("users").child(self.currentUser).child("addressID").observe(.value, with: {(snapshot) in
+            if let dictionary = snapshot.value as? [String] {
+                print(dictionary)
+                
+                for values in dictionary {
+                    self.fetchAddresses(addressIDs: values)
+                }
+            }
+            
+            }, withCancel: nil)
+    }
+    
+    func fetchAddresses(addressIDs: (String)) {
+        ref.child("addresses").child(addressIDs).observe(.value, with: {(snapshot) in
+            
+            if let dictionary = snapshot.value as? [String:String] {
+                let recycleObject = RecycleOrder()
+                recycleObject.receiverName = (dictionary["receiverName"] as! String?)!
+                recycleObject.receiverContact = (dictionary["receiverContact"] as! String?)!
+                recycleObject.receiverFormattedAddress = (dictionary["formattedAddress"] as! String?)!
+            
+            self.OrderList.append(recycleObject)
+            DispatchQueue.main.async(execute: {
+                self.pickUpAddressTableView.reloadData()
+            })
+                
+            }
+            
+            }, withCancel: nil)
+    }
+    
     
     func observeCompletionNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserDataFetchingCompletion), name: Notification.Name(rawValue: "UserDataFetchingCompletion"), object: nil)
@@ -78,10 +130,10 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     
-    func createNewAddress(newAddress: RecycleOrder) {
-        self.OrderList.append(newAddress)
-        pickUpAddressTableView.reloadData()
-    }
+//    func createNewAddress(newAddress: RecycleOrder) {
+//        self.OrderList.append(newAddress)
+  //      pickUpAddressTableView.reloadData()
+    //}
     
     
     func handleBack() {
@@ -90,7 +142,6 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     
     func handleAddAddress() {
         let nextController = AlternativeAddressViewController()
-        nextController.delegate = self
         let navController = UINavigationController(rootViewController: nextController)
         self.present(navController, animated: true, completion: nil)
     }
@@ -125,7 +176,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     }
    
     
-    // TableView Data Source
+    // TableView Delegates
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250
@@ -136,6 +187,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         self.selectedRow = indexPath.row
         print(44)
     }
+    
     
   
     

@@ -31,10 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             //window!.rootViewController = instantiateHomeContainerViewController()
             // window!.rootViewController = instantiateLoginViewController()
-            window!.rootViewController = instantiateUserViewController()
+            //window!.rootViewController = instantiateUserViewController()
 
             
-//            window!.rootViewController = instantiateHomeViewController()
+            window!.rootViewController = instantiateHomeViewController()
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
