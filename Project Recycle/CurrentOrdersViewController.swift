@@ -71,7 +71,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "currentProcessedOrderCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
         
-        cell.timestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
+        cell.creationTimestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
         cell.receiverNameLabel.text = "\(orderItemsArray[indexPath.row].receiverName)"
         cell.receiverContactLabel.text = "\(orderItemsArray[indexPath.row].receiverContact)"
         cell.receiverAddressLabel.text = "\(orderItemsArray[indexPath.row].receiverFormattedAddress)"

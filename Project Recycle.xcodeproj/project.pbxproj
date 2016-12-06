@@ -43,6 +43,8 @@
 		EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */; };
 		EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */; };
 		EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */; };
+		EBA7EE571DF6678A00515EE1 /* OrderProcessorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */; };
+		EBA7EE591DF66A8200515EE1 /* ProcessorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */; };
 		EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */; };
 		EBE2BA4A1DF1A948007C4766 /* MainRecycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */; };
 		EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */; };
@@ -90,6 +92,8 @@
 		EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessedTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068601DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessingTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrderTableViewCell.swift; sourceTree = "<group>"; };
+		EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderProcessorViewController.swift; sourceTree = "<group>"; };
+		EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProcessorTableViewCell.swift; sourceTree = "<group>"; };
 		EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRecycleViewController.swift; sourceTree = "<group>"; };
 		EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -176,6 +180,7 @@
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
+				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
+				EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
+				EBA7EE571DF6678A00515EE1 /* OrderProcessorViewController.swift in Sources */,
 				A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */,
 				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
 				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
@@ -380,6 +387,7 @@
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */,
+				EBA7EE591DF66A8200515EE1 /* ProcessorTableViewCell.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,

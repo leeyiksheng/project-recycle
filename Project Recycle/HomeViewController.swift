@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
     }
     
     func generateNavigationMenuItems() {
-        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out")]
+        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out"), createMenuPanelItem(imageName: "errorIcon", itemName: "Processor")]
         self.navigationMenuCollectionView.reloadData()
     }
     
@@ -74,6 +74,10 @@ extension HomeViewController: UICollectionViewDelegate {
                 print ("Error signing out: %@", signOutError)
             }
             print("Tapped Sign Out Button")
+        case "Processor":
+            let transitionToOrderProcessorNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(transitionToOrderProcessorNotification)
+            print("Tapped Processor Button")
         default: break
         }
     }

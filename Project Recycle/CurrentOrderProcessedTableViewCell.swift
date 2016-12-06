@@ -10,13 +10,13 @@ import UIKit
 
 class CurrentOrderProcessedTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var timestampLabel: UILabel!
-    @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var creationTimestampLabel: UILabel!
+    @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var receiverNameLabel: UILabel!
-    @IBOutlet weak var receiverContactLabel: UILabel!
     @IBOutlet weak var receiverAddressLabel: UILabel!
-    @IBOutlet weak var driverProfileImage: UIImageView!
+    @IBOutlet weak var receiverContactLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     
     
     override func awakeFromNib() {

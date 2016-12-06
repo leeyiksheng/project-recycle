@@ -22,19 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         if FIRAuth.auth()?.currentUser != nil {
 
-    
-//            window!.rootViewController = instantiateKelvinViewController()
-
-
-            // window!.rootViewController = instantiateDriverViewController()
-
-            
-            //window!.rootViewController = instantiateHomeContainerViewController()
-            // window!.rootViewController = instantiateLoginViewController()
             window!.rootViewController = instantiateUserViewController()
-
-            
-//            window!.rootViewController = instantiateHomeViewController()
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -96,6 +84,7 @@ extension AppDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToProfileViewController), name: Notification.Name(rawValue: "UserTransitionToProfile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCurrentOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToOrderProcessorViewController), name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil)
     }
     
 
@@ -124,6 +113,10 @@ extension AppDelegate {
     
     func handleUserTransitionToCompletedOrdersViewController(_ notification: Notification) {
         window!.rootViewController?.present(instantiateCompletedOrdersViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToOrderProcessorViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateOrderProcessorViewController(), animated: true, completion: nil)
     }
 }
 
@@ -169,5 +162,11 @@ extension AppDelegate {
         let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
         let orderHistoryViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order History")
         return orderHistoryViewController as! OrderHistoryViewController
+    }
+    
+    func instantiateOrderProcessorViewController() -> OrderProcessorViewController {
+        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
+        let orderProcessorViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order Processor")
+        return orderProcessorViewController as! OrderProcessorViewController
     }
 }
