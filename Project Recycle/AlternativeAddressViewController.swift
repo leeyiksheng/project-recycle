@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-protocol createANewAddressDelegate {
-    func createNewAddress(newAddress: RecycleOrder)
-}
+//protocol createANewAddressDelegate {
+//    func createNewAddress(newAddress: RecycleOrder)
+//}
 
 class AlternativeAddressViewController: UIViewController {
 
@@ -41,11 +43,6 @@ class AlternativeAddressViewController: UIViewController {
         var formattedAddress = ""
         var contact = ""
         var name = ""
-        
-        
-        
-//        guard let name = receiverNameTextField.text else {return}
-//        guard let contact = phoneNoTextField.text else {return}
         
         if let receiverName = receiverNameTextField.text {
             if receiverName != "" {
@@ -112,15 +109,46 @@ class AlternativeAddressViewController: UIViewController {
         formattedAddress =  formattedAddress + String(", Malaysia.")
         print(formattedAddress)
         
-        self.newOrder.receiverFormattedAddress = formattedAddress
-        self.newOrder.receiverContact = contact
-        self.newOrder.receiverName = name
         
-        delegate?.createNewAddress(newAddress: self.newOrder)
+        self.submitAddress(formattedAddress: formattedAddress, name: contact, contact: name)
         
         dismiss(animated: true, completion: nil)
     }
 
+    func submitAddress(formattedAddress: (String), name: (String), contact: (String)) {
+        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
+        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses")
+        let addressUID = addressDatabaseReference.childByAutoId().key
+        let address = [
+            "formattedAddress": formattedAddress,
+            "receiverContact": contact,
+            "receiverName": name,
+            "userID": userUID
+            ] as [String : Any]
+        let userAddressUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)/addressID")
+        
+        fetchUserOrderUIDsFromDatabaseWith(databaseReference: userAddressUIDDatabaseReference, completion: { (uidArray) in
+            var addressUIDArray = uidArray
+            addressUIDArray.append(addressUID)
+            
+            let addressDatabaseUpdate = [addressUID: address]
+            let userDatabaseUpdate = ["addressID": addressUIDArray]
+            addressDatabaseReference.updateChildValues(addressDatabaseUpdate)
+            userDatabaseReference.updateChildValues(userDatabaseUpdate)
+        })
+    }
+    
+    private func fetchUserOrderUIDsFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ uidArray: [String]) -> ()) {
+        databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            guard let addressUIDArray = snapshot.value as? [String] else {
+                let addressUIDArray : [String] = []
+                completion(addressUIDArray)
+                return
+            }
+            completion(addressUIDArray)
+        })
+    }
+    
     
     
     let receiverNameTextField : UITextField = {
@@ -237,13 +265,14 @@ class AlternativeAddressViewController: UIViewController {
     var navigationBarHeight: CGFloat = 0
     let spaceBetweenLabel: CGFloat = 18
     let spaceBetweenTextField: CGFloat = 4
-    var delegate: createANewAddressDelegate?
-    var newOrder = RecycleOrder()
+    var userUID = ""
     
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        self.userUID = currentUser
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.title = "New Address"
         navigationBarHeight = self.navigationController!.navigationBar.frame.height

@@ -165,11 +165,9 @@ class RecycleGeneralViewController: UIViewController {
         let nextController = self.storyboard?.instantiateViewController(withIdentifier: "PickupAddressViewController") as! PickupAddressViewController
 //        let nextController = AlternativeAddressViewController()
         
-        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        let order = CategoriesChosen.init(hasAluminium: self.aluminiumButtonTapped, hasGlass: self.glassButtonTapped, hasPaper: self.paperButtonTapped, hasPlastic: self.plasticButtonTapped)
         
-        let order = RecycleOrder.init(orderWithUserUID: currentUser, hasAluminium: self.aluminiumButtonTapped, hasGlass: self.glassButtonTapped, hasPaper: self.paperButtonTapped, hasPlastic: self.plasticButtonTapped)
-        
-        nextController.newOrder = order
+        nextController.categoriesChoosed = order
         
         
         let navController = UINavigationController(rootViewController: nextController)
