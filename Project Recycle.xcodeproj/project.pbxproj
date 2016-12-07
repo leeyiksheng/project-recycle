@@ -16,6 +16,7 @@
 		A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */; };
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
+		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
@@ -62,6 +63,7 @@
 		A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressViewController.swift; sourceTree = "<group>"; };
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
+		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				EB80685C1DEFD816003FCB9B /* RecycleOrder.swift */,
 				AFB177E01DEFCED900AB54F9 /* User.swift */,
 				A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */,
+				A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
+				A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */,

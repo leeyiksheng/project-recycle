@@ -10,9 +10,6 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-//protocol createANewAddressDelegate {
-//    func createNewAddress(newAddress: RecycleOrder)
-//}
 
 class AlternativeAddressViewController: UIViewController {
 
@@ -110,47 +107,13 @@ class AlternativeAddressViewController: UIViewController {
         print(formattedAddress)
         
         
-        self.submitAddress(formattedAddress: formattedAddress, name: contact, contact: name)
+        let newAddress = NewAddresses.init(UID: self.userUID, address: formattedAddress, receiverName: name, receiverContact: contact)
+        
+        newAddress.submitAddress()
         
         dismiss(animated: true, completion: nil)
     }
 
-    func submitAddress(formattedAddress: (String), name: (String), contact: (String)) {
-        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
-        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses")
-        let addressUID = addressDatabaseReference.childByAutoId().key
-        let address = [
-            "formattedAddress": formattedAddress,
-            "receiverContact": contact,
-            "receiverName": name,
-            "userID": userUID
-            ] as [String : Any]
-        let userAddressUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)/addressID")
-        
-        fetchUserOrderUIDsFromDatabaseWith(databaseReference: userAddressUIDDatabaseReference, completion: { (uidArray) in
-            var addressUIDArray = uidArray
-            addressUIDArray.append(addressUID)
-            
-            let addressDatabaseUpdate = [addressUID: address]
-            let userDatabaseUpdate = ["addressID": addressUIDArray]
-            addressDatabaseReference.updateChildValues(addressDatabaseUpdate)
-            userDatabaseReference.updateChildValues(userDatabaseUpdate)
-        })
-    }
-    
-    private func fetchUserOrderUIDsFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ uidArray: [String]) -> ()) {
-        databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            guard let addressUIDArray = snapshot.value as? [String] else {
-                let addressUIDArray : [String] = []
-                completion(addressUIDArray)
-                return
-            }
-            completion(addressUIDArray)
-        })
-    }
-    
-    
-    
     let receiverNameTextField : UITextField = {
         let tf = UITextField()
         tf.placeholder = "  Full Name"
@@ -266,7 +229,6 @@ class AlternativeAddressViewController: UIViewController {
     let spaceBetweenLabel: CGFloat = 18
     let spaceBetweenTextField: CGFloat = 4
     var userUID = ""
-    
 
     
     override func viewDidLoad() {
