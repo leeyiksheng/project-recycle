@@ -20,6 +20,9 @@
 		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
 		AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3DF0311DEEA9D2006A399C /* Profile.storyboard */; };
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
+		AF5787771DF67A4900D44084 /* GuidePack.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF5787761DF67A4900D44084 /* GuidePack.storyboard */; };
+		AF5787791DF67C2E00D44084 /* GuideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5787781DF67C2E00D44084 /* GuideViewController.swift */; };
+		AF57877B1DF6943F00D44084 /* GuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */; };
 		AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */; };
 		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */; };
@@ -65,6 +68,9 @@
 		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
 		AF3DF0311DEEA9D2006A399C /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		AF5787761DF67A4900D44084 /* GuidePack.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GuidePack.storyboard; sourceTree = "<group>"; };
+		AF5787781DF67C2E00D44084 /* GuideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideViewController.swift; sourceTree = "<group>"; };
+		AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideTableViewCell.swift; sourceTree = "<group>"; };
 		AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageLibraryViewController.swift; sourceTree = "<group>"; };
 		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -128,6 +134,7 @@
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
 				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
+				AF5787761DF67A4900D44084 /* GuidePack.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
 				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
+				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +220,7 @@
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
 				EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */,
+				AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -303,6 +312,7 @@
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
+				AF5787771DF67A4900D44084 /* GuidePack.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +377,7 @@
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
+				AF57877B1DF6943F00D44084 /* GuideTableViewCell.swift in Sources */,
 				EBA7EE571DF6678A00515EE1 /* OrderProcessorViewController.swift in Sources */,
 				A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */,
 				A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */,
@@ -378,6 +389,7 @@
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
 				AF3706391DED2CBE00BF953F /* Driver.swift in Sources */,
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
+				AF5787791DF67C2E00D44084 /* GuideViewController.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */,

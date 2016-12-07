@@ -7,6 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
-class GeneralRecylables {
+struct GeneralRecylables
+{
+    let category : String
+    let materialName: String
+    let matImage : UIImage
+
 }
