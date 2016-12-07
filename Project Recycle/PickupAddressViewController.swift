@@ -52,12 +52,8 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         return thisUser
     }()
     
-    let activityIndicator : UIActivityIndicatorView = {
-        let aIndic = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
-        aIndic.hidesWhenStopped = true
-        return aIndic
-    }()
-    
+   
+    let myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
     var selectedRow: Int?
     var categoriesChoosed = CategoriesChosen()
     var OrderList = [NewAddresses]()
@@ -74,13 +70,17 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         navigationItem.title = "Select Pick Up Address"
         view.backgroundColor = UIColor.viewLightGray
         view.addSubview(confirmButton)
-        view.addSubview(activityIndicator)
-        fetchAddressesID()
         
         self.pickUpAddressTableView.delegate = self
         self.pickUpAddressTableView.dataSource = self
         setupConfirmButton()
-        setupActivityIndicator()
+        fetchAddressesID()
+        
+        
+        myActivityIndicator.center = view.center
+        myActivityIndicator.startAnimating()
+        view.addSubview(myActivityIndicator)
+
 
     }
     
@@ -118,7 +118,10 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     func fetchAddresses(addressIDs: (String)) {
         ref.child("addresses").child(addressIDs).observe(.value, with: {(snapshot) in
             
-            self.activityIndicator.startAnimating()
+            DispatchQueue.main.async(execute: {
+                self.myActivityIndicator.startAnimating()
+            })
+            
             if let dictionary = snapshot.value as? [String:AnyObject] {
                 
                 let name = (dictionary["receiverName"] as! String?)!
@@ -128,9 +131,10 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
                 recycleObject.addressID = addressIDs
             
             self.OrderList.append(recycleObject)
+                
             DispatchQueue.main.async(execute: {
-                self.activityIndicator.stopAnimating()
                 self.pickUpAddressTableView.reloadData()
+                self.myActivityIndicator.stopAnimating()
             })
                 
             }
@@ -146,11 +150,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
     }
 
-    func setupActivityIndicator() {
-        activityIndicator.centerXAnchor.constraint(equalTo: pickUpAddressTableView.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: pickUpAddressTableView.centerYAnchor).isActive = true
-    }
-    
+  
     //MARK: -> TableView Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

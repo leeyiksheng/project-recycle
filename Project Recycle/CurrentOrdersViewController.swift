@@ -112,7 +112,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if orderItemsArray[indexPath.row] is RecycleOrder {
             let cell = tableView.dequeueReusableCell(withIdentifier: "processingCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
-            
+
             cell.creationTimestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
             cell.receiverNameLabel.text = orderItemsArray[indexPath.row].receiverName
             cell.receiverContactLabel.text = orderItemsArray[indexPath.row].receiverContact
@@ -122,9 +122,10 @@ extension CurrentOrdersViewController: UITableViewDataSource {
             for image: UIImage in orderItemsArray[indexPath.row].orderImages {
                 cell.iconArray.append(image)
             }
-            
+
+        
             cell.imageCollectionView.reloadData()
-            
+        
             return cell
         } else if orderItemsArray[indexPath.row] is CurrentRecycleOrder {
             let cell = tableView.dequeueReusableCell(withIdentifier: "processedCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
