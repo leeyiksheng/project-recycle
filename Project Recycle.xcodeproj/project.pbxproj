@@ -22,6 +22,9 @@
 		AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3DF0331DEEAA1B006A399C /* ProfileViewController.swift */; };
 		AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */; };
 		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
+		EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */; };
+		EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */; };
+		EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
@@ -68,6 +71,9 @@
 		AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageLibraryViewController.swift; sourceTree = "<group>"; };
 		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
+		EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderProcessorSubmissionViewController.swift; sourceTree = "<group>"; };
+		EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverTableViewCell.swift; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentRecycleOrder.swift; sourceTree = "<group>"; };
 		EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedRecycleOrder.swift; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -176,11 +182,12 @@
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
 				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
 				A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */,
-				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
+				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
+				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -212,6 +219,8 @@
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
 				EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */,
+				EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */,
+				EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -361,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */,
 				AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */,
 				EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */,
 				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
@@ -385,6 +395,7 @@
 				EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */,
 				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
+				EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */,
 				EBA7EE591DF66A8200515EE1 /* ProcessorTableViewCell.swift in Sources */,
@@ -393,6 +404,7 @@
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
 				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
+				EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
