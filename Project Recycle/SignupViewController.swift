@@ -72,8 +72,9 @@ class SignupViewController: UIViewController {
                                 "email": self.emailTextField.text!,
                                 "name": self.nameTextField.text!,
                                 "phoneNumber": self.phoneNumberTextField.text!,
-                                "currentOrders": "",
-                                "completedOrders": "",
+                                "currentOrders": [],
+                                "completedOrders": [],
+                                "processingOrders": [],
                                 "profileImage": ""] as [String : Any]
                 
                 self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
@@ -81,8 +82,6 @@ class SignupViewController: UIViewController {
                 let userUID : String? = FIRAuth.auth()?.currentUser?.uid
                 let childUpdate = ["\(userUID!)/": userData]
                 self.usersFRDBRef.updateChildValues(childUpdate)
-                
-                
             }
         }
     }

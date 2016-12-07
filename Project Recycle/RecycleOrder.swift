@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+
 class RecycleOrder {
     var creationTimestamp: TimeInterval
     var receiverFormattedAddress: String
@@ -21,6 +22,7 @@ class RecycleOrder {
     var receiverContact: String
     var userUID: String
     var orderUID: String
+
     init() {
         self.creationTimestamp = 0
         self.receiverFormattedAddress = ""
@@ -34,6 +36,7 @@ class RecycleOrder {
         self.userUID = ""
         self.orderUID = ""
     }
+
     convenience init(orderWithUserUID userUID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
         self.init()
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
@@ -51,47 +54,52 @@ class RecycleOrder {
         })
         createOrderImagesWithMainRecycleCategories()
     }
+
     convenience init(orderWithOrderUID orderUID: String) {
         self.init()
         fetchOrderDataFromDatabaseWith(orderUID: orderUID, completion: { (rawOrderDataDictionary) -> () in
             self.userUID = rawOrderDataDictionary["userID"] as! String
+            self.orderUID = rawOrderDataDictionary["orderID"] as! String
             self.receiverFormattedAddress = rawOrderDataDictionary["formattedAddress"] as! String
             self.receiverName = rawOrderDataDictionary["receiverName"] as! String
             self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
-            
+
             let categoryDictionary = rawOrderDataDictionary["orderCategories"] as! [String: Bool]
-            
+
             if categoryDictionary["aluminium"]! {
                 self.hasAluminium = true
             }
-            
+
             if categoryDictionary["glass"]! {
                 self.hasGlass = true
             }
-            
+
             if categoryDictionary["paper"]! {
                 self.hasPaper = true
             }
-            
+
             if categoryDictionary["plastic"]! {
                 self.hasPlastic = true
             }
-            
+
             self.createOrderImagesWithMainRecycleCategories()
-            
+
             self.creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as! TimeInterval
+
+            let dataFetchCompletionNotification = Notification(name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(dataFetchCompletionNotification)
         })
     }
-    
+
     func fetchOrderDataFromDatabaseWith(orderUID: String, completion: @escaping (_ rawDataDictionary: [String: AnyObject]) -> ()) {
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(orderUID)")
-        
+
         orderDatabaseReference.observe(FIRDataEventType.value, with: { (snapshot) in
             guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
                 print("Error: Database snapshot was empty, check whether order ID is valid.")
                 return
             }
-            
+
             completion(rawOrderDataDictionary)
         })
     }
@@ -99,8 +107,9 @@ class RecycleOrder {
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
         let orderUID = orderDatabaseReference.childByAutoId().key
-        
+
         self.orderUID = orderUID
+
         let order = [
             "formattedAddress": receiverFormattedAddress,
             "orderCategories": [
@@ -115,19 +124,20 @@ class RecycleOrder {
             "userID": userUID,
             "orderID": orderUID
             ] as [String : Any]
+            
         let userOrderUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)/processingOrders")
-        
+
         fetchUserOrderUIDsFromDatabaseWith(databaseReference: userOrderUIDDatabaseReference, completion: { (uidArray) in
             var orderUIDArray = uidArray
             orderUIDArray.append(orderUID)
-            
+
             let orderDatabaseUpdate = [orderUID: order]
             let userDatabaseUpdate = ["processingOrders": orderUIDArray]
             orderDatabaseReference.updateChildValues(orderDatabaseUpdate)
             userDatabaseReference.updateChildValues(userDatabaseUpdate)
         })
     }
-    
+
     private func fetchUserOrderUIDsFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ uidArray: [String]) -> ()) {
         databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
             guard let orderUIDArray = snapshot.value as? [String] else {

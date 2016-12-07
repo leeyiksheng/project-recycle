@@ -53,7 +53,6 @@ extension HomeViewController: UICollectionViewDelegate {
         case "Non-recyclable":
             print("Tapped Non-recyclable Button")
         case "Current Orders":
-            
             let transitionToCurrentOrdersNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil, userInfo: nil)
             NotificationCenter.default.post(transitionToCurrentOrdersNotification)
             print("Tapped Current Orders Button")

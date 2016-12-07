@@ -34,13 +34,14 @@ class CompletedRecycleOrder: RecycleOrder {
             self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as! TimeInterval
 
             let driverUID = rawOrderDataDictionary["assignedDriver"] as! String
-            self.assignedDriver.initWithDriverUID(driverUID: driverUID)
+            self.assignedDriver = Driver.init(driverUID: driverUID)
 
             self.receiverName = rawOrderDataDictionary["receiverName"] as! String
             self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
             self.receiverFormattedAddress = rawOrderDataDictionary["receiverFormattedAddress"] as! String
             
             self.userUID = rawOrderDataDictionary["userID"] as! String
+            self.orderUID = rawOrderDataDictionary["orderID"] as! String
 
             print("ordersDatabaseRef data fetch for order \(withOrderUID) completed.")
         })
