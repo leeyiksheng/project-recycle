@@ -31,7 +31,7 @@ class CurrentRecycleOrder: RecycleOrder {
             self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as! TimeInterval
             
             let driverUID = rawOrderDataDictionary["assignedDriver"] as! String
-            self.assignedDriver.initWithDriverUID(driverUID: driverUID)
+            self.assignedDriver = Driver.init(driverUID: driverUID)
             
             let orderCategories = rawOrderDataDictionary["orderCategories"] as! [String: Bool]
             self.populateRecycleMaterialsBooleanChecks(categories: orderCategories)
@@ -41,6 +41,8 @@ class CurrentRecycleOrder: RecycleOrder {
             self.receiverName = rawOrderDataDictionary["receiverName"] as! String
             self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
             self.receiverFormattedAddress = rawOrderDataDictionary["receiverFormattedAddress"] as! String
+            
+            self.orderUID = rawOrderDataDictionary["orderID"] as! String
             
             self.userUID = rawOrderDataDictionary["userID"] as! String
         })

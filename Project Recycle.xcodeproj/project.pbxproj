@@ -15,6 +15,8 @@
 		A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */; };
 		A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */; };
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
+		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
+		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
@@ -25,6 +27,9 @@
 		AF57877B1DF6943F00D44084 /* GuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */; };
 		AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */; };
 		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
+		EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */; };
+		EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */; };
+		EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
@@ -63,6 +68,8 @@
 		A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
 		A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressViewController.swift; sourceTree = "<group>"; };
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
+		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
+		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
@@ -74,6 +81,9 @@
 		AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageLibraryViewController.swift; sourceTree = "<group>"; };
 		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
+		EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
+		EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderProcessorSubmissionViewController.swift; sourceTree = "<group>"; };
+		EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverTableViewCell.swift; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentRecycleOrder.swift; sourceTree = "<group>"; };
 		EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedRecycleOrder.swift; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -183,12 +193,16 @@
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
 				A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */,
 				A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */,
-				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
+				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
+
 				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
+
+				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
+
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -203,6 +217,8 @@
 				EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */,
 				EB80685C1DEFD816003FCB9B /* RecycleOrder.swift */,
 				AFB177E01DEFCED900AB54F9 /* User.swift */,
+				A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */,
+				A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -220,7 +236,12 @@
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
 				EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */,
+
 				AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */,
+
+				EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */,
+				EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */,
+
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -371,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */,
 				AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */,
 				EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */,
 				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
@@ -392,19 +414,23 @@
 				AF5787791DF67C2E00D44084 /* GuideViewController.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
+				A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */,
 				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
+				EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */,
 				EBA7EE591DF66A8200515EE1 /* ProcessorTableViewCell.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
 				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
+				A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
 				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,
 				EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */,
+				EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

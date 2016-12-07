@@ -7,10 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
-protocol createANewAddressDelegate {
-    func createNewAddress(newAddress: RecycleOrder)
-}
 
 class AlternativeAddressViewController: UIViewController {
 
@@ -41,11 +40,6 @@ class AlternativeAddressViewController: UIViewController {
         var formattedAddress = ""
         var contact = ""
         var name = ""
-        
-        
-        
-//        guard let name = receiverNameTextField.text else {return}
-//        guard let contact = phoneNoTextField.text else {return}
         
         if let receiverName = receiverNameTextField.text {
             if receiverName != "" {
@@ -112,17 +106,14 @@ class AlternativeAddressViewController: UIViewController {
         formattedAddress =  formattedAddress + String(", Malaysia.")
         print(formattedAddress)
         
-        self.newOrder.receiverFormattedAddress = formattedAddress
-        self.newOrder.receiverContact = contact
-        self.newOrder.receiverName = name
         
-        delegate?.createNewAddress(newAddress: self.newOrder)
+        let newAddress = NewAddresses.init(UID: self.userUID, address: formattedAddress, receiverName: name, receiverContact: contact)
+        
+        newAddress.submitAddress()
         
         dismiss(animated: true, completion: nil)
     }
 
-    
-    
     let receiverNameTextField : UITextField = {
         let tf = UITextField()
         tf.placeholder = "  Full Name"
@@ -237,13 +228,13 @@ class AlternativeAddressViewController: UIViewController {
     var navigationBarHeight: CGFloat = 0
     let spaceBetweenLabel: CGFloat = 18
     let spaceBetweenTextField: CGFloat = 4
-    var delegate: createANewAddressDelegate?
-    var newOrder = RecycleOrder()
-    
+    var userUID = ""
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let currentUser = FIRAuth.auth()?.currentUser?.uid else {return}
+        self.userUID = currentUser
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.title = "New Address"
         navigationBarHeight = self.navigationController!.navigationBar.frame.height

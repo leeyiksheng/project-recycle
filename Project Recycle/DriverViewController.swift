@@ -39,8 +39,7 @@ class DriverViewController: UIViewController {
     private func fetchData(driverUID: String)
     {
         firebaseDatabase?.child("drivers/\(driverUID)").observe(.childAdded, with:{ (snapshot) in
-            let newDriver = Driver()
-            newDriver.initWithDriverUID(driverUID: driverUID)
+            let newDriver = Driver.init(driverUID: driverUID)
             
             self.driverNameLabel.text = newDriver.name
             self.driverPhoneLabel.text = newDriver.phoneNumber

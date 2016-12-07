@@ -18,15 +18,40 @@ class CompletedOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     
+    var iconArray: [UIImage] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        self.imageCollectionView.delegate = self
+        self.imageCollectionView.dataSource = self
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
+        // Configure the view for the selected state
     }
+    
+}
 
+extension CompletedOrderTableViewCell: UICollectionViewDelegate {
+    
+}
+
+extension CompletedOrderTableViewCell: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! IconCollectionViewCell
+        
+        cell.iconImageView?.image = iconArray[indexPath.row]
+        
+        return cell
+    }
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return iconArray.count
+    }
 }

@@ -22,8 +22,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
         if FIRAuth.auth()?.currentUser != nil {
 
+
 //            window!.rootViewController = instantiateHomeViewController()
             window!.rootViewController = instatiateGuideViewController()
+
+  
+//            window!.rootViewController = instantiateKelvinViewController()
+
+
+            // window!.rootViewController = instantiateDriverViewController()
+
+            
+            //window!.rootViewController = instantiateHomeContainerViewController()
+            // window!.rootViewController = instantiateLoginViewController()
+            //window!.rootViewController = instantiateUserViewController()
+
+            
+
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
