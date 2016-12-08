@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var window: UIWindow?
     
@@ -21,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         if FIRAuth.auth()?.currentUser != nil {
+
+
+//            window!.rootViewController = instantiateHomeViewController()
+            window!.rootViewController = instatiateGuideViewController()
 
   
 //            window!.rootViewController = instantiateKelvinViewController()
@@ -34,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             //window!.rootViewController = instantiateUserViewController()
 
             
-            window!.rootViewController = instantiateHomeViewController()
+
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -61,6 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -97,7 +102,11 @@ extension AppDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCurrentOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToOrderProcessorViewController), name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToGuideViewController), name: Notification.Name(rawValue: "UserTransitionToGuide"), object: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToDriverAssignmentCompletionViewController), name: Notification.Name(rawValue: "UserTransitionToDriverAssignmentCompletion"), object: nil)
+
     }
     
 
@@ -118,6 +127,10 @@ extension AppDelegate {
     
     func handleUserTransitionToProfileViewController(_ notification: Notification) {
         window!.rootViewController?.present(instantiateUserViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToGuideViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instatiateGuideViewController(), animated: true, completion: nil)
     }
     
     func handleUserTransitionToCurrentOrdersViewController(_ notification: Notification) {
@@ -167,6 +180,12 @@ extension AppDelegate {
         let userStoryboard = UIStoryboard.init(name: "Profile", bundle: Bundle.init(identifier: "Profile"))
         let userViewController = userStoryboard.instantiateViewController(withIdentifier: "Profile")
         return userViewController as! ProfileViewController
+    }
+    
+    func instatiateGuideViewController() -> GuideViewController {
+        let guideStoryboard = UIStoryboard.init(name: "GuidePack", bundle: Bundle.init(identifier: "GuidePack"))
+        let guideViewController = guideStoryboard.instantiateViewController(withIdentifier: "GuidePack")
+        return guideViewController as! GuideViewController
     }
     
     func instantiateCurrentOrdersViewController() -> CurrentOrdersViewController {
