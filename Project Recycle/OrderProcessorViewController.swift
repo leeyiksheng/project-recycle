@@ -26,7 +26,7 @@ class OrderProcessorViewController: UIViewController {
         currentOrdersTableView.dataSource = self
         
         generateCurrentProcessingOrders(completion: { () -> () in
-            self.currentOrdersTableView.reloadData()
+            self.observeTransitionFromProcessorSubmission()
         })
     }
 
@@ -70,6 +70,16 @@ class OrderProcessorViewController: UIViewController {
         if self.currentOrdersArray.count == self.numberOfOrdersInDatabase {
             self.currentOrdersTableView.reloadData()
         }
+    }
+    
+    func observeTransitionFromProcessorSubmission() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransitionFromProcessorSubmission(_:)), name: Notification.Name(rawValue: "TransitionFromProcessorSubmission"), object: nil)
+    }
+    
+    func handleTransitionFromProcessorSubmission(_ notification: Notification) {
+        generateCurrentProcessingOrders(completion: { () -> () in
+            self.currentOrdersTableView.reloadData()
+        })
     }
     
     func saveSelectedOrder(index: Int) {

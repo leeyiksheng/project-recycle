@@ -45,6 +45,9 @@ class CurrentRecycleOrder: RecycleOrder {
             self.orderUID = rawOrderDataDictionary["orderID"] as! String
             
             self.userUID = rawOrderDataDictionary["userID"] as! String
+            
+            let dataFetchCompletionNotification = Notification(name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(dataFetchCompletionNotification)
         })
     }
     

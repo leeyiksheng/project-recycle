@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 
 class OrderProcessorSubmissionViewController: UIViewController {
-
+    
     @IBOutlet weak var driverTableView: UITableView!
     
     @IBOutlet weak var orderTimestampLabel: UILabel!
@@ -18,6 +18,11 @@ class OrderProcessorSubmissionViewController: UIViewController {
     @IBOutlet weak var orderReceiverNameLabel: UILabel!
     @IBOutlet weak var orderReceiverContactLabel: UILabel!
     @IBOutlet weak var orderReceiverAddressLabel: UILabel!
+    @IBOutlet weak var processOrderButton: UIButton! {
+        didSet {
+            processOrderButton.isEnabled = false
+        }
+    }
     
     var driverArray : [Driver] = []
     var selectedDriver: Driver?
@@ -45,7 +50,12 @@ class OrderProcessorSubmissionViewController: UIViewController {
         
         populateSelectedOrderData()
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        let transitionFromProcessorSubmission = Notification(name: Notification.Name(rawValue: "TransitionFromProcessorSubmission"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(transitionFromProcessorSubmission)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -66,7 +76,9 @@ class OrderProcessorSubmissionViewController: UIViewController {
     @IBAction func onProcessOrderButtonTouchUpInside(_ sender: UIButton) {
         removeSelectedOrderFromProcessingAndUserDatabase(completion: { () -> () in
             self.insertSelectedOrderIntoCurrentOrdersAndUserDatabase(completion: { () -> () in
-                self.dismiss(animated: true, completion: nil)
+                self.insertSelectedOrderIntoDriverOrderAssignments(completion: { () -> () in
+                    self.dismiss(animated: true, completion: nil)
+                })
             })
         })
     }
@@ -80,7 +92,7 @@ class OrderProcessorSubmissionViewController: UIViewController {
                     print("Error: Data not found. Please check if database reference is valid.")
                     return
                 }
-
+                
                 let driver = Driver.init()
                 
                 if driverRawDataDictionary["assignedOrders"] == nil {
@@ -95,6 +107,7 @@ class OrderProcessorSubmissionViewController: UIViewController {
                     driver.completedOrderUIDArray = driverRawDataDictionary["completedOrders"] as! [String]
                 }
                 
+                driver.driverUID = driverRawDataDictionary["driverID"] as! String
                 driver.email = driverRawDataDictionary["email"] as! String
                 driver.name = driverRawDataDictionary["name"] as! String
                 driver.phoneNumber = driverRawDataDictionary["phoneNumber"] as! String
@@ -109,10 +122,18 @@ class OrderProcessorSubmissionViewController: UIViewController {
     
     func removeSelectedOrderFromProcessingAndUserDatabase(completion: @escaping () -> ()) {
         let processingOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(selectedOrder!.orderUID)")
-        let userProcessingOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(selectedOrder!.userUID)")
+        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(selectedOrder!.userUID)")
+        let userProcessingOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(selectedOrder!.userUID)/processingOrders")
         
-        fetchUserOrderUIDsFromDatabaseWith(databaseReference: userProcessingOrdersDatabaseReference, completion: { (uidArray) -> () in
-            var orderUIDArray = uidArray
+        userProcessingOrdersDatabaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
+            var orderUIDArray: [String] = []
+            
+            if snapshot.value != nil {
+                orderUIDArray = snapshot.value as! [String]
+            } else {
+                print("Error: Processing order database is empty. Please check if user database reference is valid or order UID is valid.")
+                return
+            }
             
             guard let indexToBeRemoved = orderUIDArray.index(of: self.selectedOrder!.orderUID) else {
                 print("Error: Could not find order ID in user database. Please check whether client has stale data or order ID is valid.")
@@ -124,15 +145,15 @@ class OrderProcessorSubmissionViewController: UIViewController {
             let processingOrderUIDsUpdate = ["processingOrders": orderUIDArray]
             
             processingOrdersDatabaseReference.removeValue()
-            userProcessingOrdersDatabaseReference.updateChildValues(processingOrderUIDsUpdate)
+            userDatabaseReference.updateChildValues(processingOrderUIDsUpdate)
             
             completion()
         })
     }
     
     func insertSelectedOrderIntoCurrentOrdersAndUserDatabase(completion: @escaping () -> ()) {
-        let currentOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/current")
-        let userCurrentOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(selectedOrder!.userUID)")
+        let currentOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/current/\(selectedOrder!.orderUID)")
+        let userCurrentOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(selectedOrder!.userUID)/currentOrders")
         
         let newCurrentOrderDictionary: [String: Any] = ["formattedAddress": selectedOrder!.receiverFormattedAddress,
                                                         "driverAssigned": selectedDriver!.driverUID,
@@ -149,26 +170,43 @@ class OrderProcessorSubmissionViewController: UIViewController {
         
         currentOrdersDatabaseReference.updateChildValues(newCurrentOrderDictionary)
         
-        fetchUserOrderUIDsFromDatabaseWith(databaseReference: userCurrentOrdersDatabaseReference, completion: { (uidArray) -> () in
-            var orderUIDArray = uidArray
+        userCurrentOrdersDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            var orderUIDArray: [String] = []
             
-            orderUIDArray.append(self.selectedDriver!.driverUID)
+            if snapshot.exists() {
+                orderUIDArray = snapshot.value as! [String]
+            } else {
+                orderUIDArray = []
+            }
             
+            orderUIDArray.append(self.selectedOrder!.orderUID)
+            
+            let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(self.selectedOrder!.userUID)")
             let currentOrderUIDUpdate = ["currentOrders": orderUIDArray]
-            userCurrentOrdersDatabaseReference.updateChildValues(currentOrderUIDUpdate)
+            userDatabaseReference.updateChildValues(currentOrderUIDUpdate)
             
             completion()
         })
     }
     
-    private func fetchUserOrderUIDsFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ uidArray: [String]) -> ()) {
-        databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            guard let orderUIDArray = snapshot.value as? [String] else {
-                let orderUIDArray : [String] = []
-                completion(orderUIDArray)
-                return
+    func insertSelectedOrderIntoDriverOrderAssignments(completion: @escaping () -> ()) {
+        let driverOrderAssignmentDatabaseReference = FIRDatabase.database().reference(withPath: "drivers/\(selectedDriver!.driverUID)/assignedOrders")
+        
+        driverOrderAssignmentDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            var orderUIDArray: [String] = []
+            
+            if snapshot.exists() {
+                orderUIDArray = snapshot.value as! [String]
+            } else {
+                orderUIDArray = []
             }
-            completion(orderUIDArray)
+            
+            orderUIDArray.append(self.selectedOrder!.orderUID)
+            
+            let driverDatabaseReference = FIRDatabase.database().reference(withPath: "drivers/\(self.selectedDriver!.driverUID)")
+            driverDatabaseReference.child("assignedOrders").setValue(orderUIDArray)
+            
+            completion()
         })
     }
 }
@@ -176,6 +214,7 @@ class OrderProcessorSubmissionViewController: UIViewController {
 extension OrderProcessorSubmissionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedDriver = driverArray[indexPath.row]
+        processOrderButton.isEnabled = true
     }
 }
 
