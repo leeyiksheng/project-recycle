@@ -51,6 +51,11 @@ class OrderProcessorSubmissionViewController: UIViewController {
         populateSelectedOrderData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        let transitionFromProcessorSubmission = Notification(name: Notification.Name(rawValue: "TransitionFromProcessorSubmission"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(transitionFromProcessorSubmission)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -102,6 +107,7 @@ class OrderProcessorSubmissionViewController: UIViewController {
                     driver.completedOrderUIDArray = driverRawDataDictionary["completedOrders"] as! [String]
                 }
                 
+                driver.driverUID = driverRawDataDictionary["driverID"] as! String
                 driver.email = driverRawDataDictionary["email"] as! String
                 driver.name = driverRawDataDictionary["name"] as! String
                 driver.phoneNumber = driverRawDataDictionary["phoneNumber"] as! String
@@ -167,7 +173,7 @@ class OrderProcessorSubmissionViewController: UIViewController {
         userCurrentOrdersDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
             var orderUIDArray: [String] = []
             
-            if snapshot.value != nil {
+            if snapshot.exists() {
                 orderUIDArray = snapshot.value as! [String]
             } else {
                 orderUIDArray = []
@@ -189,17 +195,16 @@ class OrderProcessorSubmissionViewController: UIViewController {
         driverOrderAssignmentDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
             var orderUIDArray: [String] = []
             
-            if snapshot.value != nil {
+            if snapshot.exists() {
                 orderUIDArray = snapshot.value as! [String]
             } else {
                 orderUIDArray = []
             }
             
             orderUIDArray.append(self.selectedOrder!.orderUID)
-            let assignedOrdersUpdate = ["assignedOrders": orderUIDArray]
             
-            let driverDatabaseReference = FIRDatabase.database().reference(withPath:"drivers/\(self.selectedDriver!.driverUID)")
-            driverDatabaseReference.updateChildValues(assignedOrdersUpdate)
+            let driverDatabaseReference = FIRDatabase.database().reference(withPath: "drivers/\(self.selectedDriver!.driverUID)")
+            driverDatabaseReference.child("assignedOrders").setValue(orderUIDArray)
             
             completion()
         })

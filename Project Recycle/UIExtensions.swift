@@ -36,3 +36,17 @@ extension UIImageView {
     
 }
 
+extension CAGradientLayer {
+    
+    
+    func mainPageBackground() {
+        let colorTop = UIColor(r: 50, g: 205, b: 50).cgColor
+        let colorBottom = UIColor.forestGreen.cgColor
+        self.colors = [colorTop, colorBottom]
+        self.locations = [0.0,1.0]
+        
+        
+    }
+    
+    
+}

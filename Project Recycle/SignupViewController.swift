@@ -12,17 +12,52 @@ import FirebaseDatabase
 
 class SignupViewController: UIViewController {
     
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var nameTextField: UITextField! {
+        didSet {
+            nameTextField.addTarget(self, action: #selector(checkNameTextField), for: .editingDidEnd)
+        }
+    }
+    @IBOutlet weak var emailTextField: UITextField! {
+        didSet {
+            emailTextField.addTarget(self, action: #selector(checkEmailTextField), for: .editingDidEnd)
+        }
+    }
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var passwordConfirmationTextField: UITextField!
-    @IBOutlet weak var addressFirstLineTextField: UITextField!
-    @IBOutlet weak var addressSecondLineTextField: UITextField!
-    @IBOutlet weak var addressThirdLineTextField: UITextField!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var postcodeTextField: UITextField!
-    @IBOutlet weak var stateTextField: UITextField!
-    @IBOutlet weak var phoneNumberTextField: UITextField!
+    @IBOutlet weak var passwordConfirmationTextField: UITextField! {
+        didSet {
+            passwordConfirmationTextField.addTarget(self, action: #selector(checkPasswordTextFields), for: .editingDidEnd)
+        }
+    }
+    @IBOutlet weak var nameErrorImageView: UIImageView! {
+        didSet {
+            nameErrorImageView.isHidden = true
+        }
+    }
+    @IBOutlet weak var nameErrorLabel: UILabel! {
+        didSet {
+            nameErrorLabel.isHidden = true
+        }
+    }
+    @IBOutlet weak var emailErrorImageView: UIImageView! {
+        didSet {
+            emailErrorImageView.isHidden = true
+        }
+    }
+    @IBOutlet weak var emailErrorLabel: UILabel! {
+        didSet {
+            emailErrorLabel.isHidden = true
+        }
+    }
+    @IBOutlet weak var passwordErrorImageView: UIImageView! {
+        didSet {
+            passwordErrorImageView.isHidden = true
+        }
+    }
+    @IBOutlet weak var passwordErrorLabel: UILabel! {
+        didSet {
+            passwordErrorLabel.isHidden = true
+        }
+    }
     
     var usersFRDBRef : FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
     
@@ -35,99 +70,61 @@ class SignupViewController: UIViewController {
     }
     
     @IBAction func onSignupButtonTouchUpInside(_ sender: UIButton) {
-        let textFieldArray = [nameTextField, emailTextField, passwordTextField, passwordConfirmationTextField, addressFirstLineTextField, addressSecondLineTextField, addressThirdLineTextField, cityTextField, postcodeTextField, stateTextField, phoneNumberTextField]
-        for textField: UITextField? in textFieldArray {
-            if textField?.text != nil {
-                
-            } else {
-                let fieldEmptyAlert = UIAlertController.init(title: "Empty Field", message: "One of the fields is empty, please try again.", preferredStyle: .alert)
-                let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
-                fieldEmptyAlert.addAction(okAlertAction)
-                self.present(fieldEmptyAlert, animated: true, completion: nil)
-                return
-            }
-        }
-        
-        if passwordTextField.text != passwordConfirmationTextField.text {
-            let passwordConfirmationErrorAlert = UIAlertController.init(title: "Passwords do not match.", message: "The passwords do not match, please try again.", preferredStyle: .alert)
-            let okAlertAction = UIAlertAction.init(title: "OK", style: .default, handler: nil)
-            passwordConfirmationErrorAlert.addAction(okAlertAction)
-            self.present(passwordConfirmationErrorAlert, animated: true, completion: nil)
-            return
-        }
-        
-        FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if (error != nil) {
-                print(error!)
-                return
-            } else {
-                let userData = ["address": [
-                    "firstLine": self.addressFirstLineTextField.text!,
-                    "secondLine": self.addressSecondLineTextField.text!,
-                    "thirdLine": self.addressThirdLineTextField.text!,
-                    "city": self.cityTextField.text!,
-                    "state": self.stateTextField.text!,
-                    "postcode": self.postcodeTextField.text!,
-                    "formattedAddress": self.concatenateAddressFields()],
-                                "email": self.emailTextField.text!,
-                                "name": self.nameTextField.text!,
-                                "phoneNumber": self.phoneNumberTextField.text!,
-                                "currentOrders": [],
-                                "completedOrders": [],
-                                "processingOrders": [],
-                                "profileImage": ""] as [String : Any]
-                
-                self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
-                
-                let userUID : String? = FIRAuth.auth()?.currentUser?.uid
-                let childUpdate = ["\(userUID!)/": userData]
-                self.usersFRDBRef.updateChildValues(childUpdate)
+        if emailErrorLabel.isHidden && passwordErrorLabel.isHidden && nameErrorLabel.isHidden {
+            FIRAuth.auth()?.createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+                if (error != nil) {
+                    print(error!)
+                    return
+                } else {
+                    let userData = ["email": self.emailTextField.text!,
+                                    "name": self.nameTextField.text!,
+                                    "profileImage": "default"] as [String : Any]
+                    
+                    self.loginUser(email: self.emailTextField.text!, password: self.passwordTextField.text!)
+                    
+                    let userUID : String? = FIRAuth.auth()?.currentUser?.uid
+                    let childUpdate = ["\(userUID!)/": userData]
+                    self.usersFRDBRef.updateChildValues(childUpdate)
+                }
             }
         }
     }
     
-    func concatenateAddressFields() -> String {
-        var formattedAddress : String = ""
-        
-        if let add1 = addressFirstLineTextField.text {
-            if add1 != "" {
-                formattedAddress = add1 + String(", ")
+    func checkPasswordTextFields() {
+        if passwordConfirmationTextField.text != nil {
+            if passwordConfirmationTextField.text!.characters.count < 6 {
+                passwordErrorImageView.isHidden = false
+                passwordErrorLabel.isHidden = false
+            } else {
+                passwordErrorImageView.isHidden = true
+                passwordErrorLabel.isHidden = true
             }
         }
-        
-        if let add2 = addressSecondLineTextField.text {
-            if add2 != "" {
-                formattedAddress =  formattedAddress + add2 + String(", ")
+    }
+    
+    func checkEmailTextField() {
+        if emailTextField.text != nil {
+            let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+            if NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: emailTextField.text) {
+                emailErrorImageView.isHidden = true
+                emailErrorLabel.isHidden = true
+            } else {
+                emailErrorImageView.isHidden = false
+                emailErrorLabel.isHidden = false
             }
         }
-        
-        if let add3 = addressThirdLineTextField.text {
-            if add3 != "" {
-                formattedAddress =  formattedAddress + add3 + String(", ")
+    }
+    
+    func checkNameTextField() {
+        if nameTextField.text != nil {
+            if nameTextField.text!.rangeOfCharacter(from: .letters) != nil {
+                nameErrorImageView.isHidden = true
+                nameErrorLabel.isHidden = true
+            } else {
+                nameErrorImageView.isHidden = false
+                nameErrorLabel.isHidden = false
             }
         }
-        
-        if let postcode = postcodeTextField.text {
-            if postcode != "" {
-                formattedAddress =  formattedAddress + postcode + String(", ")
-            }
-        }
-        
-        if let city = cityTextField.text {
-            if city != "" {
-                formattedAddress =  formattedAddress + city + String(", ")
-            }
-        }
-        
-        if let state = stateTextField.text {
-            if state != "" {
-                formattedAddress =  formattedAddress + state
-            }
-        }
-        
-        formattedAddress += ", Malaysia."
-        
-        return formattedAddress
     }
     
     func loginUser(email: String, password: String) {

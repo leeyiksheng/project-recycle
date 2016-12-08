@@ -5,11 +5,9 @@
 //  Created by Lee Yik Sheng on 01/12/2016.
 //  Copyright © 2016 Lee Yik Sheng. All rights reserved.
 //
-
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
-
 class CurrentOrdersViewController: UIViewController {
     
     @IBOutlet weak var currentOrdersTableView: UITableView!
@@ -99,11 +97,9 @@ class CurrentOrdersViewController: UIViewController {
         })
     }
 }
-
 extension CurrentOrdersViewController: UITableViewDelegate {
     
 }
-
 extension CurrentOrdersViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -116,7 +112,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if orderItemsArray[indexPath.row] is RecycleOrder {
             let cell = tableView.dequeueReusableCell(withIdentifier: "processingCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
-        
+
             cell.creationTimestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
             cell.receiverNameLabel.text = orderItemsArray[indexPath.row].receiverName
             cell.receiverContactLabel.text = orderItemsArray[indexPath.row].receiverContact
@@ -126,6 +122,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
             for image: UIImage in orderItemsArray[indexPath.row].orderImages {
                 cell.iconArray.append(image)
             }
+
         
             cell.imageCollectionView.reloadData()
         
