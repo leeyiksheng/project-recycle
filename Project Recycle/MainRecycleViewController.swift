@@ -14,13 +14,17 @@ class MainRecycleViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.clear
-        var backgroundLayer = CAGradientLayer()
-        backgroundLayer.mainPageBackground()
-        backgroundLayer.frame = view.frame
-        view.layer.insertSublayer(backgroundLayer, at: 0)
 
+
+                view.backgroundColor = UIColor.clear
+                var backgroundLayer = CAGradientLayer()
+                backgroundLayer.mainPageBackground()
+                backgroundLayer.frame = view.frame
+                view.layer.insertSublayer(backgroundLayer, at: 0)
+        
     }
+
+
 
 
     
