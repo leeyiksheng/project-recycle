@@ -16,6 +16,7 @@
 		A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */; };
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
+		A190FDE31DF93AAC00AB0A3A /* loginBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */; };
 		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
@@ -30,6 +31,9 @@
 		EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */; };
 		EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */; };
 		EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */; };
+		EB1831761DF937C10070C128 /* DriverAssignmentCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */; };
+		EB18317A1DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */; };
+		EB18317C1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
@@ -69,6 +73,7 @@
 		A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressViewController.swift; sourceTree = "<group>"; };
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
+		A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loginBackground.gif; path = ../../loginBackground.gif; sourceTree = "<group>"; };
 		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
@@ -84,6 +89,9 @@
 		EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderProcessorSubmissionViewController.swift; sourceTree = "<group>"; };
 		EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverTableViewCell.swift; sourceTree = "<group>"; };
+		EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverAssignmentCompletionViewController.swift; sourceTree = "<group>"; };
+		EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverAssignmentCompletionSubmissionViewController.swift; sourceTree = "<group>"; };
+		EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentRecycleOrder.swift; sourceTree = "<group>"; };
 		EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedRecycleOrder.swift; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -149,6 +157,14 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
+		A1D279F91DF825960023EBBE /* Gifs */ = {
+			isa = PBXGroup;
+			children = (
+				A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */,
+			);
+			name = Gifs;
+			sourceTree = "<group>";
+		};
 		EB6267541DEBD0D500CC2C37 = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +186,7 @@
 		EB62675F1DEBD0D500CC2C37 /* Project Recycle */ = {
 			isa = PBXGroup;
 			children = (
+				A1D279F91DF825960023EBBE /* Gifs */,
 				EB8068891DF113A8003FCB9B /* Property Lists */,
 				EB8068881DF11392003FCB9B /* Helpers */,
 				EB8068871DF11376003FCB9B /* Models */,
@@ -202,6 +219,9 @@
 				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
 
 				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
+
+				EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */,
+				EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */,
 
 			);
 			name = Controllers;
@@ -241,6 +261,8 @@
 
 				EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */,
 				EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */,
+
+				EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */,
 
 			);
 			name = Helpers;
@@ -332,6 +354,7 @@
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
+				A190FDE31DF93AAC00AB0A3A /* loginBackground.gif in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
 				AF5787771DF67A4900D44084 /* GuidePack.storyboard in Resources */,
 			);
@@ -406,6 +429,7 @@
 				A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */,
 				AFB177E11DEFCED900AB54F9 /* User.swift in Sources */,
 				EB21B71B1DF151EA00F65ECD /* CompletedRecycleOrder.swift in Sources */,
+				EB18317C1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift in Sources */,
 				EBE2BA4A1DF1A948007C4766 /* MainRecycleViewController.swift in Sources */,
 				EB6267831DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift in Sources */,
 				EB6267731DEBD12400CC2C37 /* LoginViewController.swift in Sources */,
@@ -413,6 +437,8 @@
 				EB6267851DEC3A7700CC2C37 /* MenuItemTableViewCell.swift in Sources */,
 				AF5787791DF67C2E00D44084 /* GuideViewController.swift in Sources */,
 				EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */,
+				EB1831761DF937C10070C128 /* DriverAssignmentCompletionViewController.swift in Sources */,
+				EB18317A1DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift in Sources */,
 				EB8068611DEFDD43003FCB9B /* CurrentOrderProcessingTableViewCell.swift in Sources */,
 				A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */,

@@ -102,7 +102,11 @@ extension AppDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCurrentOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToOrderProcessorViewController), name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil)
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToGuideViewController), name: Notification.Name(rawValue: "UserTransitionToGuide"), object: nil)
+
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToDriverAssignmentCompletionViewController), name: Notification.Name(rawValue: "UserTransitionToDriverAssignmentCompletion"), object: nil)
+
     }
     
 
@@ -139,6 +143,10 @@ extension AppDelegate {
     
     func handleUserTransitionToOrderProcessorViewController(_ notification: Notification) {
         window!.rootViewController?.present(instantiateOrderProcessorViewController(), animated: true, completion: nil)
+    }
+    
+    func handleUserTransitionToDriverAssignmentCompletionViewController(_ notification: Notification) {
+        window!.rootViewController?.present(instantiateDriverAssignmentCompletionViewController(), animated: true, completion: nil)
     }
 }
 
@@ -196,5 +204,11 @@ extension AppDelegate {
         let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
         let orderProcessorViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order Processor")
         return orderProcessorViewController as! OrderProcessorViewController
+    }
+    
+    func instantiateDriverAssignmentCompletionViewController() -> DriverAssignmentCompletionViewController {
+        let driverAssignmentStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
+        let driverAssignmentCompletionViewController = driverAssignmentStoryboard.instantiateViewController(withIdentifier: "Driver Assignment Completion")
+        return driverAssignmentCompletionViewController as! DriverAssignmentCompletionViewController
     }
 }

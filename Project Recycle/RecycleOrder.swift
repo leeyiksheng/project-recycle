@@ -22,6 +22,7 @@ class RecycleOrder {
     var receiverContact: String
     var userUID: String
     var orderUID: String
+    var addressUID: String
 
     init() {
         self.creationTimestamp = 0
@@ -35,24 +36,23 @@ class RecycleOrder {
         self.receiverContact = ""
         self.userUID = ""
         self.orderUID = ""
+        self.addressUID = ""
     }
 
-    convenience init(orderWithUserUID userUID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
+    convenience init(orderWithUserUID userUID: String, addressID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
         self.init()
-        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
         self.userUID = userUID
         self.hasAluminium = hasAluminium
         self.hasGlass = hasGlass
         self.hasPaper = hasPaper
         self.hasPlastic = hasPlastic
-        fetchUserDataFromDatabaseWith(databaseReference: userDatabaseReference, completion: { (address, name, contact) in
-            self.receiverFormattedAddress = address
-            self.receiverName = name
-            self.receiverContact = contact
-            let fetchingCompletionNotification = Notification(name: Notification.Name(rawValue: "UserDataFetchingCompletion"), object: nil, userInfo: nil)
-            NotificationCenter.default.post(fetchingCompletionNotification)
-        })
+        self.addressUID = addressID
         createOrderImagesWithMainRecycleCategories()
+        fetchAddressDataFromDatabaseWith(addressID: addressID, completion: { () -> () in
+            let fetchingCompletionNotification = Notification(name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: fetchingCompletionNotification.name, object: self)
+        })
+        
     }
 
     convenience init(orderWithOrderUID orderUID: String) {
@@ -60,6 +60,7 @@ class RecycleOrder {
         fetchOrderDataFromDatabaseWith(orderUID: orderUID, completion: { (rawOrderDataDictionary) -> () in
             self.userUID = rawOrderDataDictionary["userID"] as! String
             self.orderUID = rawOrderDataDictionary["orderID"] as! String
+            self.addressUID = rawOrderDataDictionary["addressID"] as! String
             self.receiverFormattedAddress = rawOrderDataDictionary["formattedAddress"] as! String
             self.receiverName = rawOrderDataDictionary["receiverName"] as! String
             self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
@@ -90,6 +91,18 @@ class RecycleOrder {
             NotificationCenter.default.post(dataFetchCompletionNotification)
         })
     }
+    
+    func fetchAddressDataFromDatabaseWith(addressID: String, completion: @escaping () -> ()) {
+        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressID)")
+        
+        addressDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            let addressDictionary = snapshot.value as! [String: Any]
+            self.receiverFormattedAddress = addressDictionary["formattedAddress"] as! String
+            self.receiverName = addressDictionary["receiverName"] as! String
+            self.receiverContact = addressDictionary["receiverContact"] as! String
+            completion()
+        })
+    }
 
     func fetchOrderDataFromDatabaseWith(orderUID: String, completion: @escaping (_ rawDataDictionary: [String: AnyObject]) -> ()) {
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(orderUID)")
@@ -106,11 +119,13 @@ class RecycleOrder {
     func submitOrder() {
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
+        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressUID)")
+        
         let orderUID = orderDatabaseReference.childByAutoId().key
-
         self.orderUID = orderUID
 
         let order = [
+            "addressID" : addressUID,
             "formattedAddress": receiverFormattedAddress,
             "orderCategories": [
                 "aluminium": hasAluminium,
@@ -148,16 +163,7 @@ class RecycleOrder {
             completion(orderUIDArray)
         })
     }
-    private func fetchUserDataFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ address: String,_ name: String,_ contact: String) -> ()) {
-        databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            let userDataDictionary = snapshot.value as! [String: AnyObject]
-            let addressDictionary = userDataDictionary["address"] as! [String: AnyObject]
-            let formattedAddress = addressDictionary["formattedAddress"] as! String
-            let name = userDataDictionary["name"] as! String
-            let contact = userDataDictionary["phoneNumber"] as! String
-            completion(formattedAddress, name, contact)
-        })
-    }
+
     func createOrderImagesWithMainRecycleCategories() {
         if hasAluminium {
             guard let image = UIImage.init(named: "Aluminium") else { return }

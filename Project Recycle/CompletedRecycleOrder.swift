@@ -14,11 +14,13 @@ class CompletedRecycleOrder: RecycleOrder {
     var assignedDriver: Driver
     var processedTimestamp: TimeInterval
     var completionTimestamp: TimeInterval
+    var orderValue = 0.0
 
     override init() {
         self.assignedDriver = Driver()
         self.processedTimestamp = 0
         self.completionTimestamp = 0
+        self.orderValue = 0.0
 
         super.init()
     }
@@ -34,6 +36,7 @@ class CompletedRecycleOrder: RecycleOrder {
             self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as! TimeInterval
 
             let driverUID = rawOrderDataDictionary["assignedDriver"] as! String
+            self.orderValue = rawOrderDataDictionary["orderValue"] as! Double
             self.assignedDriver = Driver.init(driverUID: driverUID)
 
             self.receiverName = rawOrderDataDictionary["receiverName"] as! String
