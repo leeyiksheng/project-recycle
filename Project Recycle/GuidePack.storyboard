@@ -30,58 +30,60 @@
                                 <items/>
                                 <color key="barTintColor" red="0.5709751858589337" green="1" blue="0.20068533467311411" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dY1-3I-1Pp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="199" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dY1-3I-1Pp">
                                 <rect key="frame" x="0.0" y="64" width="375" height="559"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="559" id="D9V-e5-k3u"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="128" id="s1I-Bs-8fA" customClass="GuideTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="128"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="199" id="s1I-Bs-8fA" customClass="GuideTableViewCell" customModule="Project_Recycle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="199"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="s1I-Bs-8fA" id="m90-J4-p4Z">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="127"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="198"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Awg-dn-Scf">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="125"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="125" id="gJi-iG-Mbo"/>
+                                                    </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNO-Ad-hQJ">
-                                                    <rect key="frame" x="20" y="82" width="56" height="20"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg4-H6-sdK">
+                                                    <rect key="frame" x="12" y="100" width="351" height="40"/>
+                                                    <color key="backgroundColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="ZHf-Jg-44U"/>
+                                                        <constraint firstAttribute="height" constant="40" id="5OZ-VU-zid"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="19"/>
-                                                    <color key="textColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wg4-H6-sdK">
-                                                    <rect key="frame" x="20" y="54" width="56" height="20"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="5OZ-VU-zid"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="Georgia-BoldItalic" family="Georgia" pointSize="19"/>
-                                                    <color key="textColor" white="0.96999999999999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjA-tZ-tkb">
+                                                    <rect key="frame" x="12" y="139.5" width="351" height="51"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Awg-dn-Scf" secondAttribute="trailing" id="5Z3-aH-CKi"/>
+                                                <constraint firstItem="KjA-tZ-tkb" firstAttribute="width" secondItem="wg4-H6-sdK" secondAttribute="width" id="8RX-Fc-FR6"/>
                                                 <constraint firstItem="Awg-dn-Scf" firstAttribute="top" secondItem="m90-J4-p4Z" secondAttribute="top" id="BGU-tM-0ca"/>
-                                                <constraint firstItem="wg4-H6-sdK" firstAttribute="leading" secondItem="m90-J4-p4Z" secondAttribute="leadingMargin" constant="12" id="Eri-y5-Fak"/>
-                                                <constraint firstItem="wg4-H6-sdK" firstAttribute="centerY" secondItem="m90-J4-p4Z" secondAttribute="centerY" id="X1C-uU-YYL"/>
-                                                <constraint firstAttribute="bottom" secondItem="Awg-dn-Scf" secondAttribute="bottom" constant="-0.5" id="apb-uK-lG6"/>
-                                                <constraint firstItem="sNO-Ad-hQJ" firstAttribute="top" secondItem="wg4-H6-sdK" secondAttribute="bottom" constant="8" id="hcM-gZ-AmM"/>
+                                                <constraint firstItem="KjA-tZ-tkb" firstAttribute="leading" secondItem="m90-J4-p4Z" secondAttribute="leading" constant="12" id="BQz-jr-xjA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="wg4-H6-sdK" secondAttribute="bottom" constant="51" id="PWJ-D5-0V1"/>
+                                                <constraint firstAttribute="trailing" secondItem="KjA-tZ-tkb" secondAttribute="trailing" constant="12" id="b9Q-yD-Gyk"/>
+                                                <constraint firstItem="KjA-tZ-tkb" firstAttribute="top" secondItem="wg4-H6-sdK" secondAttribute="bottom" id="cgR-X6-hHF"/>
+                                                <constraint firstItem="KjA-tZ-tkb" firstAttribute="leading" secondItem="wg4-H6-sdK" secondAttribute="leading" id="l3D-y9-Qp9"/>
                                                 <constraint firstItem="Awg-dn-Scf" firstAttribute="leading" secondItem="m90-J4-p4Z" secondAttribute="leading" id="lrW-no-8wF"/>
-                                                <constraint firstItem="sNO-Ad-hQJ" firstAttribute="leading" secondItem="wg4-H6-sdK" secondAttribute="leading" id="wTu-VD-ud5"/>
+                                                <constraint firstAttribute="bottom" secondItem="KjA-tZ-tkb" secondAttribute="bottom" constant="8" id="vbb-0d-aY7"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="backImage" destination="Awg-dn-Scf" id="Zt8-t4-NVS"/>
-                                            <outlet property="materialCategory" destination="sNO-Ad-hQJ" id="C0h-bI-SU8"/>
+                                            <outlet property="desc" destination="KjA-tZ-tkb" id="IuM-Ry-O3h"/>
                                             <outlet property="materialName" destination="wg4-H6-sdK" id="883-Ry-Jwg"/>
                                         </connections>
                                     </tableViewCell>

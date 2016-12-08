@@ -13,19 +13,21 @@ class GuideTableViewCell: UITableViewCell {
     {
         didSet{
             backImage.layer.borderWidth = 3
-            backImage.layer.borderColor = UIColor.white.cgColor
+            backImage.layer.borderColor = UIColor.forestGreen.cgColor
+           // backImage.layer.borderColor = UIColor.init(red:67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0).cgColor
         }
     }
     @IBOutlet weak var materialName: UILabel!{
         didSet{
-            materialName.backgroundColor = UIColor.clear
-//            materialName.layer.background.opacity = 0.1
+            
+            materialName.backgroundColor = UIColor.white
+            
         }
     }
-    @IBOutlet weak var materialCategory: UILabel!{
+
+    @IBOutlet weak var desc: UITextView!{
         didSet{
-            materialCategory.backgroundColor = UIColor.clear
-            
+            desc.backgroundColor = UIColor.white
         }
     }
 
