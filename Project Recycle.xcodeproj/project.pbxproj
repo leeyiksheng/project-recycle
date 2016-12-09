@@ -18,6 +18,7 @@
 		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
 		A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = A157643C1DFA4F6000091650 /* loginBackground.gif */; };
 		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
+		AF363B741DFA6FBB0052C4E6 /* GuideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
 		AF3706391DED2CBE00BF953F /* Driver.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706381DED2CBE00BF953F /* Driver.swift */; };
@@ -75,6 +76,7 @@
 		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
 		A157643C1DFA4F6000091650 /* loginBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginBackground.gif; sourceTree = SOURCE_ROOT; };
 		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
+		AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
 		AF3706381DED2CBE00BF953F /* Driver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Driver.swift; sourceTree = "<group>"; };
@@ -215,14 +217,11 @@
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
 				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
 				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
-
 				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
-
 				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
-
 				EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */,
 				EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */,
-
+				AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -256,14 +255,10 @@
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
 				A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */,
 				EBA7EE581DF66A8200515EE1 /* ProcessorTableViewCell.swift */,
-
 				AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */,
-
 				EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */,
 				EB1831731DF7C6500070C128 /* DriverTableViewCell.swift */,
-
 				EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */,
-
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -445,6 +440,7 @@
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
 				EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */,
 				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
+				AF363B741DFA6FBB0052C4E6 /* GuideDetailViewController.swift in Sources */,
 				EB6267751DEBD13000CC2C37 /* SignupViewController.swift in Sources */,
 				EB1831721DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
