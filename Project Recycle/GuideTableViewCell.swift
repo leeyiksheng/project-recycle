@@ -21,6 +21,8 @@ class GuideTableViewCell: UITableViewCell {
         didSet{
             
             materialName.backgroundColor = UIColor.white
+            materialName.layer.masksToBounds = true
+            materialName.layer.cornerRadius = 3.0
             
         }
     }
@@ -28,6 +30,8 @@ class GuideTableViewCell: UITableViewCell {
     @IBOutlet weak var desc: UITextView!{
         didSet{
             desc.backgroundColor = UIColor.white
+            desc.layer.masksToBounds = true
+            desc.layer.cornerRadius = 5.0
         }
     }
 

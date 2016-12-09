@@ -22,14 +22,14 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         userProImage?.layer.borderWidth = 5
         userProImage?.layer.masksToBounds = false
         userProImage?.layer.borderColor = UIColor.white.cgColor
         userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/2
         userProImage?.clipsToBounds = true
         userProImage?.isUserInteractionEnabled = true
-
+        
         
         frDBref = FIRDatabase.database().reference()
         
@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController {
             self.performSegue(withIdentifier: "imageSegue", sender: self)
         }
     }
-
+    
     private func fetchUserInfo()
     {
         
@@ -56,9 +56,15 @@ class ProfileViewController: UIViewController {
             self.userNameText.text = newUser.name
             self.userEmailText.text = newUser.email
             self.userNumberText.text = newUser.phoneNumber
+
+            
+            
+            
+
             self.userAddText.text = newUser.defaultFormattedAddress
 
         
+
             if newUser.profileImage == ""
             {
                 
@@ -66,21 +72,21 @@ class ProfileViewController: UIViewController {
             }
             else
             {
-
-            Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
-               
-                self.userProImage?.layer.borderColor = UIColor.red.cgColor
-                if error != nil
-                {
-                    print(error!)
-                    return
-                }
                 
-                
-                DispatchQueue.main.async {
-                    self.userProImage?.image = UIImage (data: data!)
-                }
-            })
+                Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
+                    
+                    self.userProImage?.layer.borderColor = UIColor.red.cgColor
+                    if error != nil
+                    {
+                        print(error!)
+                        return
+                    }
+                    
+                    
+                    DispatchQueue.main.async {
+                        self.userProImage?.image = UIImage (data: data!)
+                    }
+                })
             }
         }
     }
@@ -284,27 +290,33 @@ class ProfileViewController: UIViewController {
             else
             {
                 let changeRequest = FIRAuth.auth()?.currentUser
-                changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
-                    if error != nil
+                
+                let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
+                
+                changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                    if ((error) != nil)
                     {
-                        print(error?.localizedDescription)
+                        print(error!)
+                        
                     }
                     else
                     {
-                        let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
-                        changeRequest?.reauthenticate(with: credential, completion: {(error) in
-                            if ((error) != nil)
+                        changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
+                            if error != nil
                             {
-                                print(error!)
-                                
+                                print(error?.localizedDescription)
                             }
                             else
                             {
+                                
                                 self.secondAlert(message: "match")
                                 
                             }
                             
                         })
+                        
+                        
+                        
                     }
                 })
             }
