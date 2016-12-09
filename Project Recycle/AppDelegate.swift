@@ -22,23 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
         if FIRAuth.auth()?.currentUser != nil {
 
-
-//            window!.rootViewController = instantiateHomeViewController()
-            window!.rootViewController = instatiateGuideViewController()
-
-  
-//            window!.rootViewController = instantiateKelvinViewController()
-
-
-            // window!.rootViewController = instantiateDriverViewController()
-
-            
-            //window!.rootViewController = instantiateHomeContainerViewController()
-            // window!.rootViewController = instantiateLoginViewController()
-            //window!.rootViewController = instantiateUserViewController()
-
-            
-
+            window!.rootViewController = instantiateMenuTabBarController()
 
             FIRAuth.auth()?.addStateDidChangeListener { auth, user in
                 if user != nil {
@@ -151,6 +135,12 @@ extension AppDelegate {
 }
 
 extension AppDelegate {
+    func instantiateMenuTabBarController() -> MenuTabBarController {
+        let mainStoryboard = UIStoryboard.init(name: "Main", bundle: Bundle.init(identifier: "Main"))
+        let menuTabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Menu Tab Bar")
+        return menuTabBarController as! MenuTabBarController
+    }
+    
     func instantiateHomeViewController() -> HomeViewController {
         let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
         let homeViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeView")

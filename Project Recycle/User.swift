@@ -17,14 +17,8 @@ class User {
     var currentOrders: [String]
     var completedOrders: [String]
     var userUID: String
-    
-    var firstAddressLine : String
-    var secondAddressLine : String
-    var thirdAddressLine : String
-    var postcode : String
-    var city : String
-    var state : String
-    var formattedAddress: String
+    var defaultFormattedAddress: String
+    var addressIDArray: [String]
     
     init() {
         self.name = ""
@@ -34,14 +28,8 @@ class User {
         self.currentOrders = []
         self.completedOrders = []
         self.userUID = ""
-        
-        self.firstAddressLine = ""
-        self.secondAddressLine = ""
-        self.thirdAddressLine = ""
-        self.postcode = ""
-        self.city = ""
-        self.state = ""
-        self.formattedAddress = ""
+        self.addressIDArray = []
+        self.defaultFormattedAddress = ""
     }
     
     func initWithCurrentUser(completion: @escaping (() -> ())) {
@@ -73,21 +61,21 @@ class User {
                 self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
             }
             
-            let addressDictionary = userRawDataDictionary["address"] as! [String: String]
-            self.firstAddressLine = addressDictionary["firstLine"]!
+            self.addressIDArray = userRawDataDictionary["addressID"] as! [String]
             
-            if addressDictionary["secondLine"] != nil {
-                self.secondAddressLine = addressDictionary["secondLine"]!
-            }
+            self.fetchAddressFromDatabaseWith(addressID: self.addressIDArray[0], completion: { () -> () in
+                completion()
+            })
+        })
+    }
+    
+    func fetchAddressFromDatabaseWith(addressID: String, completion: @escaping () -> ()) {
+        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressID)")
+        
+        addressDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            let addressDictionary = snapshot.value as! [String: Any]
             
-            if addressDictionary["thirdLine"] != nil {
-                self.thirdAddressLine = addressDictionary["thirdLine"]!
-            }
-            
-            self.postcode = addressDictionary["postcode"]!
-            self.city = addressDictionary["city"]!
-            self.state = addressDictionary["state"]!
-            self.formattedAddress = addressDictionary["formattedAddress"]!
+            self.defaultFormattedAddress = addressDictionary["formattedAddress"] as! String
             
             completion()
         })
@@ -117,21 +105,7 @@ class User {
                 self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
             }
             
-            let addressDictionary = userRawDataDictionary["address"] as! [String: String]
-            self.firstAddressLine = addressDictionary["firstLine"]!
-            
-            if addressDictionary["secondLine"] != nil {
-                self.secondAddressLine = addressDictionary["secondLine"]!
-            }
-            
-            if addressDictionary["thirdLine"] != nil {
-                self.thirdAddressLine = addressDictionary["thirdLine"]!
-            }
-            
-            self.postcode = addressDictionary["postcode"]!
-            self.city = addressDictionary["city"]!
-            self.state = addressDictionary["state"]!
-            self.formattedAddress = addressDictionary["formattedAddress"]!
+            self.addressIDArray = userRawDataDictionary["address"] as! [String]
             
             completion()
         })

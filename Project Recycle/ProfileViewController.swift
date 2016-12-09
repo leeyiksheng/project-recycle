@@ -56,9 +56,15 @@ class ProfileViewController: UIViewController {
             self.userNameText.text = newUser.name
             self.userEmailText.text = newUser.email
             self.userNumberText.text = newUser.phoneNumber
+
             self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
             
             
+
+            self.userAddText.text = newUser.defaultFormattedAddress
+
+        
+
             if newUser.profileImage == ""
             {
                 

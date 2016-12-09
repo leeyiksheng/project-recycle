@@ -37,6 +37,11 @@
 		EB18317C1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */; };
 		EB21B7191DF151DF00F65ECD /* CurrentRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */; };
 		EB21B71B1DF151EA00F65ECD /* CompletedRecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */; };
+		EB24F3C91DFA5AA1003DFD60 /* MenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */; };
+		EB24F3CB1DFA682A003DFD60 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */; };
+		EB24F3CD1DFA6856003DFD60 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB24F3CC1DFA6856003DFD60 /* Orders.storyboard */; };
+		EB24F3CF1DFA69FC003DFD60 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB24F3CE1DFA69FC003DFD60 /* SettingsViewController.swift */; };
+		EB24F3D11DFA6B2A003DFD60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB24F3D01DFA6B2A003DFD60 /* Main.storyboard */; };
 		EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */; };
 		EB6267611DEBD0D500CC2C37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */; };
 		EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB6267641DEBD0D600CC2C37 /* Home.storyboard */; };
@@ -96,6 +101,11 @@
 		EB18317B1DF95D9A0070C128 /* AssignedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssignedOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EB21B7181DF151DF00F65ECD /* CurrentRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentRecycleOrder.swift; sourceTree = "<group>"; };
 		EB21B71A1DF151EA00F65ECD /* CompletedRecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedRecycleOrder.swift; sourceTree = "<group>"; };
+		EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabBarController.swift; sourceTree = "<group>"; };
+		EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		EB24F3CC1DFA6856003DFD60 /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
+		EB24F3CE1DFA69FC003DFD60 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EB24F3D01DFA6B2A003DFD60 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB62675D1DEBD0D500CC2C37 /* Project Recycle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Project Recycle.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6267601DEBD0D500CC2C37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +165,8 @@
 				EB6267801DEC28CB00CC2C37 /* LoginSignup.storyboard */,
 				EB6267691DEBD0D600CC2C37 /* LaunchScreen.storyboard */,
 				AF5787761DF67A4900D44084 /* GuidePack.storyboard */,
+				EB24F3CC1DFA6856003DFD60 /* Orders.storyboard */,
+				EB24F3D01DFA6B2A003DFD60 /* Main.storyboard */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -221,7 +233,13 @@
 				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
 				EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */,
 				EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */,
+
 				AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */,
+
+				EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */,
+				EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */,
+				EB24F3CE1DFA69FC003DFD60 /* SettingsViewController.swift */,
+
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -345,8 +363,10 @@
 				EB6267811DEC28CB00CC2C37 /* LoginSignup.storyboard in Resources */,
 				EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */,
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
+				EB24F3D11DFA6B2A003DFD60 /* Main.storyboard in Resources */,
 				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
+				EB24F3CD1DFA6856003DFD60 /* Orders.storyboard in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
 				A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
@@ -413,9 +433,12 @@
 				EB1831741DF7C6500070C128 /* DriverTableViewCell.swift in Sources */,
 				AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */,
 				EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */,
+				EB24F3CB1DFA682A003DFD60 /* OrdersViewController.swift in Sources */,
 				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
 				EB6267891DED392C00CC2C37 /* Downloader.swift in Sources */,
+				EB24F3C91DFA5AA1003DFD60 /* MenuTabBarController.swift in Sources */,
+				EB24F3CF1DFA69FC003DFD60 /* SettingsViewController.swift in Sources */,
 				EB6267871DED36B300CC2C37 /* MenuPanelItem.swift in Sources */,
 				AF57877B1DF6943F00D44084 /* GuideTableViewCell.swift in Sources */,
 				EBA7EE571DF6678A00515EE1 /* OrderProcessorViewController.swift in Sources */,
