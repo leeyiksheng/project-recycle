@@ -57,7 +57,7 @@ class ProfileViewController: UIViewController {
             self.userEmailText.text = newUser.email
             self.userNumberText.text = newUser.phoneNumber
 
-            self.userAddText.text = "\(newUser.firstAddressLine), \(newUser.secondAddressLine), \(newUser.thirdAddressLine), \(newUser.postcode) \(newUser.city), \(newUser.state)"
+            
             
             
 
