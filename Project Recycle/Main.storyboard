@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Ri3-H0-tc8">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Menu Tab Bar-->
+        <scene sceneID="93c-JS-QhQ">
+            <objects>
+                <tabBarController storyboardIdentifier="Menu Tab Bar" title="Menu Tab Bar" id="Ri3-H0-tc8" customClass="MenuTabBarController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" itemPositioning="centered" id="x4E-tj-cE0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </tabBar>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HTA-Vh-cfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-465" y="151"/>
+        </scene>
+        <!--Main Recycle View Controller-->
+        <scene sceneID="aiC-fu-4AW">
+            <objects>
+                <viewController storyboardIdentifier="Home" id="awc-Yf-WNA" customClass="MainRecycleViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gOd-Yn-Gal"/>
+                        <viewControllerLayoutGuide type="bottom" id="L6g-rf-wTx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fu5-yQ-79q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q00-Da-B2a">
+                                <rect key="frame" x="88" y="234" width="200" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Gac-0w-WGN"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="recycleIcon"/>
+                                <connections>
+                                    <action selector="onRecycleButtonTouchUpInside:" destination="awc-Yf-WNA" eventType="touchUpInside" id="Yaw-Dd-vAc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Q00-Da-B2a" firstAttribute="centerX" secondItem="fu5-yQ-79q" secondAttribute="centerX" id="PtX-fg-BCM"/>
+                            <constraint firstItem="Q00-Da-B2a" firstAttribute="centerY" secondItem="fu5-yQ-79q" secondAttribute="centerY" id="jOe-SM-Qi6"/>
+                            <constraint firstItem="Q00-Da-B2a" firstAttribute="width" secondItem="Q00-Da-B2a" secondAttribute="height" multiplier="1:1" id="z3t-HX-7c4"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="favorites" id="7XJ-b7-2Wd"/>
+                    <connections>
+                        <outlet property="recycleButton" destination="Q00-Da-B2a" id="qYM-8B-9GQ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q0J-bj-i5b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-466" y="869"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="recycleIcon" width="786" height="786"/>
+    </resources>
+</document>

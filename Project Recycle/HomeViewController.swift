@@ -17,14 +17,10 @@ class HomeViewController: UIViewController {
     
     var navigationMenuItemArray : [MenuPanelItem] = []
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationMenuCollectionView.delegate = self
-        navigationMenuCollectionView.dataSource = self
-        
-        generateNavigationMenuItems()
-        
     }
 
     override func didReceiveMemoryWarning() {
