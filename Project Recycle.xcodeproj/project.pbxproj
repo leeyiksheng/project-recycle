@@ -16,7 +16,7 @@
 		A14586BA1DF11F5600CAB9F0 /* PickupAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */; };
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
-		A190FDE31DF93AAC00AB0A3A /* loginBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */; };
+		A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = A157643C1DFA4F6000091650 /* loginBackground.gif */; };
 		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
 		AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3706361DED1A0700BF953F /* DriverViewController.swift */; };
@@ -73,7 +73,7 @@
 		A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressViewController.swift; sourceTree = "<group>"; };
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
-		A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = loginBackground.gif; path = ../../loginBackground.gif; sourceTree = "<group>"; };
+		A157643C1DFA4F6000091650 /* loginBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginBackground.gif; sourceTree = SOURCE_ROOT; };
 		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
 		AF3706361DED1A0700BF953F /* DriverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverViewController.swift; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 		A1D279F91DF825960023EBBE /* Gifs */ = {
 			isa = PBXGroup;
 			children = (
-				A190FDE21DF93AAC00AB0A3A /* loginBackground.gif */,
+				A157643C1DFA4F6000091650 /* loginBackground.gif */,
 			);
 			name = Gifs;
 			sourceTree = "<group>";
@@ -353,8 +353,8 @@
 				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
+				A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
-				A190FDE31DF93AAC00AB0A3A /* loginBackground.gif in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
 				AF5787771DF67A4900D44084 /* GuidePack.storyboard in Resources */,
 			);
