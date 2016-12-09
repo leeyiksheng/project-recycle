@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
     }
     
     func generateNavigationMenuItems() {
-        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out"), createMenuPanelItem(imageName: "errorIcon", itemName: "Processor")]
+        navigationMenuItemArray = [createMenuPanelItem(imageName: "errorIcon", itemName: "Learn"), createMenuPanelItem(imageName: "errorIcon", itemName: "Non-recyclable"), createMenuPanelItem(imageName: "errorIcon", itemName: "Current Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Past Orders"), createMenuPanelItem(imageName: "errorIcon", itemName: "Profile"), createMenuPanelItem(imageName: "errorIcon", itemName: "Settings"), createMenuPanelItem(imageName: "errorIcon", itemName: "Sign Out"), createMenuPanelItem(imageName: "errorIcon", itemName: "Processor"), createMenuPanelItem(imageName: "errorIcon", itemName: "Complete Assignments")]
         self.navigationMenuCollectionView.reloadData()
     }
     
@@ -77,6 +77,10 @@ extension HomeViewController: UICollectionViewDelegate {
             let transitionToOrderProcessorNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil, userInfo: nil)
             NotificationCenter.default.post(transitionToOrderProcessorNotification)
             print("Tapped Processor Button")
+        case "Complete Assignments":
+            let transitionToDriverAssignmentNotification = Notification(name: Notification.Name(rawValue: "UserTransitionToDriverAssignmentCompletion"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(transitionToDriverAssignmentNotification)
+            print("Tapped Complete Assignments")
         default: break
         }
     }
