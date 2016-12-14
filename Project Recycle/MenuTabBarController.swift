@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
+class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,21 +38,17 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.selectedViewController = self.viewControllers![0]
     }
     
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+       
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController is OrdersViewController {
-            
-        }
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return true
-    }
+
 }

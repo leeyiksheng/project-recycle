@@ -17,36 +17,93 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNumberText: UITextField!
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
+    @IBOutlet weak var editProfileButton: UIButton!
     
     var personalDetails: [User] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        userProImage?.layer.borderWidth = 5
+        userProImage?.image = UIImage(named: "noone")
+        userProImage?.layer.borderColor = UIColor.clear.cgColor
+        userProImage?.layer.borderWidth = 4
         userProImage?.layer.masksToBounds = false
-        userProImage?.layer.borderColor = UIColor.white.cgColor
-        userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/2
+        let setValue = 86
+        userProImage?.frame = CGRect(x: 0, y: 0, width: CGFloat(setValue), height: CGFloat(setValue))
+        userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/1.5
         userProImage?.clipsToBounds = true
         userProImage?.isUserInteractionEnabled = true
+        
+        editProfileButton.layer.masksToBounds = false
+        editProfileButton.layer.borderWidth = 4
+        editProfileButton.layer.cornerRadius = (editProfileButton.frame.height)/2
+        editProfileButton.tintColor = UIColor.forestGreen
+        editProfileButton.layer.borderColor = UIColor.forestGreen.cgColor
+        editProfileButton.backgroundColor = UIColor.white
+        editProfileButton.clipsToBounds = true
+        editProfileButton.isUserInteractionEnabled = true
+        editProfileButton.addTarget(self, action:#selector (editProfile(sender:)), for: .touchUpInside)
         
         
         frDBref = FIRDatabase.database().reference()
         
         fetchUserInfo()
+        userNameText.isUserInteractionEnabled = false
+        userNumberText.isUserInteractionEnabled  = false
+        userEmailText.isUserInteractionEnabled = false
+        userAddText.isUserInteractionEnabled  = false
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(sender:)))
         userProImage?.addGestureRecognizer(tap)
         
     }
     
+    func editProfile (sender: UIButton)
+    {
+        if sender.titleLabel?.text == "Edit Profile"
+        {
+            sender.setTitle("Save Changes", for: .normal)
+            userNameText.isUserInteractionEnabled  = true
+            userNumberText.isUserInteractionEnabled  = true
+            userAddText.isUserInteractionEnabled  = true
+        }
+        else
+        {
+            self.saveNewName()
+            self.saveNewNumber()
+            sender.setTitle("Edit Profile", for: .normal)
+            userNameText.isUserInteractionEnabled  = false
+            userNumberText.isUserInteractionEnabled  = false
+            userAddText.isUserInteractionEnabled  = false
+        }
+        
+    }
+    
+    
+    
+    
     func imageTapped(sender: UIGestureRecognizer)
     {
         if let imagePressed = sender.view as? UIImageView
         {
-            self.performSegue(withIdentifier: "imageSegue", sender: self)
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! ProfileImageLibraryViewController
+//            addChildViewController(vc)
+//            vc.view.frame = self.view.bounds
+//            view.addSubview(vc.view)
+//            vc.didMove(toParentViewController: self)
+//            performSegue(withIdentifier: "imageSegue", sender: self)
+            self.present(vc, animated: true, completion: nil)
+            
+//            self.performSegue(withIdentifier: "imageSegue", sender: self)
+//            let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+//            let profileImageController = storyboard.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! UIViewController
+//            self.present(profileImageController, animated: true, completion: nil)
         }
     }
+    
+    
     
     private func fetchUserInfo()
     {
@@ -75,7 +132,7 @@ class ProfileViewController: UIViewController {
                 
                 Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
                     
-                    self.userProImage?.layer.borderColor = UIColor.red.cgColor
+                    self.userProImage?.layer.borderColor = UIColor.forestGreen.cgColor
                     if error != nil
                     {
                         print(error!)
@@ -92,67 +149,49 @@ class ProfileViewController: UIViewController {
     }
     
     
-    @IBAction func editNameButtPressed(_ sender: UIButton)
+    func saveNewName ()
     {
-        var inputChangesText: UITextField?
-        let noti = UIAlertController(title: "Change Name", message: "Please enter your new name.", preferredStyle: .alert)
-        noti.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "New Name"
-            inputChangesText = textField
-        })
-        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            let changeRequest = FIRAuth.auth()?.currentUser?.uid
-            frDBref.child("users/\(changeRequest!)/name").setValue(inputChangesText!.text)
-            self.userNameText.text = inputChangesText?.text
-        }))
-        present(noti, animated: true, completion: nil)
-        
+        let changeRequest = FIRAuth.auth()?.currentUser?.uid
+        frDBref.child("users/\(changeRequest!)/name").setValue(userNameText.text)
     }
     
-    @IBAction func editNumberButPressed(_ sender: UIButton)
+
+    
+    func saveNewNumber ()
     {
-        var inputChangesText: UITextField?
-        let noti = UIAlertController(title: "Change Phone Number", message: "Please enter your phone number.", preferredStyle: .alert)
-        noti.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "New Number"
-            inputChangesText = textField
-        })
-        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            let changeRequest = FIRAuth.auth()?.currentUser?.uid
-            frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(inputChangesText!.text)
-            self.userNumberText.text = inputChangesText?.text
-        }))
-        present(noti, animated: true, completion: nil)
-        
-        
+        let changeRequest = FIRAuth.auth()?.currentUser?.uid
+        frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(userNumberText.text)
     }
     
+   
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
+        var hold1 : UITextField?
+        var hold2 : UITextField?
         var emailText: UITextField?
         var passText: UITextField?
         let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
         noti.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter a new Email"
-            emailText = textField
+            hold1 = textField
         })
         noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
             textFeed.placeholder = "Enter password to confirm update password"
             textFeed.isSecureTextEntry = true
-            passText = textFeed
+            hold2 = textFeed
         })
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
             let changeRequest = FIRAuth.auth()?.currentUser
+            emailText = hold1!
             changeRequest?.updateEmail((emailText?.text)!){(error) in
                 if let error = error{
                     print(error.localizedDescription)
                 }
                 else
                 {
-                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (emailText?.text)!, password: (passText?.text)!)
+                    passText = hold2!
+                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (emailText!.text)!, password: (passText!.text)!)
                     changeRequest?.reauthenticate(with: credential, completion: {(error) in
                         if (error != nil)
                         {
@@ -162,73 +201,77 @@ class ProfileViewController: UIViewController {
                         {
                             let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
                             alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
+                            
                         }
                     })
                     
                 }
+                frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
+                self.userEmailText.text = emailText?.text
                 
                 
             }
-            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
-            self.userEmailText.text = emailText?.text
+            
         }))
         present(noti,animated: true, completion:  nil)
     }
     
-    @IBAction func editAddButtPressed(_ sender: UIButton)
-    {
-        var add1: UITextField!
-        var add2: UITextField!
-        var add3: UITextField!
-        var post: UITextField!
-        var siti: UITextField!
-        var state: UITextField!
-        
-        let noti = UIAlertController(title: "Change Address", message: "Please enter your address", preferredStyle: .alert)
-        noti.addTextField(configurationHandler: {(line1: UITextField!) in
-            line1.placeholder = "First Line Address"
-            add1 = line1!
-        })
-        noti.addTextField(configurationHandler: {(line2: UITextField!) in
-            line2.placeholder = "Second Line Address"
-            add2 = line2!
-        })
-        noti.addTextField(configurationHandler: {(line3: UITextField!) in
-            line3.placeholder = "Third Line Address"
-            add3 = line3!
-        })
-        noti.addTextField(configurationHandler: {(code: UITextField!) in
-            code.placeholder = "Postcode"
-            post = code!
-        })
-        noti.addTextField(configurationHandler: {(town: UITextField!) in
-            town.placeholder = "City"
-            siti = town!
-        })
-        noti.addTextField(configurationHandler: {(district: UITextField!) in
-            district.placeholder = "State"
-            state = district!
-        })
-        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            let changeRequest = FIRAuth.auth()?.currentUser?.uid
-            frDBref.child("users/\(changeRequest!)/address/firstLine").setValue(add1!.text)
-            frDBref.child("users/\(changeRequest!)/address/secondLine").setValue(add2!.text)
-            frDBref.child("users/\(changeRequest!)/address/thirdLine").setValue(add3!.text)
-            frDBref.child("users/\(changeRequest!)/address/postcode").setValue(post!.text)
-            frDBref.child("users/\(changeRequest!)/address/city").setValue(siti!.text)
-            frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
-            if add3.text != nil
-            {
-                self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
-            }
-            else
-            {
-                self.userAddText.text = "\(add1.text!), \(add2.text!), \(post.text!) \(siti.text!), \(state.text!)"
-            }
-        }))
-        present(noti, animated: true, completion: nil)
-    }
+//    @IBAction func editAddButtPressed(_ sender: UIButton)
+//    {
+//        var add1: UITextField!
+//        var add2: UITextField!
+//        var add3: UITextField!
+//        var post: UITextField!
+//        var siti: UITextField!
+//        var state: UITextField!
+//        
+//        let noti = UIAlertController(title: "Change Address", message: "Please enter your address", preferredStyle: .alert)
+//        noti.addTextField(configurationHandler: {(line1: UITextField!) in
+//            line1.placeholder = "First Line Address"
+//            add1 = line1!
+//        })
+//        noti.addTextField(configurationHandler: {(line2: UITextField!) in
+//            line2.placeholder = "Second Line Address"
+//            add2 = line2!
+//        })
+//        noti.addTextField(configurationHandler: {(line3: UITextField!) in
+//            line3.placeholder = "Third Line Address"
+//            add3 = line3!
+//        })
+//        noti.addTextField(configurationHandler: {(code: UITextField!) in
+//            code.placeholder = "Postcode"
+//            post = code!
+//        })
+//        noti.addTextField(configurationHandler: {(town: UITextField!) in
+//            town.placeholder = "City"
+//            siti = town!
+//        })
+//        noti.addTextField(configurationHandler: {(district: UITextField!) in
+//            district.placeholder = "State"
+//            state = district!
+//        })
+//        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
+//        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+//            let changeRequest = FIRAuth.auth()?.currentUser?.uid
+//            frDBref.child("users/\(changeRequest!)/address/firstLine").setValue(add1!.text)
+//            frDBref.child("users/\(changeRequest!)/address/secondLine").setValue(add2!.text)
+//            frDBref.child("users/\(changeRequest!)/address/thirdLine").setValue(add3!.text)
+//            frDBref.child("users/\(changeRequest!)/address/postcode").setValue(post!.text)
+//            frDBref.child("users/\(changeRequest!)/address/city").setValue(siti!.text)
+//            frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
+//            if add3.text != nil
+//            {
+//                self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
+//            }
+//            else
+//            {
+//                self.userAddText.text = "\(add1.text!), \(add2.text!), \(post.text!) \(siti.text!), \(state.text!)"
+//            }
+//        }))
+//        present(noti, animated: true, completion: nil)
+//    }
+    
+    //////////////////////////////////////////////////////////////////
     
     @IBAction func signOutButtPressed(_ sender: UIButton)
     {
@@ -256,6 +299,9 @@ class ProfileViewController: UIViewController {
         let UserLogoutNotification = Notification (name: Notification.Name(rawValue: "UserLogoutNotification"), object: nil, userInfo: nil)
         NotificationCenter.default.post(UserLogoutNotification)
     }
+    
+    
+    
     
     
     @IBAction func changePassButtPressed(_ sender: UIButton)
