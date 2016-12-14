@@ -11,84 +11,148 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class RecycleOrder {
-    var creationTimestamp: TimeInterval
-    var receiverFormattedAddress: String
-    var orderImages: [UIImage]
-    var hasPaper: Bool
-    var hasPlastic: Bool
-    var hasGlass: Bool
-    var hasAluminium: Bool
-    var receiverName: String
-    var receiverContact: String
-    var userUID: String
-    var orderUID: String
-    var addressUID: String
+    
+    var userUID: String?
+    var orderUID: String?
+    var addressUID: String?
+    
+    var receiverFormattedAddress: String?
+    var receiverName: String?
+    var receiverContact: String?
+    
+    var hasPaper: Bool?
+    var hasPlastic: Bool?
+    var hasGlass: Bool?
+    var hasAluminium: Bool?
+    
+    var creationTimestamp: TimeInterval?
+    var processedTimestamp: TimeInterval?
+    var completionTimestamp: TimeInterval?
+    
+    var assignedDriver: Driver?
+    var orderValue: Double?
 
-    init() {
-        self.creationTimestamp = 0
-        self.receiverFormattedAddress = ""
-        self.orderImages = []
-        self.hasAluminium = false
-        self.hasPlastic = false
-        self.hasPaper = false
-        self.hasGlass = false
-        self.receiverName = ""
-        self.receiverContact = ""
-        self.userUID = ""
-        self.orderUID = ""
-        self.addressUID = ""
-    }
-
-    convenience init(orderWithUserUID userUID: String, addressID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
-        self.init()
+    init(orderWithUserUID userUID: String, addressID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
         self.userUID = userUID
+        self.addressUID = addressID
+        
         self.hasAluminium = hasAluminium
         self.hasGlass = hasGlass
         self.hasPaper = hasPaper
         self.hasPlastic = hasPlastic
-        self.addressUID = addressID
-        createOrderImagesWithMainRecycleCategories()
-        fetchAddressDataFromDatabaseWith(addressID: addressID, completion: { () -> () in
-            let fetchingCompletionNotification = Notification(name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil, userInfo: nil)
-            NotificationCenter.default.post(name: fetchingCompletionNotification.name, object: self)
-        })
         
+        fetchAddressDataFromDatabaseWith(addressID: addressID, completion: { () -> () in
+            let orderInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(name: orderInitializationCompletionNotification.name, object: self)
+        })
     }
 
-    convenience init(orderWithOrderUID orderUID: String) {
-        self.init()
-        fetchOrderDataFromDatabaseWith(orderUID: orderUID, completion: { (rawOrderDataDictionary) -> () in
-            self.userUID = rawOrderDataDictionary["userID"] as! String
-            self.orderUID = rawOrderDataDictionary["orderID"] as! String
-            self.addressUID = rawOrderDataDictionary["addressID"] as! String
-            self.receiverFormattedAddress = rawOrderDataDictionary["formattedAddress"] as! String
-            self.receiverName = rawOrderDataDictionary["receiverName"] as! String
-            self.receiverContact = rawOrderDataDictionary["receiverContact"] as! String
+    init(orderWithOrderUID orderUID: String) {
+        let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(orderUID)")
+        
+        orderDatabaseReference.observe(FIRDataEventType.value, with: { (snapshot) in
+            guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
+                print("Error: Database snapshot is empty, check whether order ID is valid.")
+                return
+            }
+            
+            guard let userUID = rawOrderDataDictionary["userID"] as? String else {
+                print("Error: UserID in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.userUID = userUID
+            
+            guard let orderUID = rawOrderDataDictionary["orderID"] as? String else {
+                print("Error: UserID in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.orderUID = orderUID
+            
+            guard let addressUID = rawOrderDataDictionary["addressID"] as? String else {
+                print("Error: AddressID in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.addressUID = addressUID
+            
+            guard let formattedAddress = rawOrderDataDictionary["formattedAddress"] as? String else {
+                print("Error: formattedAddress dictionary in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverFormattedAddress = formattedAddress
+            
+            guard let receiverName = rawOrderDataDictionary["receiverName"] as? String else {
+                print("Error: receiverName in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverName = receiverName
+            
+            guard let receiverContact = rawOrderDataDictionary["receiverContact"] as? String else {
+                print("Error: receiverContact in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverContact = receiverContact
 
-            let categoryDictionary = rawOrderDataDictionary["orderCategories"] as! [String: Bool]
+            guard let categoryDictionary = rawOrderDataDictionary["orderCategories"] as? [String: Bool] else {
+                print("Error: orderCategories in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
 
             if categoryDictionary["aluminium"]! {
                 self.hasAluminium = true
+            } else {
+                self.hasAluminium = false
             }
 
             if categoryDictionary["glass"]! {
                 self.hasGlass = true
+            } else {
+                self.hasGlass = false
             }
 
             if categoryDictionary["paper"]! {
                 self.hasPaper = true
+            } else {
+                self.hasPaper = false
             }
 
             if categoryDictionary["plastic"]! {
                 self.hasPlastic = true
+            } else {
+                self.hasPlastic = false
             }
 
-            self.createOrderImagesWithMainRecycleCategories()
-
-            self.creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as! TimeInterval
-
-            let dataFetchCompletionNotification = Notification(name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil, userInfo: nil)
-            NotificationCenter.default.post(dataFetchCompletionNotification)
+            guard let creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as? TimeInterval else {
+                print("Error: creationTimestamp in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.creationTimestamp = creationTimestamp
+            
+            if rawOrderDataDictionary["orderProcessedOn"] != nil {
+                self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as? TimeInterval
+            } else {
+                print("Warning: processedTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
+            }
+            
+            if rawOrderDataDictionary["orderCompletedOn"] != nil {
+                self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as? TimeInterval
+            } else {
+                print("Warning: completionTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
+            }
+            
+            if rawOrderDataDictionary["orderValue"] != nil {
+                self.orderValue = rawOrderDataDictionary["orderValue"] as? Double
+            } else {
+                print("Warning: orderValue in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
+            }
+            
+            if rawOrderDataDictionary["driverID"] != nil {
+                let driverUID = rawOrderDataDictionary["driverID"] as! String
+                self.assignedDriver = Driver.init(driverUID: driverUID)
+            } else {
+                print("Warning: driverID in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
+                let orderInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil, userInfo: nil)
+                NotificationCenter.default.post(orderInitializationCompletionNotification)
+            }
         })
     }
     
@@ -96,51 +160,68 @@ class RecycleOrder {
         let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressID)")
         
         addressDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
-            let addressDictionary = snapshot.value as! [String: Any]
-            self.receiverFormattedAddress = addressDictionary["formattedAddress"] as! String
-            self.receiverName = addressDictionary["receiverName"] as! String
-            self.receiverContact = addressDictionary["receiverContact"] as! String
+            guard let addressDictionary = snapshot.value as? [String: Any] else {
+                print("Error: Database snapshot is empty, check whether address ID is valid.")
+                return
+            }
+            
+            guard let formattedAddress = addressDictionary["formattedAddress"] as? String else {
+                print("Error: formattedAddress in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverFormattedAddress = formattedAddress
+            
+            guard let receiverName = addressDictionary["receiverName"] as? String else {
+                print("Error: receiverName in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverName = receiverName
+            
+            guard let receiverContact = addressDictionary["receiverContact"] as? String else {
+                print("Error: receiverContact in database snapshot is nil, please check for download interruption or database corruption.")
+                return
+            }
+            self.receiverContact = receiverContact
+            
             completion()
         })
     }
-
-    func fetchOrderDataFromDatabaseWith(orderUID: String, completion: @escaping (_ rawDataDictionary: [String: AnyObject]) -> ()) {
-        let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(orderUID)")
-
-        orderDatabaseReference.observe(FIRDataEventType.value, with: { (snapshot) in
-            guard let rawOrderDataDictionary = snapshot.value as? [String: AnyObject] else {
-                print("Error: Database snapshot was empty, check whether order ID is valid.")
-                return
-            }
-
-            completion(rawOrderDataDictionary)
-        })
+    
+    func observeDriverIntializationCompletionNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDriverIntializationCompletionNotification), name: Notification.Name(rawValue: "DriverIntializationCompletionNotification"), object: nil)
     }
+    
+    @objc func handleDriverIntializationCompletionNotification(_ notification: Notification) {
+        let orderInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(orderInitializationCompletionNotification)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "DriverIntializationCompletionNotification"), object: nil)
+    }
+
     func submitOrder() {
-        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)")
+        let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID!)")
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
-        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressUID)")
         
         let orderUID = orderDatabaseReference.childByAutoId().key
         self.orderUID = orderUID
 
         let order = [
-            "addressID" : addressUID,
-            "formattedAddress": receiverFormattedAddress,
+            "addressID" : addressUID!,
+            "formattedAddress": receiverFormattedAddress!,
             "orderCategories": [
-                "aluminium": hasAluminium,
-                "glass": hasGlass,
-                "paper": hasPaper,
-                "plastic": hasPlastic
+                "aluminium": hasAluminium!,
+                "glass": hasGlass!,
+                "paper": hasPaper!,
+                "plastic": hasPlastic!
             ],
             "orderCreatedOn": Date.timeIntervalSinceReferenceDate,
-            "receiverContact": receiverContact,
-            "receiverName": receiverName,
-            "userID": userUID,
+            "receiverContact": receiverContact!,
+            "receiverName": receiverName!,
+            "userID": userUID!,
             "orderID": orderUID
             ] as [String : Any]
             
-        let userOrderUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)/processingOrders")
+        let userOrderUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID!)/processingOrders")
 
         fetchUserOrderUIDsFromDatabaseWith(databaseReference: userOrderUIDDatabaseReference, completion: { (uidArray) in
             var orderUIDArray = uidArray
@@ -162,28 +243,5 @@ class RecycleOrder {
             }
             completion(orderUIDArray)
         })
-    }
-
-    func createOrderImagesWithMainRecycleCategories() {
-        if hasAluminium {
-            guard let image = UIImage.init(named: "Aluminium") else { return }
-            orderImages.append(image)
-        }
-        if hasGlass {
-            guard let image = UIImage.init(named: "Glass") else { return }
-            orderImages.append(image)
-        }
-        if hasPaper {
-            guard let image = UIImage.init(named: "Paper") else { return }
-            orderImages.append(image)
-        }
-        if hasPlastic {
-            guard let image = UIImage.init(named: "Plastic") else { return }
-            orderImages.append(image)
-        }
-    }
-    private func createOrderImagesWithImageArray(imageArray: [UIImage]) {
-        // to be done when item categories have been determined
-        print("This feature hasn't been implemented yet.")
     }
 }

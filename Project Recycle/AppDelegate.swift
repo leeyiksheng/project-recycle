@@ -83,26 +83,16 @@ extension AppDelegate {
     func observeTransitionNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToRecycleGeneralViewController), name: Notification.Name(rawValue: "UserTransitionToRecycleGeneral"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToProfileViewController), name: Notification.Name(rawValue: "UserTransitionToProfile"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCurrentOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCurrentOrders"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToCompletedOrdersViewController), name: Notification.Name(rawValue: "UserTransitionToCompletedOrders"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToOrderProcessorViewController), name: Notification.Name(rawValue: "UserTransitionToOrderProcessor"), object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToGuideViewController), name: Notification.Name(rawValue: "UserTransitionToGuide"), object: nil)
-
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTransitionToDriverAssignmentCompletionViewController), name: Notification.Name(rawValue: "UserTransitionToDriverAssignmentCompletion"), object: nil)
 
     }
     
-
-    
     func handleSignedOutNotification(_ notification: Notification) {
-        // This will only be called if user gets logged out.
-        
         window!.rootViewController = instantiateLoginViewController()
     }
     
     func handleSignedInNotification(_ notification: Notification) {
-        window!.rootViewController = instantiateHomeViewController()
+        window!.rootViewController = instantiateMenuTabBarController()
     }
     
     func handleUserTransitionToRecycleGeneralViewController(_ notification: Notification) {
@@ -116,22 +106,6 @@ extension AppDelegate {
     func handleUserTransitionToGuideViewController(_ notification: Notification) {
         window!.rootViewController?.present(instatiateGuideViewController(), animated: true, completion: nil)
     }
-    
-    func handleUserTransitionToCurrentOrdersViewController(_ notification: Notification) {
-        window!.rootViewController?.present(instantiateCurrentOrdersViewController(), animated: true, completion: nil)
-    }
-    
-    func handleUserTransitionToCompletedOrdersViewController(_ notification: Notification) {
-        window!.rootViewController?.present(instantiateCompletedOrdersViewController(), animated: true, completion: nil)
-    }
-    
-    func handleUserTransitionToOrderProcessorViewController(_ notification: Notification) {
-        window!.rootViewController?.present(instantiateOrderProcessorViewController(), animated: true, completion: nil)
-    }
-    
-    func handleUserTransitionToDriverAssignmentCompletionViewController(_ notification: Notification) {
-        window!.rootViewController?.present(instantiateDriverAssignmentCompletionViewController(), animated: true, completion: nil)
-    }
 }
 
 extension AppDelegate {
@@ -139,12 +113,6 @@ extension AppDelegate {
         let mainStoryboard = UIStoryboard.init(name: "Main", bundle: Bundle.init(identifier: "Main"))
         let menuTabBarController = mainStoryboard.instantiateViewController(withIdentifier: "Menu Tab Bar")
         return menuTabBarController as! MenuTabBarController
-    }
-    
-    func instantiateHomeViewController() -> HomeViewController {
-        let homeStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let homeViewController = homeStoryboard.instantiateViewController(withIdentifier: "HomeView")
-        return homeViewController as! HomeViewController
     }
     
     func instantiateLoginViewController() -> LoginViewController {
@@ -176,29 +144,5 @@ extension AppDelegate {
         let guideStoryboard = UIStoryboard.init(name: "GuidePack", bundle: Bundle.init(identifier: "GuidePack"))
         let guideViewController = guideStoryboard.instantiateViewController(withIdentifier: "GuidePack")
         return guideViewController as! GuideViewController
-    }
-    
-    func instantiateCurrentOrdersViewController() -> CurrentOrdersViewController {
-        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let currentOrdersViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Current Orders")
-        return currentOrdersViewController as! CurrentOrdersViewController
-    }
-    
-    func instantiateCompletedOrdersViewController() -> OrderHistoryViewController {
-        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let orderHistoryViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order History")
-        return orderHistoryViewController as! OrderHistoryViewController
-    }
-    
-    func instantiateOrderProcessorViewController() -> OrderProcessorViewController {
-        let ordersStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let orderProcessorViewController = ordersStoryboard.instantiateViewController(withIdentifier: "Order Processor")
-        return orderProcessorViewController as! OrderProcessorViewController
-    }
-    
-    func instantiateDriverAssignmentCompletionViewController() -> DriverAssignmentCompletionViewController {
-        let driverAssignmentStoryboard = UIStoryboard.init(name: "Home", bundle: Bundle.init(identifier: "Home"))
-        let driverAssignmentCompletionViewController = driverAssignmentStoryboard.instantiateViewController(withIdentifier: "Driver Assignment Completion")
-        return driverAssignmentCompletionViewController as! DriverAssignmentCompletionViewController
     }
 }
