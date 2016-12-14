@@ -12,11 +12,6 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         let homeStoryboard = UIStoryboard.init(name: "Main", bundle: Bundle.init(identifier: "Main"))
         let homeItem = homeStoryboard.instantiateViewController(withIdentifier: "Home")
@@ -41,6 +36,10 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         let viewControllers = [homeItem, ordersItem, guideItem, profileItem]
         self.viewControllers = viewControllers
         self.selectedViewController = self.viewControllers![0]
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {

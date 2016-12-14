@@ -55,6 +55,8 @@ class Driver{
                 self.completedOrderUIDArray = driverRawDataDictionary["completedOrders"] as! [String]
             }
             
+            let driverInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "DriverInitializationCompletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(driverInitializationCompletionNotification)
         })
     }
 }

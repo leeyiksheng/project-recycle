@@ -8,14 +8,14 @@
 
 import UIKit
 
-class CurrentOrderProcessingTableViewCell: UITableViewCell {
+class CurrentOrderTableViewCell: UITableViewCell {
 
     @IBOutlet weak var creationTimestampLabel: UILabel!
-    @IBOutlet weak var userIDLabel: UILabel!
     @IBOutlet weak var receiverNameLabel: UILabel!
     @IBOutlet weak var receiverContactLabel: UILabel!
     @IBOutlet weak var receiverAddressLabel: UILabel!
-    @IBOutlet weak var processingLabel: UILabel!
+    @IBOutlet weak var orderStateLabel: UILabel!
+    @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
             self.imageCollectionView.delegate = self
@@ -37,11 +37,11 @@ class CurrentOrderProcessingTableViewCell: UITableViewCell {
 
 }
 
-extension CurrentOrderProcessingTableViewCell: UICollectionViewDelegate {
+extension CurrentOrderTableViewCell: UICollectionViewDelegate {
     
 }
 
-extension CurrentOrderProcessingTableViewCell: UICollectionViewDataSource {
+extension CurrentOrderTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! IconCollectionViewCell
         
