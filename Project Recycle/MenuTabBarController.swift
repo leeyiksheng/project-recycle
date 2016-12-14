@@ -8,15 +8,10 @@
 
 import UIKit
 
-class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
+class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
         let homeStoryboard = UIStoryboard.init(name: "Main", bundle: Bundle.init(identifier: "Main"))
         let homeItem = homeStoryboard.instantiateViewController(withIdentifier: "Home")
@@ -42,18 +37,16 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         self.viewControllers = viewControllers
         self.selectedViewController = self.viewControllers![0]
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+       
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController is OrdersViewController {
-            
-        }
-    }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return true
-    }
+
 }

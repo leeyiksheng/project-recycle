@@ -233,13 +233,10 @@
 				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
 				EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */,
 				EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */,
-
 				AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */,
-
 				EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */,
 				EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */,
 				EB24F3CE1DFA69FC003DFD60 /* SettingsViewController.swift */,
-
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -601,6 +598,7 @@
 			baseConfigurationReference = C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -616,6 +614,7 @@
 			baseConfigurationReference = 136394DC7A6BD0E1C087E6CB /* Pods-Project Recycle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
