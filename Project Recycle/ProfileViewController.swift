@@ -18,6 +18,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
     @IBOutlet weak var editProfileButton: UIButton!
+   
+    @IBOutlet weak var topBar: UINavigationBar!
+    @IBOutlet weak var signOutButton: UIButton!
+    @IBOutlet weak var changePassButton: UIButton!
+    @IBOutlet weak var changeEmailButt: UIButton!
     
     var personalDetails: [User] = []
     
@@ -35,7 +40,7 @@ class ProfileViewController: UIViewController {
         userProImage?.isUserInteractionEnabled = true
         
         editProfileButton.layer.masksToBounds = false
-        editProfileButton.layer.borderWidth = 4
+        editProfileButton.layer.borderWidth = 3
         editProfileButton.layer.cornerRadius = (editProfileButton.frame.height)/2
         editProfileButton.tintColor = UIColor.forestGreen
         editProfileButton.layer.borderColor = UIColor.forestGreen.cgColor
@@ -44,6 +49,34 @@ class ProfileViewController: UIViewController {
         editProfileButton.isUserInteractionEnabled = true
         editProfileButton.addTarget(self, action:#selector (editProfile(sender:)), for: .touchUpInside)
         
+        signOutButton.layer.masksToBounds = false
+        signOutButton.layer.borderWidth = 2
+        signOutButton.layer.cornerRadius = (editProfileButton.frame.height)/2
+        signOutButton.tintColor = UIColor.forestGreen
+        signOutButton.layer.borderColor = UIColor.forestGreen.cgColor
+        signOutButton.backgroundColor = UIColor.white
+        signOutButton.clipsToBounds = true
+        signOutButton.isUserInteractionEnabled = true
+        
+        changePassButton.layer.masksToBounds = false
+        changePassButton.layer.borderWidth = 3
+        changePassButton.layer.cornerRadius = (editProfileButton.frame.height)/2
+        changePassButton.tintColor = UIColor.forestGreen
+        changePassButton.layer.borderColor = UIColor.forestGreen.cgColor
+        changePassButton.backgroundColor = UIColor.white
+        changePassButton.clipsToBounds = true
+        changePassButton.isUserInteractionEnabled = true
+
+        changeEmailButt.layer.masksToBounds = false
+        changeEmailButt.layer.borderWidth = 3
+        changeEmailButt.layer.cornerRadius = (editProfileButton.frame.height)/2
+        changeEmailButt.tintColor = UIColor.forestGreen
+        changeEmailButt.layer.borderColor = UIColor.forestGreen.cgColor
+        changeEmailButt.backgroundColor = UIColor.white
+        changeEmailButt.clipsToBounds = true
+        changeEmailButt.isUserInteractionEnabled = true
+
+        topBar.backgroundColor = UIColor.lightGray
         
         frDBref = FIRDatabase.database().reference()
         
@@ -72,6 +105,7 @@ class ProfileViewController: UIViewController {
         {
             self.saveNewName()
             self.saveNewNumber()
+            
             sender.setTitle("Edit Profile", for: .normal)
             userNameText.isUserInteractionEnabled  = false
             userNumberText.isUserInteractionEnabled  = false
@@ -163,54 +197,62 @@ class ProfileViewController: UIViewController {
         frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(userNumberText.text)
     }
     
+    
+
+    
    
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
-        var hold1 : UITextField?
-        var hold2 : UITextField?
+        
         var emailText: UITextField?
         var passText: UITextField?
         let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
         noti.addTextField(configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Enter a new Email"
-            hold1 = textField
+            emailText = textField
         })
         noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
             textFeed.placeholder = "Enter password to confirm update password"
             textFeed.isSecureTextEntry = true
-            hold2 = textFeed
+            passText = textFeed
         })
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            
             let changeRequest = FIRAuth.auth()?.currentUser
-            emailText = hold1!
-            changeRequest?.updateEmail((emailText?.text)!){(error) in
-                if let error = error{
+            
+            let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (passText?.text)!)
+            
+            changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                if let error = error
+                {
+                    print("error:::::")
                     print(error.localizedDescription)
                 }
                 else
                 {
-                    passText = hold2!
-                    let credential = FIREmailPasswordAuthProvider.credential(withEmail: (emailText!.text)!, password: (passText!.text)!)
-                    changeRequest?.reauthenticate(with: credential, completion: {(error) in
+                    
+                    changeRequest?.updateEmail((emailText?.text)!, completion: {(error) in
                         if (error != nil)
                         {
                             print(error?.localizedDescription)
                         }
                         else
                         {
-                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
+//                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
+//                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
                             
+                            print("success")
+                            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
+                            self.userEmailText.text = emailText?.text
                         }
                     })
                     
                 }
-                frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
-                self.userEmailText.text = emailText?.text
                 
                 
-            }
+                
+            })
             
         }))
         present(noti,animated: true, completion:  nil)
