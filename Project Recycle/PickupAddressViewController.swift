@@ -38,25 +38,25 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     }()
 
     func submitOrder() {
-        if confirmButton.isEnabled || confirmButton.isUserInteractionEnabled {
+        if confirmButton.isEnabled && confirmButton.isUserInteractionEnabled {
             confirmButton.isEnabled = false
             confirmButton.isUserInteractionEnabled = false
             guard let index = self.selectedRow else {return}
-            observeDataFetchCompletionNotification()
+            observeOrderInitializationCompletionNotification()
             let orderToSubmit = OrderList[index]
-            _ = RecycleOrder.init(orderWithUserUID: orderToSubmit.userUID, addressID: OrderList[index].addressID, hasAluminium: categoriesChoosed.hasAluminium, hasGlass: categoriesChoosed.hasGlass, hasPaper: categoriesChoosed.hasPaper, hasPlastic: categoriesChoosed.hasPlastic)
+            let order = RecycleOrder.init(orderWithUserUID: orderToSubmit.userUID, addressID: OrderList[index].addressID, hasAluminium: categoriesChoosed.hasAluminium, hasGlass: categoriesChoosed.hasGlass, hasPaper: categoriesChoosed.hasPaper, hasPlastic: categoriesChoosed.hasPlastic)
         }
     }
     
-    func observeDataFetchCompletionNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDataFetchCompletionNotification(_:)), name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil)
+    func observeOrderInitializationCompletionNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderInitializationCompletionNotification(_:)), name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
     }
     
-    func handleDataFetchCompletionNotification(_ notification: Notification) {
+    func handleOrderInitializationCompletionNotification(_ notification: Notification) {
         let order = notification.object as! RecycleOrder
         order.submitOrder()
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "DataFetchCompletionNotification"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
     }
 
     let currentUser : String = {

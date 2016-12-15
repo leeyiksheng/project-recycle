@@ -49,7 +49,7 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     override func viewDidLoad() {
         super.viewDidLoad()
         frDBref = FIRDatabase.database().reference()
-        self.titleLabel.text = "Choose Image"
+        
         imageView?.layer.borderWidth = 5
         imageView?.layer.masksToBounds = false
         imageView?.layer.borderColor = nil
@@ -110,17 +110,33 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         imageView.contentMode = .scaleAspectFit
         
         dismiss(animated: true, completion: nil)
+//        self.willMove(toParentViewController: nil)
+//        self.view.removeFromSuperview()
+//        self.removeFromParentViewController()
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
     {
+        picker.dismiss(animated: true, completion: nil)
         dismiss(animated: true, completion: nil)
+//        self.willMove(toParentViewController: nil)
+//        self.view.removeFromSuperview()
+//        self.removeFromParentViewController()
+
     }
     
     
     @IBAction func CancelButtonPressed(_ sender: UIBarButtonItem)
     {
-        self.dismiss(animated: true, completion: nil)
+        
+//        self.willMove(toParentViewController: nil)
+//        self.view.removeFromSuperview()
+//        self.removeFromParentViewController()
+        dismiss(animated: true, completion: nil) //not a good practice
+       //navigationController?.popToViewController(ProfileViewController(), animated: true)
+//        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
+//        let profileController = storyboard.instantiateViewController(withIdentifier: "Profile") as! UIViewController
+//        self.present(profileController, animated: true, completion: nil)
     }
 
     @IBAction func ConfirmButtonPressed(_ sender: UIBarButtonItem)
@@ -138,7 +154,8 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         let changeProfileImage = FIRAuth.auth()?.currentUser?.uid
             frDBref.child("users/\(changeProfileImage!)/profileImage").setValue(proImageUrl!)
         })
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil) // not a good practice
+        
     }
     
 

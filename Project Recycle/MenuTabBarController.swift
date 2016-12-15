@@ -8,12 +8,11 @@
 
 import UIKit
 
-class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
+class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
-        
+
         let homeItem = RecycleGeneralViewController()
         let homeItemIcon = UITabBarItem(title: "Home", image: UIImage(named: "redErrorIcon"), selectedImage: UIImage(named: "redErrorIcon"))
         homeItem.tabBarItem = homeItemIcon
@@ -37,9 +36,6 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         let viewControllers = [homeItem, ordersItem, guideItem, profileItem]
         self.viewControllers = viewControllers
         self.selectedViewController = self.viewControllers![0]
-
-        
-        
     }
     
     
@@ -48,8 +44,9 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
             
         }
     }
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return true
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
+
 }

@@ -8,11 +8,37 @@
 import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import QuartzCore
+
 class CurrentOrdersViewController: UIViewController {
+    
+    //MARK - Interface Builder Outlets
     
     @IBOutlet weak var currentOrdersTableView: UITableView!
     
-    var orderItemsArray: [RecycleOrder] = []
+    //MARK - Order Item Arrays
+    
+    var currentOrderItemsArray: [RecycleOrder] = []
+    var processingOrderItems: [RecycleOrder] = []
+    var processedOrderItems: [RecycleOrder] = []
+    
+    //MARK - Firebase Database References
+    
+    let userProcessedOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(FIRAuth.auth()!.currentUser!.uid)/processedOrders")
+    let userProcessingOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(FIRAuth.auth()!.currentUser!.uid)/processingOrders")
+    
+    //MARK - Miscellaneous Variables
+    
+    var isInitialLoadingPhase: Bool = false
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray) {
+        didSet {
+            self.activityIndicator.center = self.view.center
+            self.activityIndicator.startAnimating()
+            self.view.addSubview(self.activityIndicator)
+        }
+    }
+    
+    //MARK: - View functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +47,8 @@ class CurrentOrdersViewController: UIViewController {
         currentOrdersTableView.dataSource = self
         
         generateCurrentOrders(completion: { () -> () in
-            self.currentOrdersTableView.reloadData()
+            
         })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -34,117 +56,242 @@ class CurrentOrdersViewController: UIViewController {
         
     }
     
+    //MARK: - Main Order Generation Function
+    
     func generateCurrentOrders(completion: @escaping () -> ()) {
-        generateCurrentProcessingOrders(completion: { () -> () in
-            self.generateCurrentProcessedOrders(completion: { () -> () in
-                completion()
-            })
+        observeOrderIntializationCompletionNotification()
+        
+        fetchNewProcessedOrders()
+        fetchNewProcessingOrders()
+        
+        observeRemovedProcessedOrders()
+        observeRemovedProcessingOrders()
+    }
+    
+    //MARK: - Order Fetching Observer Functions
+
+    func fetchNewProcessingOrders() {
+        userProcessingOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
+            guard let orderUID = snapshot.value as? String else {
+                print("Error: Snapshot is empty, please check if database reference is valid.")
+                return
+            }
+            
+            let order = RecycleOrder.init(orderWithOrderUID: orderUID)
+            self.currentOrderItemsArray.append(order)
         })
     }
     
-    func generateCurrentProcessedOrders(completion: @escaping () -> ()) {
-        guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
-            return
-        }
-        
-        let userDatabaseRef = FIRDatabase.database().reference(withPath: "users/\(currentUserUID)")
-        
-        userDatabaseRef.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            
-            guard let userDataDictionary = snapshot.value as? [String: AnyObject] else {
-                print("Error: Please check if you have an Internet connection or the database reference is valid.")
+    func fetchNewProcessedOrders() {
+        userProcessedOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
+            guard let orderUID = snapshot.value as? String else {
+                print("Error: Snapshot is empty, please check if database reference is valid.")
                 return
             }
             
-            guard let currentOrders = userDataDictionary["currentOrders"] as? [String] else {
-                completion()
-                return
-            }
-            
-            for orderUID : String in currentOrders {
-                let order = CurrentRecycleOrder.init(currentOrderWithOrderUID: orderUID)
-                self.orderItemsArray.append(order)
-            }
-            
-            completion()
+            let order = RecycleOrder.init(orderWithOrderUID: orderUID)
+            self.currentOrderItemsArray.append(order)
         })
     }
     
-    func generateCurrentProcessingOrders(completion: @escaping () -> ()) {
-        guard let currentUserUID : String = FIRAuth.auth()?.currentUser?.uid else {
-            return
-        }
-        
-        let userDatabaseRef = FIRDatabase.database().reference(withPath: "users/\(currentUserUID)")
-        
-        userDatabaseRef.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
-            
-            guard let userDataDictionary = snapshot.value as? [String: AnyObject] else {
-                print("Error: Please check if you have an Internet connection or the database reference is valid.")
+    //MARK: - Order Removal Observer Functions
+    
+    func observeRemovedProcessingOrders() {
+        userProcessingOrdersDatabaseReference.observe(FIRDataEventType.childRemoved, with: { (snapshot) in
+            guard let removedOrderID = snapshot.value as? String else {
+                print("Error: Snapshot is nil.")
                 return
             }
             
-            guard let processingOrders = userDataDictionary["processingOrders"] as? [String] else {
+            guard let indexToBeRemoved: Int = self.processingOrderItems.index(where: {$0.orderUID == removedOrderID}) else {
+                print("Error: No matching order ID found in local array. Please check for data corruption.")
                 return
             }
             
-            for orderUID : String in processingOrders {
-                let order = RecycleOrder.init(orderWithOrderUID: orderUID)
-                self.orderItemsArray.append(order)
-            }
+            self.currentOrderItemsArray.remove(at: indexToBeRemoved)
             
-            completion()
+            let currentOrderDeletionNotification = Notification(name: Notification.Name(rawValue: "CurrentOrderDeletionNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(currentOrderDeletionNotification)
         })
+    }
+    
+    func observeRemovedProcessedOrders() {
+        userProcessedOrdersDatabaseReference.observe(FIRDataEventType.childRemoved, with: { (snapshot) in
+            guard let removedOrderID = snapshot.value as? String else {
+                print("Error: Snapshot is nil.")
+                return
+            }
+            
+            guard let indexToBeRemoved: Int = self.processedOrderItems.index(where: {$0.orderUID == removedOrderID}) else {
+                print("Error: No matching order ID found in local array. Please check for data corruption.")
+                return
+            }
+            
+            self.currentOrderItemsArray.remove(at: indexToBeRemoved)
+        })
+    }
+    
+    //MARK: - Notification Observer Functions
+    
+    func observeOrderIntializationCompletionNotification() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleOrderIntializationCompletionNotification), name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentOrderDeletionNotification(_:)), name: Notification.Name(rawValue: "CurrentOrderDeletionNotification"), object: nil)
+    }
+    
+    //MARK: - Notification Handler Functions
+    
+    func handleCurrentOrderDeletionNotification(_ notification: Notification) {
+        currentOrdersTableView.beginUpdates()
+        
+        currentOrdersTableView.endUpdates()
+    }
+    
+    func handleOrderIntializationCompletionNotification(_ notification: Notification) {
+        currentOrdersTableView.reloadData()
+        
+        // append to array OR remove from array
+        // get the index path of changed thing
+        // if added indexPath.row + 1
+        // if removed = get the index of the removed row
+        
+        // update the datasource array
+        // currentOrdersTableView.beginUpdates()
+        // currentOrdersTableView.insertRows(at: <#T##[IndexPath]#>, with: <#T##UITableViewRowAnimation#>) // for add = use with .childAdded
+        // currentOrdersTableView.deleteRows(at: <#T##[IndexPath]#>, with: <#T##UITableViewRowAnimation#>) // for delete = use with .childRemoved
+        // currentOrdersTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableViewRowAnimation#>) // for udpate = use with .value
+        // currentOrdersTableView.endUpdates()
+        
+        self.activityIndicator.stopAnimating()
+    }
+    
+    //MARK: - Miscellaneous Functions
+    
+    func createFormattedDateWith(timeInterval: Double) -> String {
+        let dateInTimeInterval = Date.init(timeIntervalSinceReferenceDate: timeInterval)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .medium
+        
+        return dateFormatter.string(from: dateInTimeInterval)
     }
 }
-extension CurrentOrdersViewController: UITableViewDelegate {
+extension CurrentOrdersViewController: UITableViewDelegate, UIScrollViewDelegate {
     
 }
+
 extension CurrentOrdersViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if !currentOrderItemsArray.isEmpty {
+            self.currentOrdersTableView.separatorStyle = .singleLine
+            return 1
+        } else {
+            if activityIndicator.isAnimating {
+                return 1
+            } else {
+                let emptyMessageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                
+                emptyMessageLabel.text = "No orders placed :("
+                emptyMessageLabel.textColor = UIColor.darkGreen
+                emptyMessageLabel.numberOfLines = 0
+                emptyMessageLabel.textAlignment = NSTextAlignment.center
+                emptyMessageLabel.font = UIFont.init(name: "Helvetica", size: 20)
+                emptyMessageLabel.sizeToFit()
+                
+                self.currentOrdersTableView.backgroundView = emptyMessageLabel
+                self.currentOrdersTableView.separatorStyle = .none
+            }
+        }
+        
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderItemsArray.count
+        return currentOrderItemsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if orderItemsArray[indexPath.row] is RecycleOrder {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "processingCell", for: indexPath) as! CurrentOrderProcessingTableViewCell
-
-            cell.creationTimestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
-            cell.receiverNameLabel.text = orderItemsArray[indexPath.row].receiverName
-            cell.receiverContactLabel.text = orderItemsArray[indexPath.row].receiverContact
-            cell.receiverAddressLabel.text = orderItemsArray[indexPath.row].receiverFormattedAddress
-            cell.userIDLabel.text = orderItemsArray[indexPath.row].userUID
-            
-            for image: UIImage in orderItemsArray[indexPath.row].orderImages {
-                cell.iconArray.append(image)
-            }
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CurrentOrderTableViewCell
         
-            cell.imageCollectionView.reloadData()
-        
-            return cell
-        } else if orderItemsArray[indexPath.row] is CurrentRecycleOrder {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "processedCell", for: indexPath) as! CurrentOrderProcessedTableViewCell
-            
-            cell.creationTimestampLabel.text = "\(orderItemsArray[indexPath.row].creationTimestamp)"
-            cell.receiverNameLabel.text = "\(orderItemsArray[indexPath.row].receiverName)"
-            cell.receiverContactLabel.text = "\(orderItemsArray[indexPath.row].receiverContact)"
-            cell.receiverAddressLabel.text = "\(orderItemsArray[indexPath.row].receiverFormattedAddress)"
-            
-            for image: UIImage in orderItemsArray[indexPath.row].orderImages {
-                cell.iconArray.append(image)
-            }
-            
-            cell.imageCollectionView.reloadData()
-            
-            return cell
+        if currentOrderItemsArray[indexPath.row].creationTimestamp != nil {
+            cell.creationTimestampLabel.text = createFormattedDateWith(timeInterval: currentOrderItemsArray[indexPath.row].creationTimestamp!)
         } else {
-            let cell = UITableViewCell()
-            return cell
+            cell.creationTimestampLabel.text = "Error: Timestamp is nil."
         }
+        
+        if currentOrderItemsArray[indexPath.row].receiverName != nil {
+            cell.receiverNameLabel.text = currentOrderItemsArray[indexPath.row].receiverName!
+        } else {
+            cell.receiverNameLabel.text = "Error: Receiver name is nil."
+        }
+        
+        if currentOrderItemsArray[indexPath.row].receiverContact != nil {
+            cell.receiverContactLabel.text = currentOrderItemsArray[indexPath.row].receiverContact!
+        } else {
+            cell.receiverContactLabel.text = "Error: Receiver contact is nil."
+        }
+        
+        if currentOrderItemsArray[indexPath.row].receiverFormattedAddress != nil {
+            cell.receiverAddressLabel.text = currentOrderItemsArray[indexPath.row].receiverFormattedAddress!
+        } else {
+            cell.receiverAddressLabel.text = "Error: Receiver formatted address is nil."
+        }
+        
+        if currentOrderItemsArray[indexPath.row].assignedDriver != nil {
+            cell.orderStateLabel.text = "Processed"
+            cell.driverNameLabel.text = currentOrderItemsArray[indexPath.row].assignedDriver?.name
+        } else {
+            cell.orderStateLabel.text = "Processing"
+            cell.driverNameLabel.text = "Assignment pending"
+        }
+        
+        cell.iconArray.removeAll()
+        
+        if currentOrderItemsArray[indexPath.row].hasAluminium != nil {
+            aluminiumImage: if currentOrderItemsArray[indexPath.row].hasAluminium! {
+                guard let aluminiumImage = UIImage.init(named: "Aluminium") else {
+                    cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
+                    break aluminiumImage
+                }
+                cell.iconArray.append(aluminiumImage)
+            }
+        }
+        
+        if currentOrderItemsArray[indexPath.row].hasGlass != nil {
+            glassImage: if currentOrderItemsArray[indexPath.row].hasGlass! {
+                guard let glassImage = UIImage.init(named: "Glass") else {
+                    cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
+                    break glassImage
+                }
+                cell.iconArray.append(glassImage)
+            }
+        }
+        
+        if currentOrderItemsArray[indexPath.row].hasPaper != nil {
+            paperImage: if currentOrderItemsArray[indexPath.row].hasPaper! {
+                guard let paperImage = UIImage.init(named: "Paper") else {
+                    cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
+                    break paperImage
+                }
+                cell.iconArray.append(paperImage)
+            }
+        }
+        
+        if currentOrderItemsArray[indexPath.row].hasPlastic != nil {
+            plasticImage: if currentOrderItemsArray[indexPath.row].hasPlastic! {
+                guard let plasticImage = UIImage.init(named: "Plastic") else {
+                    cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
+                    break plasticImage
+                }
+                cell.iconArray.append(plasticImage)
+            }
+        }
+        
+        cell.imageCollectionView.reloadData()
+        
+        cell.layer.cornerRadius = 7.0
+        cell.layer.masksToBounds = true
+        cell.layer.borderWidth = 2.0
+        
+        return cell
     }
 }

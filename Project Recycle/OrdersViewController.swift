@@ -14,22 +14,12 @@ class OrdersViewController: UIViewController {
     
     @IBOutlet weak var currentOrdersContainerView: UIView! {
         didSet {
-            currentOrdersContainerView.isHidden = true
+            currentOrdersContainerView.isHidden = false
         }
     }
     @IBOutlet weak var orderHistoryContainerView: UIView! {
         didSet {
             orderHistoryContainerView.isHidden = true
-        }
-    }
-    @IBOutlet weak var orderProcessorContainerView: UIView! {
-        didSet {
-            orderProcessorContainerView.isHidden = true
-        }
-    }
-    @IBOutlet weak var orderCompleterContainerView: UIView! {
-        didSet {
-            orderCompleterContainerView.isHidden = true
         }
     }
     
@@ -46,23 +36,9 @@ class OrdersViewController: UIViewController {
         case 0:
             currentOrdersContainerView.isHidden = false
             orderHistoryContainerView.isHidden = true
-            orderProcessorContainerView.isHidden = true
-            orderCompleterContainerView.isHidden = true
         case 1:
             currentOrdersContainerView.isHidden = true
             orderHistoryContainerView.isHidden = false
-            orderProcessorContainerView.isHidden = true
-            orderCompleterContainerView.isHidden = true
-        case 2:
-            currentOrdersContainerView.isHidden = true
-            orderHistoryContainerView.isHidden = true
-            orderProcessorContainerView.isHidden = false
-            orderCompleterContainerView.isHidden = true
-        case 3:
-            currentOrdersContainerView.isHidden = true
-            orderHistoryContainerView.isHidden = true
-            orderProcessorContainerView.isHidden = true
-            orderCompleterContainerView.isHidden = false
         default: print("Error: Segmented control value out of bounds.")
         }
     }
