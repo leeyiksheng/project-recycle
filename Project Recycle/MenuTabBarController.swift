@@ -13,13 +13,8 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         
-        let homeStoryboard = UIStoryboard.init(name: "Main", bundle: Bundle.init(identifier: "Main"))
-        let homeItem = homeStoryboard.instantiateViewController(withIdentifier: "Home")
+        let homeItem = RecycleGeneralViewController()
         let homeItemIcon = UITabBarItem(title: "Home", image: UIImage(named: "redErrorIcon"), selectedImage: UIImage(named: "redErrorIcon"))
         homeItem.tabBarItem = homeItemIcon
         
@@ -33,19 +28,20 @@ class MenuTabBarController: UITabBarController, UITabBarControllerDelegate {
         let ordersItemIcon = UITabBarItem(title: "Orders", image: UIImage(named: "redErrorIcon"), selectedImage: UIImage(named: "redErrorIcon"))
         ordersItem.tabBarItem = ordersItemIcon
         
-        let guidePackStoryboard = UIStoryboard.init(name: "GuidePack", bundle: Bundle.init(identifier: "GuidePack"))
-        let guideItem = guidePackStoryboard.instantiateViewController(withIdentifier: "Guide")
+       
+        let guideViewController = GuideViewController()
+        let guideItem = UINavigationController(rootViewController: guideViewController)
         let guideItemIcon = UITabBarItem(title: "Guide", image: UIImage(named: "redErrorIcon"), selectedImage: UIImage(named: "redErrorIcon"))
         guideItem.tabBarItem = guideItemIcon
         
         let viewControllers = [homeItem, ordersItem, guideItem, profileItem]
         self.viewControllers = viewControllers
         self.selectedViewController = self.viewControllers![0]
-    }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        
+        
     }
+    
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         if viewController is OrdersViewController {

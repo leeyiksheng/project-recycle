@@ -7,24 +7,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Recycle General View Controller-->
-        <scene sceneID="inO-VX-UrS">
-            <objects>
-                <viewController storyboardIdentifier="RecycleGeneralViewController" id="mcw-5M-mKs" customClass="RecycleGeneralViewController" customModule="Project_Recycle" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="oDR-Up-d7C"/>
-                        <viewControllerLayoutGuide type="bottom" id="oga-7k-Ztq"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tGI-jh-2xG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IV2-VB-Kye" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-146" y="168"/>
-        </scene>
         <!--Pickup Address View Controller-->
         <scene sceneID="lA1-H8-AV2">
             <objects>
@@ -44,7 +26,7 @@
                                         <rect key="frame" x="0.0" y="28" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="u7B-dw-zSv" id="eLF-ny-WVM">
-                                            <frame key="frameInset" width="343" height="43.5"/>
+                                            <frame key="frameInset" width="343" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

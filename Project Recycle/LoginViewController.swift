@@ -31,7 +31,7 @@ class LoginViewController: UIViewController {
     lazy var loginButton : UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Login", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -63,7 +63,7 @@ class LoginViewController: UIViewController {
     lazy var signUpButton : UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -163,7 +163,7 @@ class LoginViewController: UIViewController {
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -197,7 +197,7 @@ class LoginViewController: UIViewController {
     lazy var backButton : UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Back", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -381,7 +381,7 @@ class LoginViewController: UIViewController {
 extension UITextField {
     
     func loginTextFieldAttributes() {
-        self.font = UIFont.boldSystemFont(ofSize: 14)
+        self.userInputFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.forestGreen.cgColor
@@ -389,7 +389,7 @@ extension UITextField {
     }
     
     func signUpTextFieldAttributes() {
-        self.font = UIFont.boldSystemFont(ofSize: 14)
+        self.userInputFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.forestGreen.cgColor

@@ -30,8 +30,7 @@ class RecycleGeneralViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "CHOOSE TYPES TO RECYCLE"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = UIColor(r: 169, g: 169, b: 169)
+        label.largeTitleFonts()
         label.textAlignment = .center
         return label
     }()
@@ -152,7 +151,7 @@ class RecycleGeneralViewController: UIViewController {
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -162,8 +161,8 @@ class RecycleGeneralViewController: UIViewController {
     }()
     
     func moveToNextController() {
-        let nextController = self.storyboard?.instantiateViewController(withIdentifier: "PickupAddressViewController") as! PickupAddressViewController
-//        let nextController = AlternativeAddressViewController()
+        let nextStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "PickupAddressViewController"))
+        let nextController = nextStoryboard.instantiateViewController(withIdentifier: "PickupAddressViewController") as! PickupAddressViewController
         
         let order = CategoriesChosen.init(hasAluminium: self.aluminiumButtonTapped, hasGlass: self.glassButtonTapped, hasPaper: self.paperButtonTapped, hasPlastic: self.plasticButtonTapped)
         
@@ -179,23 +178,21 @@ class RecycleGeneralViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.cornerRadius = 10
         label.text = "For large items and more varieties tap here"
-        label.textColor = UIColor.forestGreen
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.mediumTitleFonts()
         label.backgroundColor = UIColor.white
         label.clipsToBounds = true
         return label
     }()
     
     
-    var navigationBarHeight : CGFloat = 0
+    var tabBarHeight : CGFloat = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.viewLightGray
-        navigationBarHeight = self.navigationController!.navigationBar.frame.height
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
+        self.tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
         view.addSubview(headerImageView)
         view.addSubview(titleLabel)
         view.addSubview(paperButton)
@@ -222,16 +219,22 @@ class RecycleGeneralViewController: UIViewController {
         setupPlasticLabel()
         setupConfirmButton()
         
+        
     }
     
-    func handleBack() {
-        dismiss(animated: true, completion: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        self.tabBarController?.tabBar.barTintColor = UIColor.viewLightGray
+        self.tabBarController?.tabBar.tintColor = UIColor.textLightGray
+
     }
+    
     
     func setupHeaderImageView() {
         
         headerImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 8).isActive = true
+        headerImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         headerImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         headerImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
@@ -299,7 +302,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupConfirmButton() {
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30 - tabBarHeight).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -334,8 +337,8 @@ extension UILabel {
     
     func basicItemsLabelAttributes() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.boldSystemFont(ofSize: 16)
-        self.textColor = UIColor(r: 169, g: 169, b: 169)
+        self.mediumTitleFonts()
+        self.textColor = UIColor.textDarkGray
         self.textAlignment = .center
     }
 }

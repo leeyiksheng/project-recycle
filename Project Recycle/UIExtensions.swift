@@ -14,13 +14,74 @@ extension UIColor {
         self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
     }
     @nonobjc static let darkGreen = UIColor(r: 0, g: 100, b: 0)
+    
+    //theme
     @nonobjc static let forestGreen = UIColor(r: 34, g: 139, b: 34)
     @nonobjc static let limeGreen = UIColor(r: 50, g: 205, b: 50)
     @nonobjc static let paleGreen = UIColor(r: 100, g: 251, b: 100)
+    //texts
+    @nonobjc static let textDarkGray = UIColor(r: 169, g: 169, b: 169)
     @nonobjc static let textLightGray = UIColor(r: 192, g: 192, b: 192)
     @nonobjc static let viewLightGray = UIColor(r: 245, g: 245, b: 245)
     
 }
+
+extension UILabel {
+    
+    
+    func smallTitleFonts() {
+        self.font = UIFont(name: "San Francisco Text", size: 14)
+        self.textColor = UIColor.textDarkGray
+    }
+    
+    func mediumTitleFonts(){
+        self.font = UIFont(name: "San Francisco Text", size: 16)
+        self.textColor = UIColor.forestGreen
+        
+    }
+    
+    func largeTitleFonts() {
+        self.font = UIFont(name: "San Francisco Text", size: 18)
+        self.textColor = UIColor.textDarkGray
+    }
+    
+}
+
+extension UITextField {
+    
+    func userInputFonts() {
+        self.font = UIFont(name: "San Francisco Text", size: 14)
+    }
+}
+
+extension UIButton {
+    
+    func buttonFonts() {
+        self.titleLabel?.font = UIFont(name: "San Francisco Text", size: 18)
+    }
+}
+
+extension UINavigationController {
+    
+    func navigationBarAttributes() {
+        self.navigationBar.tintColor = UIColor.textLightGray
+        self.navigationBar.barTintColor = UIColor.viewLightGray
+        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textLightGray]
+        self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
+        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!]
+        
+    }
+    
+}
+
+extension UINavigationItem {
+    
+    func navigationItemAttributes() {
+        self.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
+        self.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
+    }
+}
+
 
 extension UIImageView {
     

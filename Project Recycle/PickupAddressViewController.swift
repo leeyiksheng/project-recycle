@@ -13,7 +13,7 @@ import FirebaseDatabase
 class PickupAddressViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var pickUpAddressLabel: UILabel!{
         didSet{
-            pickUpAddressLabel.font = UIFont.boldSystemFont(ofSize: 18)
+            pickUpAddressLabel.largeTitleFonts()
         }
     }
     @IBOutlet weak var pickUpAddressTableView: UITableView!{
@@ -26,7 +26,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -80,8 +80,10 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "addAddress"), style: .plain, target: self, action: #selector(handleAddAddress))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAddAddress))
         navigationItem.title = "Select Pick Up Address"
+        navigationController?.navigationBarAttributes()
+        navigationItem.navigationItemAttributes()
         view.backgroundColor = UIColor.viewLightGray
         view.addSubview(confirmButton)
 

@@ -10,20 +10,37 @@ import UIKit
 
 class GuideViewController: UIViewController {
 
-    @IBOutlet weak var guideTableView: UITableView!
-    {
-        didSet{
-            guideTableView.dataSource = self
-            guideTableView.delegate = self
-        }
-    }
-    @IBOutlet weak var pickerView: UIPickerView!
-    {
-        didSet{
-            pickerView.dataSource = self
-            pickerView.delegate = self
-        }
-    }
+    lazy var sortLabel: UILabel = {
+        let label = UILabel()
+        let tapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(handleFilter))
+        label.largeTitleFonts()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "SORT BY"
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = true
+        label.backgroundColor = UIColor.viewLightGray
+        label.addGestureRecognizer(tapGestureRecognizer)
+        return label
+    }()
+    
+    lazy var guideTableView: UITableView = {
+       let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.dataSource = self
+        tv.delegate = self
+        tv.rowHeight = 340
+        tv.register(GuideTableViewCell.self, forCellReuseIdentifier: "cell")
+        return tv
+    }()
+    
+    lazy var pickerView: UIPickerView = {
+        let pv = UIPickerView()
+        pv.translatesAutoresizingMaskIntoConstraints = false
+        pv.backgroundColor = UIColor.textDarkGray
+        pv.dataSource = self
+        pv.delegate = self
+        return pv
+    }()
     
     var categories = ["All", "Appliances", "Batteries", "Electronics", "Fluorescent Lights", "Furniture", "Glass", "Metals", "Paper", "Plastic", "Textiles"]
     var holdCategories : String = ""
@@ -37,43 +54,66 @@ class GuideViewController: UIViewController {
     }
     
     var i = 0
+    var navigationBarHeight : CGFloat = 0
+    var tabBarHeight : CGFloat = 0
     
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(sortLabel)
+        view.addSubview(guideTableView)
+        view.addSubview(pickerView)
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(handleSearch))
+        navigationItem.title = "Disassemble Guide"
+        navigationController?.navigationBarAttributes()
+        navigationItem.navigationItemAttributes()
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        
+        
+        self.tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
+        self.tabBarController?.tabBar.barTintColor = UIColor.viewLightGray
+        self.tabBarController?.tabBar.tintColor = UIColor.textLightGray
+        
+        
         pickerView.isHidden = true
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         definesPresentationContext = true
-        searchController.searchBar.barTintColor = UIColor.green
+        searchController.searchBar.barTintColor = UIColor.forestGreen
         searchController.dimsBackgroundDuringPresentation = false
         guideTableView.tableHeaderView = searchController.searchBar
         
-        assignMaterialsToArray()
+        setupSortLabel()
+        setupGuideTableView()
+        setupPickerView()
         
-
-        // Do any additional setup after loading the view.
+        assignMaterialsToArray()
     }
     
-    @IBAction func filterButtonPressed(_ sender: UIButton)
-    {
+
+    func handleSearch() {
+        
+    }
+    
+    func handleFilter() {
         if pickerView.isHidden == true
         {
-            sender.setTitle("Confirm", for: .normal)
+            sortLabel.text = "DONE"
             pickerView.isHidden = false
-            pickerView.backgroundColor = UIColor.gray
-            
             
         }
         else
         {
             
-            sender.setTitle("Filter", for: .normal)
+            sortLabel.text = "SORT BY"
             pickerView.isHidden = true
         }
-
     }
+    
+
     
     func assignMaterialsToArray()
     {
@@ -118,32 +158,54 @@ class GuideViewController: UIViewController {
         ]
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detailSegue"
-        {
-            if filterRecylables.count == 0
-            {
-                
-                let tempI = recylables[i]
-                let details = segue.destination as! GuideDetailViewController
-                details.matName = tempI.materialName
-                details.matCat = tempI.category
-                details.imageName = tempI.matImage
-
-                
-            }
-            else
-            {
-                let tempI = filterRecylables[i]
-                let details = segue.destination as! GuideDetailViewController
-                details.matName = tempI.materialName
-                details.matCat = tempI.category
-                details.imageName = tempI.matImage
-
-            }
-
-        }
+    
+    func setupSortLabel() {
+        sortLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: self.navigationBarHeight + 8).isActive = true
+        sortLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        sortLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        sortLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
+    
+    func setupGuideTableView() {
+        guideTableView.topAnchor.constraint(equalTo: sortLabel.bottomAnchor).isActive = true
+        guideTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        guideTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        guideTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
+    func setupPickerView() {
+        pickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0 - tabBarHeight).isActive = true
+        pickerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        pickerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        pickerView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+    }
+    
+    
+    func moveToNextViewController() {
+        let nextController = GuideDetailViewController()
+        
+        if filterRecylables.count == 0 {
+        
+            let tempI = recylables[i]
+            nextController.matName = tempI.materialName
+            nextController.matCat = tempI.category
+            nextController.desc = tempI.synopsis
+            nextController.imageName = tempI.matImage
+        } else {
+            let tempI = filterRecylables[i]
+            nextController.matName = tempI.materialName
+            nextController.matCat = tempI.category
+            nextController.desc = tempI.synopsis
+            nextController.imageName = tempI.matImage
+        }
+        
+
+        
+        let navController = UINavigationController(rootViewController: nextController)
+        self.present(navController, animated: true, completion: nil)
+    }
+    
+
 
 }
 
@@ -201,7 +263,6 @@ extension GuideViewController: UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GuideTableViewCell
-        cell.backgroundColor = UIColor.lightGray
         let recylable : GeneralRecylables
         if filterRecylables.count == 0
         {
@@ -211,6 +272,7 @@ extension GuideViewController: UITableViewDataSource
         {
             recylable = filterRecylables[indexPath.row]
         }
+        cell.backgroundColor = UIColor.viewLightGray
         cell.materialName.text = recylable.materialName
         cell.materialName.textColor = UIColor.forestGreen
         cell.desc.text = recylable.synopsis
@@ -242,6 +304,6 @@ extension GuideViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         i = indexPath.row
-        performSegue(withIdentifier: "detailSegue", sender: self)
+        self.moveToNextViewController()
     }
 }

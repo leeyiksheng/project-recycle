@@ -148,9 +148,8 @@ extension AppDelegate {
     }
     
     func instantiateLoginViewController() -> LoginViewController {
-        let loginSignupStoryboard = UIStoryboard.init(name: "LoginSignup", bundle: Bundle.init(identifier: "LoginSignup"))
-        let loginViewController = loginSignupStoryboard.instantiateViewController(withIdentifier: "LoginView")
-        return loginViewController as! LoginViewController
+        let loginViewController = LoginViewController()
+        return loginViewController
     }
     
     func instantiateDriverViewController() -> DriverViewController {
@@ -159,11 +158,9 @@ extension AppDelegate {
         return driverViewController as! DriverViewController
     }
     
-    func instantiateKelvinViewController() -> UINavigationController {
-        let kelvinStoryboard = UIStoryboard.init(name: "Kelvin's Storyboard", bundle: Bundle.init(identifier: "Kelvin's Storyboard"))
-        let kelvinViewController = kelvinStoryboard.instantiateViewController(withIdentifier: "RecycleGeneralViewController")
-        let navController = UINavigationController(rootViewController: kelvinViewController)
-        return navController
+    func instantiateKelvinViewController() -> RecycleGeneralViewController {
+        let kelvinViewController = RecycleGeneralViewController()
+        return kelvinViewController
     }
     
     func instantiateUserViewController() -> ProfileViewController {
@@ -172,10 +169,10 @@ extension AppDelegate {
         return userViewController as! ProfileViewController
     }
     
-    func instatiateGuideViewController() -> GuideViewController {
-        let guideStoryboard = UIStoryboard.init(name: "GuidePack", bundle: Bundle.init(identifier: "GuidePack"))
-        let guideViewController = guideStoryboard.instantiateViewController(withIdentifier: "GuidePack")
-        return guideViewController as! GuideViewController
+    func instatiateGuideViewController() -> UINavigationController {
+        let guideViewController = GuideViewController()
+        let navController = UINavigationController(rootViewController: guideViewController)
+        return navController
     }
     
     func instantiateCurrentOrdersViewController() -> CurrentOrdersViewController {

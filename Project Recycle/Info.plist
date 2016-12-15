@@ -48,7 +48,12 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>GuidePack</string>
+	<string>Main</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>SanFranciscoText-Semibold.otf</string>
+		<string>SanFranciscoDisplay-Medium.otf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

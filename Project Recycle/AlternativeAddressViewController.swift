@@ -27,7 +27,7 @@ class AlternativeAddressViewController: UIViewController {
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.buttonFonts()
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
@@ -237,6 +237,8 @@ class AlternativeAddressViewController: UIViewController {
         self.userUID = currentUser
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.title = "New Address"
+        navigationController?.navigationBarAttributes()
+        navigationItem.navigationItemAttributes()
         navigationBarHeight = self.navigationController!.navigationBar.frame.height
         view.backgroundColor = UIColor.viewLightGray
         view.addSubview(inputsAddressContainerView)
@@ -410,9 +412,9 @@ class AlternativeAddressViewController: UIViewController {
 extension UILabel {
     
     func addressLabelAttributes() {
-        self.font = UIFont.boldSystemFont(ofSize: 16)
+        self.mediumTitleFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.textColor = UIColor(r: 45, g: 45, b: 45)
+        self.textColor = UIColor.black
     }
     
 }
@@ -420,7 +422,7 @@ extension UILabel {
 extension UITextField {
     
     func addressTextFieldAttributes() {
-        self.font = UIFont.boldSystemFont(ofSize: 14)
+        self.userInputFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
         self.layer.borderWidth = 2
         self.layer.borderColor = UIColor.forestGreen.cgColor

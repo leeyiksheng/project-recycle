@@ -9,41 +9,88 @@
 import UIKit
 
 class GuideTableViewCell: UITableViewCell {
-    @IBOutlet weak var backImage: UIImageView!
-    {
-        didSet{
-            backImage.layer.borderWidth = 3
-            backImage.layer.borderColor = UIColor.forestGreen.cgColor
-           // backImage.layer.borderColor = UIColor.init(red:67.0/255.0, green: 205.0/255.0, blue: 135.0/255.0, alpha: 1.0).cgColor
-        }
-    }
-    @IBOutlet weak var materialName: UILabel!{
-        didSet{
-            
-            materialName.backgroundColor = UIColor.white
-            materialName.layer.masksToBounds = true
-            materialName.layer.cornerRadius = 3.0
-            
-        }
-    }
+    
+    let backImage: UIImageView = {
+        let iv = UIImageView()
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
+    let viewContainer: UIView = {
+        let vc = UIView()
+        vc.translatesAutoresizingMaskIntoConstraints = false
+        vc.layer.cornerRadius = 10
+        vc.clipsToBounds = true
+        vc.backgroundColor = UIColor.white
+        return vc
+    }()
+    
+    let materialName: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = UIColor.white
+        label.mediumTitleFonts()
+        return label
+    }()
+    
+    let desc: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = UIColor.white
+        label.smallTitleFonts()
+        label.numberOfLines = 0
+        return label
+    }()
+    
 
-    @IBOutlet weak var desc: UITextView!{
-        didSet{
-            desc.backgroundColor = UIColor.white
-            desc.layer.masksToBounds = true
-            desc.layer.cornerRadius = 5.0
-        }
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = UIColor.viewLightGray
+        contentView.addSubview(backImage)
+        contentView.addSubview(viewContainer)
+        contentView.addSubview(materialName)
+        contentView.addSubview(desc)
+        
+        setupBackImage()
+        setupViewContainer()
+        setupMaterialName()
+        setupDesc()
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    func setupBackImage() {
+        backImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        backImage.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        backImage.widthAnchor.constraint(equalToConstant: 414).isActive = true
+        backImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        
     }
+    
+    func setupViewContainer() {
+        viewContainer.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: -30).isActive = true
+        viewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12).isActive = true
+        viewContainer.widthAnchor.constraint(equalToConstant: 390).isActive = true
+        viewContainer.heightAnchor.constraint(equalToConstant: 150).isActive = true
+    }
+    
+    
+    func setupMaterialName() {
+        materialName.topAnchor.constraint(equalTo: viewContainer.topAnchor, constant: 12).isActive = true
+        materialName.leftAnchor.constraint(equalTo: viewContainer.leftAnchor, constant: 16).isActive = true
+        materialName.widthAnchor.constraint(equalTo: viewContainer.widthAnchor, constant: -32).isActive = true
+        materialName.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func setupDesc() {
+        desc.topAnchor.constraint(equalTo: materialName.bottomAnchor, constant: 4).isActive = true
+        desc.leftAnchor.constraint(equalTo: materialName.leftAnchor).isActive = true
+        desc.widthAnchor.constraint(equalTo: materialName.widthAnchor).isActive = true
+    }
+    
 
 }

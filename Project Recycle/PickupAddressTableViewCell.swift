@@ -140,15 +140,14 @@ extension UILabel {
     
     func titleOfAddressesLabelAttributes() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.boldSystemFont(ofSize: 14)
-        self.textColor = UIColor(r: 169, g: 169, b: 169)
+        self.smallTitleFonts()
         self.numberOfLines = 0
     }
     
     func descriptionOfAddressesLabelAttributes() {
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.font = UIFont.boldSystemFont(ofSize: 13)
-        self.textColor = UIColor(r: 45, g: 45, b: 45)
+        self.smallTitleFonts()
+        self.textColor = UIColor.black
         self.numberOfLines = 0
     }
 }
