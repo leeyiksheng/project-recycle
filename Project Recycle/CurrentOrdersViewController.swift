@@ -15,6 +15,12 @@ class CurrentOrdersViewController: UIViewController {
     //MARK - Interface Builder Outlets
     
     @IBOutlet weak var currentOrdersTableView: UITableView!
+    @IBOutlet weak var viewTitleLabel: UILabel! {
+        didSet {
+            viewTitleLabel.font = UIFont(name: "San Francisco Text", size: 18)
+            viewTitleLabel.textColor = UIColor.black
+        }
+    }
     
     //MARK - Order Item Arrays
     
@@ -28,8 +34,7 @@ class CurrentOrdersViewController: UIViewController {
     let userProcessingOrdersDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(FIRAuth.auth()!.currentUser!.uid)/processingOrders")
     
     //MARK - Miscellaneous Variables
-    
-    var isInitialLoadingPhase: Bool = false
+    var isDatabaseEmpty : Bool = false
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray) {
         didSet {
             self.activityIndicator.center = self.view.center
@@ -74,6 +79,7 @@ class CurrentOrdersViewController: UIViewController {
         userProcessingOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
             guard let orderUID = snapshot.value as? String else {
                 print("Error: Snapshot is empty, please check if database reference is valid.")
+                self.isDatabaseEmpty = true
                 return
             }
             
@@ -86,6 +92,7 @@ class CurrentOrdersViewController: UIViewController {
         userProcessedOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
             guard let orderUID = snapshot.value as? String else {
                 print("Error: Snapshot is empty, please check if database reference is valid.")
+                self.isDatabaseEmpty = true
                 return
             }
             
@@ -182,12 +189,10 @@ extension CurrentOrdersViewController: UITableViewDelegate, UIScrollViewDelegate
 extension CurrentOrdersViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         if !currentOrderItemsArray.isEmpty {
-            self.currentOrdersTableView.separatorStyle = .singleLine
+            self.currentOrdersTableView.separatorStyle = .none
             return 1
         } else {
-            if activityIndicator.isAnimating {
-                return 1
-            } else {
+            if isDatabaseEmpty {
                 let emptyMessageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
                 
                 emptyMessageLabel.text = "No orders placed :("
@@ -199,9 +204,10 @@ extension CurrentOrdersViewController: UITableViewDataSource {
                 
                 self.currentOrdersTableView.backgroundView = emptyMessageLabel
                 self.currentOrdersTableView.separatorStyle = .none
+            } else {
+                return 1
             }
         }
-        
         return 0
     }
     
@@ -212,36 +218,55 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CurrentOrderTableViewCell
         
+        cell.layer.backgroundColor = UIColor.viewLightGray.cgColor
+        
+        cell.overlayView.layer.cornerRadius = 20.0
+        cell.overlayView.layer.masksToBounds = true
+        
         if currentOrderItemsArray[indexPath.row].creationTimestamp != nil {
             cell.creationTimestampLabel.text = createFormattedDateWith(timeInterval: currentOrderItemsArray[indexPath.row].creationTimestamp!)
+            cell.creationTimestampLabel.smallTitleFonts()
         } else {
             cell.creationTimestampLabel.text = "Error: Timestamp is nil."
+            cell.creationTimestampLabel.smallTitleFonts()
         }
         
         if currentOrderItemsArray[indexPath.row].receiverName != nil {
             cell.receiverNameLabel.text = currentOrderItemsArray[indexPath.row].receiverName!
+            cell.receiverNameLabel.mediumTitleFonts()
         } else {
             cell.receiverNameLabel.text = "Error: Receiver name is nil."
+            cell.receiverNameLabel.mediumTitleFonts()
         }
         
         if currentOrderItemsArray[indexPath.row].receiverContact != nil {
             cell.receiverContactLabel.text = currentOrderItemsArray[indexPath.row].receiverContact!
+            cell.receiverContactLabel.mediumTitleFonts()
         } else {
             cell.receiverContactLabel.text = "Error: Receiver contact is nil."
+            cell.receiverContactLabel.mediumTitleFonts()
         }
         
         if currentOrderItemsArray[indexPath.row].receiverFormattedAddress != nil {
+            cell.receiverAddressTitleLabel.mediumTitleFonts()
             cell.receiverAddressLabel.text = currentOrderItemsArray[indexPath.row].receiverFormattedAddress!
+            cell.receiverAddressLabel.smallTitleFonts()
         } else {
+            cell.receiverAddressTitleLabel.mediumTitleFonts()
             cell.receiverAddressLabel.text = "Error: Receiver formatted address is nil."
+            cell.receiverAddressLabel.smallTitleFonts()
         }
         
         if currentOrderItemsArray[indexPath.row].assignedDriver != nil {
             cell.orderStateLabel.text = "Processed"
+            cell.orderStateLabel.largeTitleFonts()
             cell.driverNameLabel.text = currentOrderItemsArray[indexPath.row].assignedDriver?.name
+            cell.driverNameLabel.mediumTitleFonts()
         } else {
             cell.orderStateLabel.text = "Processing"
+            cell.orderStateLabel.largeTitleFonts()
             cell.driverNameLabel.text = "Assignment pending"
+            cell.driverNameLabel.mediumTitleFonts()
         }
         
         cell.iconArray.removeAll()
@@ -287,10 +312,6 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         }
         
         cell.imageCollectionView.reloadData()
-        
-        cell.layer.cornerRadius = 7.0
-        cell.layer.masksToBounds = true
-        cell.layer.borderWidth = 2.0
         
         return cell
     }
