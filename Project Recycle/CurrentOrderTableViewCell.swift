@@ -13,9 +13,11 @@ class CurrentOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var creationTimestampLabel: UILabel!
     @IBOutlet weak var receiverNameLabel: UILabel!
     @IBOutlet weak var receiverContactLabel: UILabel!
+    @IBOutlet weak var receiverAddressTitleLabel: UILabel!
     @IBOutlet weak var receiverAddressLabel: UILabel!
     @IBOutlet weak var orderStateLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
+    @IBOutlet weak var overlayView: UIView!
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
             self.imageCollectionView.delegate = self

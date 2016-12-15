@@ -14,6 +14,14 @@ class OrderHistoryViewController: UIViewController {
 
     @IBOutlet weak var completedOrdersTableView: UITableView!
     var orderItemsArray: [RecycleOrder] = []
+    var isDatabaseEmpty: Bool = false
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray) {
+        didSet {
+            self.activityIndicator.center = self.view.center
+            self.activityIndicator.startAnimating()
+            self.view.addSubview(self.activityIndicator)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,11 +50,13 @@ class OrderHistoryViewController: UIViewController {
         userDatabaseRef.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
             guard let userDataDictionary = snapshot.value as? [String: AnyObject] else {
                 print("Error: Please check if you have an Internet connection or if the database reference is valid.")
+                self.isDatabaseEmpty = true
                 return
             }
             
             guard let completedOrders = userDataDictionary["completedOrders"] as? [String] else {
                 print("Warning: completedOrders is nil in database snapshot. If unintentional, please check for download interruption or database corruption.")
+                self.isDatabaseEmpty = true
                 completion()
                 return
             }
@@ -84,7 +94,27 @@ extension OrderHistoryViewController: UITableViewDelegate {
 
 extension OrderHistoryViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if !orderItemsArray.isEmpty {
+            self.completedOrdersTableView.separatorStyle = .none
+            return 1
+        } else {
+            if isDatabaseEmpty {
+                let emptyMessageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+                
+                emptyMessageLabel.text = "No orders completed :("
+                emptyMessageLabel.textColor = UIColor.darkGreen
+                emptyMessageLabel.numberOfLines = 0
+                emptyMessageLabel.textAlignment = NSTextAlignment.center
+                emptyMessageLabel.font = UIFont.init(name: "San Francisco Text", size: 24)
+                emptyMessageLabel.sizeToFit()
+                
+                self.completedOrdersTableView.backgroundView = emptyMessageLabel
+                self.completedOrdersTableView.separatorStyle = .none
+            } else {
+                return 1
+            }
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
