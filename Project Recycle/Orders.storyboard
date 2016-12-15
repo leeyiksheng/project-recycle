@@ -94,12 +94,12 @@
                                         <rect key="frame" x="0.0" y="28" width="383" height="296"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CLO-6G-iOu" id="Wz2-02-UxO">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="295"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="295.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lXL-x6-CLv">
                                                     <rect key="frame" x="16" y="152" width="303" height="87"/>
-                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="11"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -162,10 +162,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="n5O-93-bYW">
-                                                    <rect key="frame" x="16" y="40" width="162" height="68"/>
+                                                    <rect key="frame" x="16" y="40" width="161.5" height="68"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="RKM-Az-d0B">
-                                                            <rect key="frame" x="0.0" y="0.0" width="162" height="32"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="161.5" height="32"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Fdu-pG-5Em">
                                                                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -175,7 +175,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="receiver name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SRq-B9-Jcn">
-                                                                    <rect key="frame" x="40" y="0.0" width="122" height="32"/>
+                                                                    <rect key="frame" x="40" y="0.0" width="121.5" height="32"/>
                                                                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -186,7 +186,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="3U4-pI-rO3">
-                                                            <rect key="frame" x="0.0" y="36" width="162" height="32"/>
+                                                            <rect key="frame" x="0.0" y="36" width="161.5" height="32"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scheduledOrdersIcon" translatesAutoresizingMaskIntoConstraints="NO" id="bkn-zN-nlq">
                                                                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -196,7 +196,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="receiver contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4l-Z6-hYw">
-                                                                    <rect key="frame" x="40" y="0.0" width="122" height="32"/>
+                                                                    <rect key="frame" x="40" y="0.0" width="121.5" height="32"/>
                                                                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -209,7 +209,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiver address: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sVr-sj-JXK">
-                                                    <rect key="frame" x="16" y="116" width="141" height="32"/>
+                                                    <rect key="frame" x="16" y="116" width="140.5" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="jzo-3u-Ovx"/>
                                                     </constraints>
@@ -312,12 +312,12 @@
                                         <rect key="frame" x="0.0" y="28" width="383" height="296"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dex-55-mGb" id="hSl-yp-AQR">
-                                            <rect key="frame" x="0.0" y="0.0" width="383" height="295"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="383" height="295.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="address" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3n0-t9-cYf">
-                                                    <rect key="frame" x="16" y="153" width="303" height="46"/>
-                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="11"/>
+                                                    <rect key="frame" x="16" y="152" width="303" height="47"/>
+                                                    <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -380,10 +380,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="laq-m1-y4M">
-                                                    <rect key="frame" x="16" y="41" width="162" height="68"/>
+                                                    <rect key="frame" x="16" y="40" width="161.5" height="68"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wGN-gV-yfP">
-                                                            <rect key="frame" x="0.0" y="0.0" width="162" height="32"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="161.5" height="32"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="defaultUserIcon" translatesAutoresizingMaskIntoConstraints="NO" id="ym3-q2-skR">
                                                                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -393,7 +393,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="receiver name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xlj-xw-HHG">
-                                                                    <rect key="frame" x="40" y="0.0" width="122" height="32"/>
+                                                                    <rect key="frame" x="40" y="0.0" width="121.5" height="32"/>
                                                                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -404,7 +404,7 @@
                                                             </constraints>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iqh-m0-TIN">
-                                                            <rect key="frame" x="0.0" y="36" width="162" height="32"/>
+                                                            <rect key="frame" x="0.0" y="36" width="161.5" height="32"/>
                                                             <subviews>
                                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scheduledOrdersIcon" translatesAutoresizingMaskIntoConstraints="NO" id="C8k-Uj-YQP">
                                                                     <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -414,7 +414,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="receiver contact" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfd-Cc-npF">
-                                                                    <rect key="frame" x="40" y="0.0" width="122" height="32"/>
+                                                                    <rect key="frame" x="40" y="0.0" width="121.5" height="32"/>
                                                                     <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="15"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -427,7 +427,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Receiver address: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R1d-41-5fm">
-                                                    <rect key="frame" x="16" y="117" width="141" height="32"/>
+                                                    <rect key="frame" x="16" y="116" width="140.5" height="32"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="32" id="Qa0-sl-irR"/>
                                                     </constraints>
