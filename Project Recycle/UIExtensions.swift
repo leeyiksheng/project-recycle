@@ -45,11 +45,22 @@ extension UILabel {
         self.textColor = UIColor.textDarkGray
     }
     
+    func toolbarLabelTitle() {
+        self.font = UIFont(name: "San Francisco Text", size: 18)
+        self.textColor = UIColor.black
+    }
+    
 }
 
 extension UITextField {
     
     func userInputFonts() {
+        self.font = UIFont(name: "San Francisco Text", size: 14)
+    }
+}
+
+extension UITextView {
+    func userTypedFonts() {
         self.font = UIFont(name: "San Francisco Text", size: 14)
     }
 }
@@ -79,6 +90,12 @@ extension UINavigationItem {
     func navigationItemAttributes() {
         self.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
         self.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
+    }
+}
+
+extension UIBarButtonItem {
+    func buttonFonts() {
+        self.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
     }
 }
 
