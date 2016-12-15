@@ -18,16 +18,38 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
     @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var rightProfileButton: UIBarButtonItem!
    
+    @IBOutlet weak var profileTitle: UINavigationItem!
     @IBOutlet weak var topBar: UINavigationBar!
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var changePassButton: UIButton!
     @IBOutlet weak var changeEmailButt: UIButton!
     
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var phoneLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    
     var personalDetails: [User] = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor.viewLightGray
+        profileTitle.navigationItemAttributes()
+        nameLabel.mediumTitleFonts()
+        phoneLabel.mediumTitleFonts()
+        emailLabel.mediumTitleFonts()
+        addressLabel.mediumTitleFonts()
+        userNameText.userInputFonts()
+        userEmailText.userInputFonts()
+        userNumberText.userInputFonts()
+        userAddText.userTypedFonts()
+        
         
         userProImage?.image = UIImage(named: "noone")
         userProImage?.layer.borderColor = UIColor.clear.cgColor
@@ -45,6 +67,7 @@ class ProfileViewController: UIViewController {
         editProfileButton.tintColor = UIColor.forestGreen
         editProfileButton.layer.borderColor = UIColor.forestGreen.cgColor
         editProfileButton.backgroundColor = UIColor.white
+        editProfileButton.buttonFonts()
         editProfileButton.clipsToBounds = true
         editProfileButton.isUserInteractionEnabled = true
         editProfileButton.addTarget(self, action:#selector (editProfile(sender:)), for: .touchUpInside)
@@ -55,24 +78,27 @@ class ProfileViewController: UIViewController {
         signOutButton.tintColor = UIColor.forestGreen
         signOutButton.layer.borderColor = UIColor.forestGreen.cgColor
         signOutButton.backgroundColor = UIColor.white
+        signOutButton.buttonFonts()
         signOutButton.clipsToBounds = true
         signOutButton.isUserInteractionEnabled = true
+        rightProfileButton.customView?.frame.size.width = 100
+        
         
         changePassButton.layer.masksToBounds = false
-        changePassButton.layer.borderWidth = 3
-        changePassButton.layer.cornerRadius = (editProfileButton.frame.height)/2
-        changePassButton.tintColor = UIColor.forestGreen
+        changePassButton.layer.cornerRadius = 20
+        changePassButton.tintColor = UIColor.white
         changePassButton.layer.borderColor = UIColor.forestGreen.cgColor
-        changePassButton.backgroundColor = UIColor.white
+        changePassButton.backgroundColor = UIColor.forestGreen
+        changePassButton.buttonFonts()
         changePassButton.clipsToBounds = true
         changePassButton.isUserInteractionEnabled = true
 
         changeEmailButt.layer.masksToBounds = false
-        changeEmailButt.layer.borderWidth = 3
-        changeEmailButt.layer.cornerRadius = (editProfileButton.frame.height)/2
-        changeEmailButt.tintColor = UIColor.forestGreen
+        changeEmailButt.layer.cornerRadius = 20
+        changeEmailButt.tintColor = UIColor.white
         changeEmailButt.layer.borderColor = UIColor.forestGreen.cgColor
-        changeEmailButt.backgroundColor = UIColor.white
+        changeEmailButt.backgroundColor = UIColor.forestGreen
+        changeEmailButt.buttonFonts()
         changeEmailButt.clipsToBounds = true
         changeEmailButt.isUserInteractionEnabled = true
 

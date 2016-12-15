@@ -14,6 +14,10 @@ import FirebaseDatabase
 class ProfileImageLibraryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var camera: UIBarButtonItem!
+    @IBOutlet weak var gallery: UIBarButtonItem!
+    @IBOutlet weak var backProfile: UIBarButtonItem!
+    @IBOutlet weak var confirmPic: UIBarButtonItem!
     
     let picker = UIImagePickerController()
     var chosenImage : UIImage?
@@ -48,7 +52,18 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.viewLightGray
         frDBref = FIRDatabase.database().reference()
+        
+        titleLabel.toolbarLabelTitle()
+        backProfile.buttonFonts()
+        confirmPic.buttonFonts()
+        gallery.buttonFonts()
+        backProfile.tintColor = UIColor.forestGreen
+        confirmPic.tintColor = UIColor.forestGreen
+        gallery.tintColor = UIColor.forestGreen
+        camera.tintColor = UIColor.forestGreen
+        
         
         imageView?.layer.borderWidth = 5
         imageView?.layer.masksToBounds = false
