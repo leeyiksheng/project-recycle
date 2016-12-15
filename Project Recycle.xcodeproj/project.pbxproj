@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		464D795F99E48221C76DDF12 /* Pods_Project_Recycle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 87044D9206D64C395502282D /* Pods_Project_Recycle.framework */; };
+		A102F66F1E0270C000AF701E /* SanFranciscoText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */; };
+		A102F6711E0270E500AF701E /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */; };
 		A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */; };
 		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
@@ -17,8 +19,6 @@
 		A14586BC1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */; };
 		A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */; };
 		A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */ = {isa = PBXBuildFile; fileRef = A157643C1DFA4F6000091650 /* loginBackground.gif */; };
-		A1A299A81E0249510071C94F /* SanFranciscoText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A1A299A71E0249510071C94F /* SanFranciscoText-Semibold.otf */; };
-		A1A299AA1E0249E60071C94F /* SanFranciscoDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = A1A299A91E0249E60071C94F /* SanFranciscoDisplay-Medium.otf */; };
 		A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */; };
 		AF363B741DFA6FBB0052C4E6 /* GuideDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */; };
 		AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF3706341DED197900BF953F /* DriverStoryboard.storyboard */; };
@@ -61,6 +61,8 @@
 /* Begin PBXFileReference section */
 		136394DC7A6BD0E1C087E6CB /* Pods-Project Recycle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.release.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.release.xcconfig"; sourceTree = "<group>"; };
 		87044D9206D64C395502282D /* Pods_Project_Recycle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_Recycle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Semibold.otf"; sourceTree = "<group>"; };
+		A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralRecylables.swift; sourceTree = "<group>"; };
 		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
@@ -70,8 +72,6 @@
 		A14586BB1DF1272F00CAB9F0 /* PickupAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickupAddressTableViewCell.swift; sourceTree = "<group>"; };
 		A14DF71C1DF6A47800876D30 /* CategoriesChosen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesChosen.swift; sourceTree = "<group>"; };
 		A157643C1DFA4F6000091650 /* loginBackground.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loginBackground.gif; sourceTree = SOURCE_ROOT; };
-		A1A299A71E0249510071C94F /* SanFranciscoText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SanFranciscoText-Semibold.otf"; path = "../../SanFranciscoFont-master/SanFranciscoText-Semibold.otf"; sourceTree = "<group>"; };
-		A1A299A91E0249E60071C94F /* SanFranciscoDisplay-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SanFranciscoDisplay-Medium.otf"; path = "../../SanFranciscoFont-master/SanFranciscoDisplay-Medium.otf"; sourceTree = "<group>"; };
 		A1FCDF611DF7C67B00ABFE5A /* NewAddresses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAddresses.swift; sourceTree = "<group>"; };
 		AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideDetailViewController.swift; sourceTree = "<group>"; };
 		AF3706341DED197900BF953F /* DriverStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DriverStoryboard.storyboard; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 		A1A299A61E0249100071C94F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				A1A299A71E0249510071C94F /* SanFranciscoText-Semibold.otf */,
-				A1A299A91E0249E60071C94F /* SanFranciscoDisplay-Medium.otf */,
+				A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */,
+				A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -205,8 +205,6 @@
 			children = (
 				A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */,
 				EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */,
-				EB1831791DF95A680070C128 /* DriverAssignmentCompletionSubmissionViewController.swift */,
-				EB1831751DF937C10070C128 /* DriverAssignmentCompletionViewController.swift */,
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */,
 				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
@@ -216,8 +214,6 @@
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */,
 				EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */,
-				EB1831711DF7C2AC0070C128 /* OrderProcessorSubmissionViewController.swift */,
-				EBA7EE561DF6678A00515EE1 /* OrderProcessorViewController.swift */,
 				EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */,
 				A14586B91DF11F5600CAB9F0 /* PickupAddressViewController.swift */,
 				AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */,
@@ -345,10 +341,10 @@
 				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB24F3CD1DFA6856003DFD60 /* Orders.storyboard in Resources */,
-				A1A299A81E0249510071C94F /* SanFranciscoText-Semibold.otf in Resources */,
-				A1A299AA1E0249E60071C94F /* SanFranciscoDisplay-Medium.otf in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,
+				A102F6711E0270E500AF701E /* SanFranciscoDisplay-Regular.otf in Resources */,
 				A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */,
+				A102F66F1E0270C000AF701E /* SanFranciscoText-Semibold.otf in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
 			);
