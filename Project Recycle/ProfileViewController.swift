@@ -187,8 +187,8 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         self.activityIndicator.startAnimating()
         let newUser = User()
         newUser.initWithCurrentUser { () -> () in
-            self.userNameText.text = newUser.name
-            self.userNumberText.text = newUser.phoneNumber
+            self.userNameText.text = "  \(newUser.name)"
+            self.userNumberText.text = "  \(newUser.phoneNumber)"
 
             
             
@@ -234,16 +234,20 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     
     func saveNewName ()
     {
+        let holdName = userNameText.text
         let changeRequest = FIRAuth.auth()?.currentUser?.uid
-        frDBref.child("users/\(changeRequest!)/name").setValue(userNameText.text)
+        frDBref.child("users/\(changeRequest!)/name").setValue(holdName)
+        userNameText.text = "  \(holdName!)"
     }
     
 
     
     func saveNewNumber ()
     {
+        let holdNumber = userNumberText.text
         let changeRequest = FIRAuth.auth()?.currentUser?.uid
-        frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(userNumberText.text)
+        frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(holdNumber)
+        userNumberText.text = "  \(holdNumber!)"
     }
     
     
