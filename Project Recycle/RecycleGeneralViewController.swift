@@ -136,7 +136,11 @@ class RecycleGeneralViewController: UIViewController {
     lazy var otherButton : UIButton = {
         let button = UIButton(type: .system)
         button.basicItemsButtonAttributes()
+
         button.setImage(#imageLiteral(resourceName: "other"), for: .normal)
+
+        button.setImage(#imageLiteral(resourceName: "other"), for: .normal)
+
         button.addTarget(self, action: #selector(handleOtherTapped), for: .touchUpInside)
         return button
     }()

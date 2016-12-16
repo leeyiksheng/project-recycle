@@ -31,8 +31,15 @@ class RecycleOrder {
     
     var assignedDriver: Driver?
     var orderValue: Double?
-    var keywords: String = "" 
-
+    var orderStatus : OrderStatus?
+    var keywords: String = ""
+    
+    enum OrderStatus: Int {
+        case processing = 0
+        case processed = 1
+        case completed = 2
+    }
+    
     init(orderWithUserUID userUID: String, addressID: String, hasAluminium: Bool, hasGlass: Bool, hasPaper: Bool, hasPlastic: Bool) {
         self.userUID = userUID
         self.addressUID = addressID
@@ -47,7 +54,7 @@ class RecycleOrder {
             NotificationCenter.default.post(name: orderInitializationCompletionNotification.name, object: self)
         })
     }
-
+    
     init(processingOrderWithOrderUID orderUID: String) {
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing/\(orderUID)")
         
@@ -98,49 +105,51 @@ class RecycleOrder {
             }
             self.receiverContact = receiverContact
             self.keywords.append(" " + receiverContact)
-
+            
             guard let categoryDictionary = rawOrderDataDictionary["orderCategories"] as? [String: Bool] else {
                 print("Error: orderCategories in database snapshot is nil, please check for download interruption or database corruption.")
                 return
             }
-
+            
             if categoryDictionary["aluminium"]! {
                 self.hasAluminium = true
                 self.keywords.append(" " + "aluminium")
             } else {
                 self.hasAluminium = false
             }
-
+            
             if categoryDictionary["glass"]! {
                 self.hasGlass = true
                 self.keywords.append(" " + "glass")
             } else {
                 self.hasGlass = false
             }
-
+            
             if categoryDictionary["paper"]! {
                 self.hasPaper = true
                 self.keywords.append(" " + "paper")
             } else {
                 self.hasPaper = false
             }
-
+            
             if categoryDictionary["plastic"]! {
                 self.hasPlastic = true
                 self.keywords.append(" " + "plastic")
             } else {
                 self.hasPlastic = false
             }
-
+            
             guard let creationTimestamp = rawOrderDataDictionary["orderCreatedOn"] as? TimeInterval else {
                 print("Error: creationTimestamp in database snapshot is nil, please check for download interruption or database corruption.")
                 return
             }
             self.creationTimestamp = creationTimestamp
+            self.orderStatus = OrderStatus.processing
             self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.creationTimestamp!))
             
             if rawOrderDataDictionary["orderProcessedOn"] != nil {
                 self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.processed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.processedTimestamp!))
             } else {
                 print("Warning: processedTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -148,6 +157,7 @@ class RecycleOrder {
             
             if rawOrderDataDictionary["orderCompletedOn"] != nil {
                 self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.completed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.completionTimestamp!))
             } else {
                 print("Warning: completionTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -263,10 +273,12 @@ class RecycleOrder {
                 return
             }
             self.creationTimestamp = creationTimestamp
+            self.orderStatus = OrderStatus.processing
             self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.creationTimestamp!))
             
             if rawOrderDataDictionary["orderProcessedOn"] != nil {
                 self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.processed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.processedTimestamp!))
             } else {
                 print("Warning: processedTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -274,6 +286,7 @@ class RecycleOrder {
             
             if rawOrderDataDictionary["orderCompletedOn"] != nil {
                 self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.completed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.completionTimestamp!))
             } else {
                 print("Warning: completionTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -289,7 +302,6 @@ class RecycleOrder {
             if rawOrderDataDictionary["driverAssigned"] != nil {
                 let driverUID = rawOrderDataDictionary["driverAssigned"] as! String
                 self.assignedDriver = Driver.init(driverUID: driverUID)
-                self.keywords.append(" " + "\(self.assignedDriver!.name)")
                 let orderInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil, userInfo: nil)
                 NotificationCenter.default.post(orderInitializationCompletionNotification)
             } else {
@@ -389,10 +401,12 @@ class RecycleOrder {
                 return
             }
             self.creationTimestamp = creationTimestamp
+            self.orderStatus = OrderStatus.processing
             self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.creationTimestamp!))
             
             if rawOrderDataDictionary["orderProcessedOn"] != nil {
                 self.processedTimestamp = rawOrderDataDictionary["orderProcessedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.processed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.processedTimestamp!))
             } else {
                 print("Warning: processedTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -400,6 +414,7 @@ class RecycleOrder {
             
             if rawOrderDataDictionary["orderCompletedOn"] != nil {
                 self.completionTimestamp = rawOrderDataDictionary["orderCompletedOn"] as? TimeInterval
+                self.orderStatus = OrderStatus.completed
                 self.keywords.append(" " + self.createFormattedDateWith(timeInterval: self.completionTimestamp!))
             } else {
                 print("Warning: completionTimestamp in database snapshot is nil. If unintentional, please check for download interruption or database corruption.")
@@ -464,17 +479,17 @@ class RecycleOrder {
     @objc func handleDriverIntializationCompletionNotification(_ notification: Notification) {
         let orderInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil, userInfo: nil)
         NotificationCenter.default.post(orderInitializationCompletionNotification)
-        
+        self.keywords.append(" " + "\(self.assignedDriver!.name)")
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "DriverIntializationCompletionNotification"), object: nil)
     }
-
+    
     func submitOrder() {
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID!)")
         let orderDatabaseReference = FIRDatabase.database().reference(withPath: "orders/recycle-main/processing")
         
         let orderUID = orderDatabaseReference.childByAutoId().key
         self.orderUID = orderUID
-
+        
         let order = [
             "addressID" : addressUID!,
             "formattedAddress": receiverFormattedAddress!,
@@ -490,20 +505,20 @@ class RecycleOrder {
             "userID": userUID!,
             "orderID": orderUID
             ] as [String : Any]
-            
+        
         let userOrderUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID!)/processingOrders")
-
+        
         fetchUserOrderUIDsFromDatabaseWith(databaseReference: userOrderUIDDatabaseReference, completion: { (uidArray) in
             var orderUIDArray = uidArray
             orderUIDArray.append(orderUID)
-
+            
             let orderDatabaseUpdate = [orderUID: order]
             let userDatabaseUpdate = ["processingOrders": orderUIDArray]
             orderDatabaseReference.updateChildValues(orderDatabaseUpdate)
             userDatabaseReference.updateChildValues(userDatabaseUpdate)
         })
     }
-
+    
     private func fetchUserOrderUIDsFromDatabaseWith(databaseReference: FIRDatabaseReference, completion: @escaping (_ uidArray: [String]) -> ()) {
         databaseReference.observeSingleEvent(of: FIRDataEventType.value, with: { (snapshot) in
             guard let orderUIDArray = snapshot.value as? [String] else {
