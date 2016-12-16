@@ -12,7 +12,9 @@ class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.tabBar.addDropShadow()
+        
         let homeItem = RecycleGeneralViewController()
         let homeItemIcon = UITabBarItem(title: "Home", image: UIImage(named: "home"), selectedImage: UIImage(named: "home"))
         homeItem.tabBarItem = homeItemIcon
@@ -36,13 +38,6 @@ class MenuTabBarController: UITabBarController {
         let viewControllers = [homeItem, ordersItem, guideItem, profileItem]
         self.viewControllers = viewControllers
         self.selectedViewController = self.viewControllers![0]
-    }
-    
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController is OrdersViewController {
-            
-        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -53,9 +53,7 @@
 		EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685C1DEFD816003FCB9B /* RecycleOrder.swift */; };
 		EB8068611DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068601DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift */; };
 		EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */; };
-		EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */; };
 		EBE2BA4A1DF1A948007C4766 /* MainRecycleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */; };
-		EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,7 +97,6 @@
 		EB62676A1DEBD0D600CC2C37 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EB62676C1DEBD0D600CC2C37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EB6267721DEBD12400CC2C37 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		EB62677E1DEC1EFB00CC2C37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB6267821DEC3A6C00CC2C37 /* MenuProfileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuProfileTableViewCell.swift; sourceTree = "<group>"; };
 		EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -111,7 +108,6 @@
 		EB8068601DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRecycleViewController.swift; sourceTree = "<group>"; };
-		EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,8 +205,6 @@
 				AF3706361DED1A0700BF953F /* DriverViewController.swift */,
 				AF363B731DFA6FBB0052C4E6 /* GuideDetailViewController.swift */,
 				AF5787781DF67C2E00D44084 /* GuideViewController.swift */,
-				EBE2BA4C1DF1B10A007C4766 /* HomeTabBarViewController.swift */,
-				EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */,
 				EB6267721DEBD12400CC2C37 /* LoginViewController.swift */,
 				EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */,
 				EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */,
@@ -407,7 +401,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */,
-				EBE2BA4D1DF1B10A007C4766 /* HomeTabBarViewController.swift in Sources */,
 				EB24F3CB1DFA682A003DFD60 /* OrdersViewController.swift in Sources */,
 				EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */,
 				EB38B6431DED926A00568333 /* NavigationMenuCollectionViewCell.swift in Sources */,
@@ -431,7 +424,6 @@
 				A1FCDF621DF7C67B00ABFE5A /* NewAddresses.swift in Sources */,
 				EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */,
 				A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */,
-				EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */,
 				A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */,
 				AF363B741DFA6FBB0052C4E6 /* GuideDetailViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
