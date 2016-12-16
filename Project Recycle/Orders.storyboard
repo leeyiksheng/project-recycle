@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -54,6 +53,11 @@
                                     <constraint firstAttribute="height" constant="64" id="fxr-U9-MGZ"/>
                                 </constraints>
                                 <items>
+                                    <barButtonItem title="Unsort" id="kqO-BA-GQ8">
+                                        <connections>
+                                            <action selector="onUnsortBarButtonItemTouchUpInside:" destination="kPq-Fv-7Ub" id="Sk5-QR-xWG"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="6xP-o7-HDY"/>
                                     <barButtonItem title="Sort" id="dsR-3w-08f">
                                         <connections>
@@ -98,6 +102,7 @@
                         <outlet property="menuSegmentedControl" destination="AUz-rU-OPa" id="PRH-5w-6hW"/>
                         <outlet property="orderHistoryContainerView" destination="jYm-nM-crh" id="gzy-OZ-vYR"/>
                         <outlet property="sortBarButtonItem" destination="dsR-3w-08f" id="aEm-2g-lSO"/>
+                        <outlet property="unsortBarButtonItem" destination="kqO-BA-GQ8" id="lZX-oV-cgf"/>
                         <outlet property="viewTitleLabel" destination="yYC-nj-lKQ" id="3fk-l9-iU8"/>
                     </connections>
                 </viewController>
