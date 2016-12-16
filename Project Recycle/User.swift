@@ -48,12 +48,6 @@ class User {
             
             self.name = userRawDataDictionary["name"] as! String
             
-            if userRawDataDictionary["phoneNumber"] as? String != nil {
-                self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
-            } else {
-                self.phoneNumber = "No phone number given."
-            }
-            
             if userRawDataDictionary["profileImage"] as? String != nil {
                 self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
             } else {
@@ -76,6 +70,8 @@ class User {
                 })
             } else {
                 self.defaultFormattedAddress = "No address given."
+                self.phoneNumber = "No phone number given."
+                completion()
             }
         })
     }
@@ -87,8 +83,10 @@ class User {
             if snapshot.exists() {
                 let addressDictionary = snapshot.value as! [String: Any]
                 self.defaultFormattedAddress = addressDictionary["formattedAddress"] as! String
+                self.phoneNumber = addressDictionary["receiverContact"] as! String
             } else {
                 self.defaultFormattedAddress = "No address given."
+                self.phoneNumber = "No phone number given."
                 return
             }
             completion()

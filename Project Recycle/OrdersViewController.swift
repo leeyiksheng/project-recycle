@@ -76,10 +76,22 @@ class OrdersViewController: UIViewController {
     
     func setupSortingAlert() {
         let sortingAlert = UIAlertController.init(title: "Sorting", message: "Select a category to sort with.", preferredStyle: .alert)
-        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
-        let orderStatusAction = UIAlertAction.init(title: "Order Status", style: .default, handler: nil)
-        let timeAction = UIAlertAction.init(title: "Date & Time", style: .default, handler: nil)
-        let orderValueAction = UIAlertAction.init(title: "Order Value", style: .default, handler: nil)
+        
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (cancelAction) in
+            
+        })
+        
+        let orderStatusAction = UIAlertAction.init(title: "Order Status", style: .default, handler: { (orderStatusAction) in
+            
+        })
+        
+        let timeAction = UIAlertAction.init(title: "Date & Time", style: .default, handler: { (timeAction) in
+            
+        })
+        
+        let orderValueAction = UIAlertAction.init(title: "Order Value", style: .default, handler: { (orderValueAction) in
+            
+        })
         
         sortingAlert.addAction(orderStatusAction)
         sortingAlert.addAction(timeAction)
@@ -103,5 +115,17 @@ class OrdersViewController: UIViewController {
             orderHistoryContainerView.isHidden = false
         default: print("Error: Segmented control value out of bounds.")
         }
+    }
+}
+
+extension OrdersViewController {
+    //MARK: - Notifications
+    
+    func initializeObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleCurrentOrdersSearchBarIsFirstResponder), name: Notification.Name(rawValue: "currentOrdersSearchBarIsFirstResponderNotification"), object: nil)
+    }
+    
+    func handleCurrentOrdersSearchBarIsFirstResponder() {
+        
     }
 }
