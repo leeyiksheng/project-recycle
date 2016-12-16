@@ -27,6 +27,7 @@ class OrdersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewTitleLabel.largeTitleFonts()
+        viewTitleLabel.textColor = UIColor.black
         setupMenuSegmentedControl()
     }
 
