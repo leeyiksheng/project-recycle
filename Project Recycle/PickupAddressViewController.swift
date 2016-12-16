@@ -11,17 +11,21 @@ import Firebase
 import FirebaseDatabase
 
 class PickupAddressViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    @IBOutlet weak var pickUpAddressLabel: UILabel!{
-        didSet{
-            pickUpAddressLabel.largeTitleFonts()
-        }
-    }
-    @IBOutlet weak var pickUpAddressTableView: UITableView!{
-        didSet{
-            pickUpAddressTableView.layer.cornerRadius = 10
-            pickUpAddressTableView.allowsMultipleSelectionDuringEditing = true
-        }
-    }
+
+
+    lazy var pickUpAddressTableView: UITableView = {
+        let tv = UITableView()
+        tv.translatesAutoresizingMaskIntoConstraints = false
+        tv.allowsMultipleSelectionDuringEditing = true
+        tv.layer.cornerRadius = 10
+        tv.backgroundColor = UIColor.viewLightGray
+        tv.separatorStyle = .none
+        tv.bounces = false
+        tv.register(PickupAddressTableViewCell.self, forCellReuseIdentifier: "cell")
+        return tv
+    }()
+
+    
 
     lazy var confirmButton : UIButton = {
         let button = UIButton(type: .roundedRect)
@@ -35,6 +39,16 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         button.isUserInteractionEnabled = false
         button.isEnabled = false
         return button
+    }()
+    
+    let noOrdersLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.largeTitleFonts()
+        label.textColor = UIColor.forestGreen
+        label.textAlignment = .center
+        label.text = "No Address Found :("
+        return label
     }()
 
     func submitOrder() {
@@ -73,6 +87,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     var OrderList = [NewAddresses]()
     var ref: FIRDatabaseReference!
     var addressUID = "addressUniqueId"
+    var navigationBarHeight : CGFloat = 0
 
 
 
@@ -82,13 +97,16 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAddAddress))
         navigationItem.title = "Select Pick Up Address"
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
         view.backgroundColor = UIColor.viewLightGray
         view.addSubview(confirmButton)
-
+        view.addSubview(pickUpAddressTableView)
+        
         self.pickUpAddressTableView.delegate = self
         self.pickUpAddressTableView.dataSource = self
+        setupPickUpAddressTableView()
         setupConfirmButton()
         fetchAddressesID()
 
@@ -123,20 +141,28 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
                 print(dictionary)
                 self.OrderList = []
                 
+                if dictionary.count < 2 {
+                    DispatchQueue.main.async(execute: {
+                        self.pickUpAddressTableView.reloadData()
+                        self.myActivityIndicator.stopAnimating()
+                        self.view.addSubview(self.noOrdersLabel)
+                        self.setupNoOrdersLabel()
+                    })
+                }
+                
                 for values in dictionary {
                     self.fetchAddresses(addressIDs: values)
                 }
             }
 
             }, withCancel: nil)
+        self.myActivityIndicator.stopAnimating()
     }
 
     func fetchAddresses(addressIDs: (String)) {
         ref.child("addresses").child(addressIDs).observe(.value, with: {(snapshot) in
 
-            DispatchQueue.main.async(execute: {
-                self.myActivityIndicator.startAnimating()
-            })
+      
 
             if let dictionary = snapshot.value as? [String:AnyObject] {
 
@@ -146,24 +172,42 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
                 let recycleObject = NewAddresses.init(UID: self.currentUser, address: formattedAddress, receiverName: name, receiverContact: contact)
                 recycleObject.addressID = addressIDs
 
-            self.OrderList.append(recycleObject)
+                self.OrderList.append(recycleObject)
+            
+                if self.OrderList.count > 0 {
+                    DispatchQueue.main.async(execute: {
+                        self.noOrdersLabel.removeFromSuperview()
+                    })
+                }
+               
 
-            DispatchQueue.main.async(execute: {
-                self.pickUpAddressTableView.reloadData()
-                self.myActivityIndicator.stopAnimating()
-            })
+                DispatchQueue.main.async(execute: {
+                    self.pickUpAddressTableView.reloadData()
+                    self.myActivityIndicator.stopAnimating()
+                })
 
             }
 
             }, withCancel: nil)
     }
-
-
+    
+    func setupPickUpAddressTableView() {
+        pickUpAddressTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 20).isActive = true
+        pickUpAddressTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        pickUpAddressTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        pickUpAddressTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
+    }
+    
     func setupConfirmButton() {
         confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true
+    }
+    
+    func setupNoOrdersLabel() {
+        noOrdersLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        noOrdersLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
     }
 
 
@@ -177,14 +221,15 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PickupAddressTableViewCell
 
         let firstAddress = OrderList[indexPath.row]
-
+        
+        cell.contentView.backgroundColor = UIColor.viewLightGray
         cell.receiverNameDetailsLabel.text = firstAddress.name
         cell.addressDescriptionLabel.text = firstAddress.formattedAddress
         cell.contactNODetailsLabel.text = firstAddress.contact
-        cell.otherNoDetailsLabel.text = firstAddress.contact
 
         return cell
     }
+    
 
 
     //MARK: -> TableView Delegates
@@ -197,10 +242,12 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
         let addressChosed = self.OrderList[indexPath.row]
         addressChosed.deleteAddress()
+
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 250
+        let height = pickUpAddressTableView.frame.size.height / 2
+        return height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

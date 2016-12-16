@@ -11,6 +11,14 @@ import UIKit
 class PickupAddressTableViewCell: UITableViewCell {
 
     
+    let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.white
+        view.layer.cornerRadius = 10
+        return view
+    }()
+    
     let receiverNameLabel: UILabel = {
         let label = UILabel()
         label.text = "RECEIVER NAME"
@@ -53,48 +61,47 @@ class PickupAddressTableViewCell: UITableViewCell {
         return label
     }()
     
-    let otherNoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "OTHER NO."
-        label.titleOfAddressesLabelAttributes()
-        return label
-    }()
     
-    let otherNoDetailsLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0164440980"
-        label.descriptionOfAddressesLabelAttributes()
-        return label
-    }()
-    
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.backgroundColor = UIColor.viewLightGray
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = UIColor.viewLightGray
+        contentView.addSubview(containerView)
         contentView.addSubview(receiverNameLabel)
         contentView.addSubview(receiverNameDetailsLabel)
         contentView.addSubview(contactNOLabel)
         contentView.addSubview(contactNODetailsLabel)
         contentView.addSubview(addressLabel)
         contentView.addSubview(addressDescriptionLabel)
-        contentView.addSubview(otherNoLabel)
-        contentView.addSubview(otherNoDetailsLabel)
         
+        setupContainerView()
         setupReceiverNameLabel()
         setupReceiverNameDetailsLabel()
         setupContactNOLabel()
         setupContactNODetailsLabel()
         setupAddressLabel()
         setupAddressDescriptionLabel()
-        setupOtherNoLabel()
-        setupOtherNoDetailsLabel()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     
+  
+    
+    func setupContainerView() {
+        containerView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
+        containerView.widthAnchor.constraint(equalToConstant: 382).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 256).isActive = true
+    }
+    
     func setupReceiverNameLabel() {
-        receiverNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12).isActive = true
-        receiverNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12).isActive = true
+        receiverNameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12).isActive = true
+        receiverNameLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 12).isActive = true
     }
 
     func setupReceiverNameDetailsLabel() {
@@ -105,7 +112,7 @@ class PickupAddressTableViewCell: UITableViewCell {
     
     func setupContactNOLabel() {
         contactNOLabel.topAnchor.constraint(equalTo: receiverNameLabel.topAnchor).isActive = true
-        contactNOLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 200).isActive = true
+        contactNOLabel.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 200).isActive = true
     }
     
     func setupContactNODetailsLabel(){
@@ -121,18 +128,10 @@ class PickupAddressTableViewCell: UITableViewCell {
     func setupAddressDescriptionLabel(){
         addressDescriptionLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 12).isActive = true
         addressDescriptionLabel.leftAnchor.constraint(equalTo: addressLabel.leftAnchor).isActive = true
-        addressDescriptionLabel.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        addressDescriptionLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor, constant: -12).isActive = true
     }
     
-    func setupOtherNoLabel() {
-        otherNoLabel.topAnchor.constraint(equalTo: addressLabel.topAnchor).isActive = true
-        otherNoLabel.leftAnchor.constraint(equalTo: contactNODetailsLabel.leftAnchor).isActive = true
-    }
-    
-    func setupOtherNoDetailsLabel(){
-        otherNoDetailsLabel.topAnchor.constraint(equalTo: addressDescriptionLabel.topAnchor).isActive = true
-        otherNoDetailsLabel.leftAnchor.constraint(equalTo: otherNoLabel.leftAnchor).isActive = true
-    }
+
 }
 
 
