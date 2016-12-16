@@ -30,6 +30,7 @@
 		AF57877B1DF6943F00D44084 /* GuideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */; };
 		AF62D9581DF52963003F0B12 /* ProfileImageLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */; };
 		AFB177E11DEFCED900AB54F9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB177E01DEFCED900AB54F9 /* User.swift */; };
+		AFE8EA7A1E03A32A001432A3 /* SanFranciscoText-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = AFE8EA791E03A32A001432A3 /* SanFranciscoText-Light.otf */; };
 		EB1831701DF690EE0070C128 /* IconCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */; };
 		EB24F3C91DFA5AA1003DFD60 /* MenuTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */; };
 		EB24F3CB1DFA682A003DFD60 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB24F3CA1DFA682A003DFD60 /* OrdersViewController.swift */; };
@@ -83,6 +84,7 @@
 		AF57877A1DF6943E00D44084 /* GuideTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuideTableViewCell.swift; sourceTree = "<group>"; };
 		AF62D9571DF52963003F0B12 /* ProfileImageLibraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageLibraryViewController.swift; sourceTree = "<group>"; };
 		AFB177E01DEFCED900AB54F9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AFE8EA791E03A32A001432A3 /* SanFranciscoText-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Light.otf"; sourceTree = "<group>"; };
 		C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project Recycle.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Project Recycle/Pods-Project Recycle.debug.xcconfig"; sourceTree = "<group>"; };
 		EB18316F1DF690EE0070C128 /* IconCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconCollectionViewCell.swift; sourceTree = "<group>"; };
 		EB24F3C81DFA5AA1003DFD60 /* MenuTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTabBarController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 		A1A299A61E0249100071C94F /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				AFE8EA791E03A32A001432A3 /* SanFranciscoText-Light.otf */,
 				A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */,
 				A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */,
 			);
@@ -345,6 +348,7 @@
 				A102F6711E0270E500AF701E /* SanFranciscoDisplay-Regular.otf in Resources */,
 				A157643D1DFA4F6000091650 /* loginBackground.gif in Resources */,
 				A102F66F1E0270C000AF701E /* SanFranciscoText-Semibold.otf in Resources */,
+				AFE8EA7A1E03A32A001432A3 /* SanFranciscoText-Light.otf in Resources */,
 				AF3DF0321DEEA9D2006A399C /* Profile.storyboard in Resources */,
 				AF3706351DED197900BF953F /* DriverStoryboard.storyboard in Resources */,
 			);

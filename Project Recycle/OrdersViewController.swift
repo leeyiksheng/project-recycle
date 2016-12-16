@@ -44,8 +44,8 @@ class OrdersViewController: UIViewController {
         menuSegmentedControl.layer.borderColor = UIColor.forestGreen.cgColor
         menuSegmentedControl.tintColor = UIColor.forestGreen
         
-        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .normal)
-        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .selected)
+        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .selected)
         
         menuSegmentedControl.setDividerImage(self.imageWithColor(color: UIColor.clear), forLeftSegmentState: UIControlState.normal, rightSegmentState: UIControlState.normal, barMetrics: UIBarMetrics.default)
         menuSegmentedControl.setBackgroundImage(self.imageWithColor(color: UIColor.darkGreen), for: UIControlState.normal, barMetrics: UIBarMetrics.default)
