@@ -29,6 +29,8 @@ class GuideViewController: UIViewController {
         tv.dataSource = self
         tv.delegate = self
         tv.rowHeight = 320
+
+
         tv.register(GuideTableViewCell.self, forCellReuseIdentifier: "cell2")
         return tv
     }()

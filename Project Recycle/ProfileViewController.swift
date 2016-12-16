@@ -190,12 +190,14 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
             self.userNameText.text = "  \(newUser.name)"
             self.userNumberText.text = "  \(newUser.phoneNumber)"
 
-            
-            
-            
-
+            if newUser.addressIDArray.count != 0
+            {
             self.userAddText.text = newUser.defaultFormattedAddress
-
+            }
+            else
+            {
+                self.userAddText.text = ""
+            }
         
 
             if newUser.profileImage == "default" || newUser.profileImage == ""
@@ -234,20 +236,20 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     
     func saveNewName ()
     {
-        let holdName = userNameText.text
+//        let holdName = userNameText.text
         let changeRequest = FIRAuth.auth()?.currentUser?.uid
-        frDBref.child("users/\(changeRequest!)/name").setValue(holdName)
-        userNameText.text = "  \(holdName!)"
+        frDBref.child("users/\(changeRequest!)/name").setValue(userNameText.text)
+//        userNameText.text = "  \(holdName!)"
     }
     
 
     
     func saveNewNumber ()
     {
-        let holdNumber = userNumberText.text
+//        let holdNumber = userNumberText.text
         let changeRequest = FIRAuth.auth()?.currentUser?.uid
-        frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(holdNumber)
-        userNumberText.text = "  \(holdNumber!)"
+        frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(userNumberText.text)
+//        userNumberText.text = "  \(holdNumber!)"
     }
     
     

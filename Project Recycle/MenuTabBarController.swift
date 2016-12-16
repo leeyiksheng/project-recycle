@@ -12,7 +12,9 @@ class MenuTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.tabBar.addDropShadow()
+        
         let homeItem = RecycleGeneralViewController()
         let homeItemIcon = UITabBarItem(title: "Home", image: UIImage(named: "home"), selectedImage: UIImage(named: "home"))
         homeItem.tabBarItem = homeItemIcon
@@ -41,13 +43,7 @@ class MenuTabBarController: UITabBarController {
         self.tabBar.selectedItem?.badgeColor = UIColor.black
         self.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "San Francisco Text", size: 12)!], for: .normal)
         
-    }
-    
-    
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        if viewController is OrdersViewController {
-            
-        }
+
     }
 
     override func didReceiveMemoryWarning() {
