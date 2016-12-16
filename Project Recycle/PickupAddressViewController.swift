@@ -150,7 +150,6 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
                     })
                 }
                 
-                
                 for values in dictionary {
                     self.fetchAddresses(addressIDs: values)
                 }

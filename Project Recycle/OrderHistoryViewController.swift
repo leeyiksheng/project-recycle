@@ -62,7 +62,7 @@ class OrderHistoryViewController: UIViewController {
             }
             
             for orderUID: String in completedOrders {
-                let order = RecycleOrder.init(orderWithOrderUID: orderUID)
+                let order = RecycleOrder.init(completedOrderWithOrderUID: orderUID)
                 self.orderItemsArray.append(order)
             }
             
@@ -105,7 +105,7 @@ extension OrderHistoryViewController: UITableViewDataSource {
                 emptyMessageLabel.textColor = UIColor.darkGreen
                 emptyMessageLabel.numberOfLines = 0
                 emptyMessageLabel.textAlignment = NSTextAlignment.center
-                emptyMessageLabel.font = UIFont.init(name: "San Francisco Text", size: 24)
+                emptyMessageLabel.font = UIFont.init(name: "SanFranciscoText-Semibold", size: 24)
                 emptyMessageLabel.sizeToFit()
                 
                 self.completedOrdersTableView.backgroundView = emptyMessageLabel

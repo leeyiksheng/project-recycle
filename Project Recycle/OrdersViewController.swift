@@ -10,8 +10,7 @@ import UIKit
 
 class OrdersViewController: UIViewController {
 
-    @IBOutlet weak var filterBarButtonItem: UIBarButtonItem!
-    @IBOutlet weak var searchBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var sortBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var menuSegmentedControl: UISegmentedControl!
     @IBOutlet weak var viewTitleLabel: UILabel!
     @IBOutlet weak var currentOrdersContainerView: UIView! {
@@ -44,8 +43,8 @@ class OrdersViewController: UIViewController {
         menuSegmentedControl.layer.borderColor = UIColor.forestGreen.cgColor
         menuSegmentedControl.tintColor = UIColor.forestGreen
         
-        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .normal)
-        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .selected)
+        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .normal)
+        menuSegmentedControl.setTitleTextAttributes( [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18.0)!, NSForegroundColorAttributeName: UIColor.white], for: .selected)
         
         menuSegmentedControl.setDividerImage(self.imageWithColor(color: UIColor.clear), forLeftSegmentState: UIControlState.normal, rightSegmentState: UIControlState.normal, barMetrics: UIBarMetrics.default)
         menuSegmentedControl.setBackgroundImage(self.imageWithColor(color: UIColor.darkGreen), for: UIControlState.normal, barMetrics: UIBarMetrics.default)
@@ -68,6 +67,29 @@ class OrdersViewController: UIViewController {
         let image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image!
+    }
+    
+    @IBAction func onSortBarButtonItemTouchUpInside(_ sender: UIBarButtonItem) {
+        setupSortingAlert()
+    }
+    
+    func setupSortingAlert() {
+        let sortingAlert = UIAlertController.init(title: "Sorting", message: "Select a category to sort with.", preferredStyle: .alert)
+        let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: nil)
+        let orderStatusAction = UIAlertAction.init(title: "Order Status", style: .default, handler: nil)
+        let timeAction = UIAlertAction.init(title: "Date & Time", style: .default, handler: nil)
+        let orderValueAction = UIAlertAction.init(title: "Order Value", style: .default, handler: nil)
+        
+        sortingAlert.addAction(orderStatusAction)
+        sortingAlert.addAction(timeAction)
+        
+        if !orderHistoryContainerView.isHidden {
+            sortingAlert.addAction(orderValueAction)
+        }
+        
+        sortingAlert.addAction(cancelAction)
+        
+        self.present(sortingAlert, animated: true, completion: nil)
     }
     
     @IBAction func onMenuSegmentedControlValueChanged(_ sender: UISegmentedControl) {
