@@ -47,10 +47,17 @@ class User {
             guard let userRawDataDictionary = snapshot.value as? [String: AnyObject] else { return }
             
             self.name = userRawDataDictionary["name"] as! String
-            self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
+            
+            if userRawDataDictionary["phoneNumber"] as? String != nil {
+                self.phoneNumber = userRawDataDictionary["phoneNumber"] as! String
+            } else {
+                self.phoneNumber = "No phone number given."
+            }
             
             if userRawDataDictionary["profileImage"] as? String != nil {
                 self.profileImage = userRawDataDictionary["profileImage"] as! String //MARK: - (TBD FEATURE) CONVERT STRING TO URL AND DOWNLOAD IMAGE
+            } else {
+                self.profileImage = "default"
             }
             
             if userRawDataDictionary["currentOrders"] as? [String] != nil {
@@ -61,11 +68,15 @@ class User {
                 self.completedOrders = userRawDataDictionary["completedOrders"] as! [String]
             }
             
-            self.addressIDArray = userRawDataDictionary["addressID"] as! [String]
-            
-            self.fetchAddressFromDatabaseWith(addressID: self.addressIDArray[0], completion: { () -> () in
-                completion()
-            })
+            if userRawDataDictionary["addressID"] as? [String] != nil {
+                self.addressIDArray = userRawDataDictionary["addressID"] as! [String]
+                
+                self.fetchAddressFromDatabaseWith(addressID: self.addressIDArray[0], completion: { () -> () in
+                    completion()
+                })
+            } else {
+                self.defaultFormattedAddress = "No address given."
+            }
         })
     }
     
@@ -73,10 +84,13 @@ class User {
         let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressID)")
         
         addressDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
-            let addressDictionary = snapshot.value as! [String: Any]
-            
-            self.defaultFormattedAddress = addressDictionary["formattedAddress"] as! String
-            
+            if snapshot.exists() {
+                let addressDictionary = snapshot.value as! [String: Any]
+                self.defaultFormattedAddress = addressDictionary["formattedAddress"] as! String
+            } else {
+                self.defaultFormattedAddress = "No address given."
+                return
+            }
             completion()
         })
     }

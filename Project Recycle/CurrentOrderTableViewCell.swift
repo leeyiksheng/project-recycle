@@ -45,11 +45,28 @@ extension CurrentOrderTableViewCell: UICollectionViewDelegate {
 
 extension CurrentOrderTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! IconCollectionViewCell
-        
-        cell.iconImageView?.image = iconArray[indexPath.row]
-        
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "glassCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            return cell
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "paperCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            return cell
+        case 3:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plasticCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = UIImage.init(named: "redErrorIcon")
+            return cell
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -122,7 +122,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
             if let dictionary = snapshot.value as? [String] {
                 print(dictionary)
                 self.OrderList = []
-
+                
                 for values in dictionary {
                     self.fetchAddresses(addressIDs: values)
                 }
@@ -197,8 +197,6 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
         let addressChosed = self.OrderList[indexPath.row]
         addressChosed.deleteAddress()
-        fetchAddressesID()
-
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

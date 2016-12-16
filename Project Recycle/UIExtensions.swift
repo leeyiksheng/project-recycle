@@ -75,7 +75,7 @@ extension UIButton {
 extension UINavigationController {
     
     func navigationBarAttributes() {
-        self.navigationBar.tintColor = UIColor.textLightGray
+        self.navigationBar.tintColor = UIColor.textDarkGray
         self.navigationBar.barTintColor = UIColor.viewLightGray
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textLightGray]
         self.navigationBar.titleTextAttributes = titleDict as! [String : Any]

@@ -50,7 +50,6 @@
 		EB8068571DEFC75E003FCB9B /* OrderHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */; };
 		EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */; };
 		EB80685D1DEFD816003FCB9B /* RecycleOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685C1DEFD816003FCB9B /* RecycleOrder.swift */; };
-		EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */; };
 		EB8068611DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068601DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift */; };
 		EB8068631DEFDD52003FCB9B /* CompletedOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */; };
 		EBE2BA461DF1934C007C4766 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6267781DEBD7C800CC2C37 /* HomeViewController.swift */; };
@@ -107,7 +106,6 @@
 		EB8068561DEFC75E003FCB9B /* OrderHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewController.swift; sourceTree = "<group>"; };
 		EB80685A1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrdersViewController.swift; sourceTree = "<group>"; };
 		EB80685C1DEFD816003FCB9B /* RecycleOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleOrder.swift; sourceTree = "<group>"; };
-		EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderProcessedTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068601DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedOrderTableViewCell.swift; sourceTree = "<group>"; };
 		EBE2BA491DF1A948007C4766 /* MainRecycleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainRecycleViewController.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 				EB6267841DEC3A7700CC2C37 /* MenuItemTableViewCell.swift */,
 				EB6267881DED392C00CC2C37 /* Downloader.swift */,
 				EB38B6421DED926A00568333 /* NavigationMenuCollectionViewCell.swift */,
-				EB80685E1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift */,
 				EB8068601DEFDD43003FCB9B /* CurrentOrderTableViewCell.swift */,
 				EB8068621DEFDD51003FCB9B /* CompletedOrderTableViewCell.swift */,
 				A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */,
@@ -435,7 +432,6 @@
 				AF363B741DFA6FBB0052C4E6 /* GuideDetailViewController.swift in Sources */,
 				A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */,
 				AF3DF0341DEEAA1B006A399C /* ProfileViewController.swift in Sources */,
-				EB80685F1DEFDD36003FCB9B /* CurrentOrderProcessedTableViewCell.swift in Sources */,
 				A14DF71D1DF6A47900876D30 /* CategoriesChosen.swift in Sources */,
 				AF3706371DED1A0700BF953F /* DriverViewController.swift in Sources */,
 				EB80685B1DEFC7D0003FCB9B /* CurrentOrdersViewController.swift in Sources */,

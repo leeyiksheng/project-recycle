@@ -62,7 +62,7 @@ class OrderHistoryViewController: UIViewController {
             }
             
             for orderUID: String in completedOrders {
-                let order = RecycleOrder.init(orderWithOrderUID: orderUID)
+                let order = RecycleOrder.init(completedOrderWithOrderUID: orderUID)
                 self.orderItemsArray.append(order)
             }
             

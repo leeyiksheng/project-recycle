@@ -66,7 +66,7 @@ class RecycleGeneralViewController: UIViewController {
     lazy var glassButton : UIButton = {
         let button = UIButton(type: .system)
         button.basicItemsButtonAttributes()
-        button.setImage(#imageLiteral(resourceName: "Glass"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "glass"), for: .normal)
         button.addTarget(self, action: #selector(handleGlassButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -95,7 +95,7 @@ class RecycleGeneralViewController: UIViewController {
     lazy var aluminiumButton : UIButton = {
         let button = UIButton(type: .system)
         button.basicItemsButtonAttributes()
-        button.setImage(#imageLiteral(resourceName: "Aluminium"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "aluminium"), for: .normal)
         button.addTarget(self, action: #selector(handleAluminiumButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -123,7 +123,7 @@ class RecycleGeneralViewController: UIViewController {
     lazy var plasticButton : UIButton = {
         let button = UIButton(type: .system)
         button.basicItemsButtonAttributes()
-        button.setImage(#imageLiteral(resourceName: "Plastic"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "plastic"), for: .normal)
         button.addTarget(self, action: #selector(handlePlasticButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -253,7 +253,7 @@ class RecycleGeneralViewController: UIViewController {
         paperButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
         paperButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         paperButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        paperButton.setImage(#imageLiteral(resourceName: "Paper"), for: .normal)
+        paperButton.setImage(#imageLiteral(resourceName: "paper"), for: .normal)
     }
     
     func setupPaperLabel() {
