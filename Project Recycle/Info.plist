@@ -53,6 +53,7 @@
 	<array>
 		<string>SanFranciscoText-Semibold.otf</string>
 		<string>SanFranciscoDisplay-Medium.otf</string>
+		<string>SanFranciscoText-Light.otf</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>

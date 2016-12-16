@@ -17,7 +17,7 @@ class CurrentOrdersViewController: UIViewController {
     @IBOutlet weak var currentOrdersTableView: UITableView!
     @IBOutlet weak var viewTitleLabel: UILabel! {
         didSet {
-            viewTitleLabel.font = UIFont(name: "San Francisco Text", size: 18)
+            viewTitleLabel.font = UIFont(name: "SanFranciscoText-Semibold", size: 18)
             viewTitleLabel.textColor = UIColor.black
         }
     }
