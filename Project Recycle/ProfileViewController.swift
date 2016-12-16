@@ -11,11 +11,14 @@ import Firebase
 import FirebaseDatabase
 var frDBref : FIRDatabaseReference!
 
-class ProfileViewController: UIViewController {
+protocol ProfileImageLibraryViewControllerProtocol {
+    func dismissViewController()
+}
+
+class ProfileViewController: UIViewController, ProfileImageLibraryViewControllerProtocol {
     @IBOutlet weak var userProImage: UIImageView?
     @IBOutlet weak var userNameText: UITextField!
     @IBOutlet weak var userNumberText: UITextField!
-    @IBOutlet weak var userEmailText: UITextField!
     @IBOutlet weak var userAddText: UITextView!
     @IBOutlet weak var editProfileButton: UIButton!
     @IBOutlet weak var rightProfileButton: UIBarButtonItem!
@@ -29,40 +32,55 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var phoneLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var personalDetails: [User] = []
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//          for font family search
+//        for name in UIFont.familyNames
+//        {
+//            print(name)
+//            for namename in UIFont.fontNames(forFamilyName: name)
+//            {
+//                print(namename)
+//            }
+//        }
+
+        
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        
+
         
         self.view.backgroundColor = UIColor.viewLightGray
         profileTitle.navigationItemAttributes()
         nameLabel.mediumTitleFonts()
         phoneLabel.mediumTitleFonts()
-        emailLabel.mediumTitleFonts()
         addressLabel.mediumTitleFonts()
-        userNameText.userInputFonts()
-        userEmailText.userInputFonts()
-        userNumberText.userInputFonts()
-        userAddText.userTypedFonts()
         
+        
+        topBar.isHidden = false
+        topBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        topBar.shadowImage? = UIImage()
+        topBar.isTranslucent = true
+        topBar.isOpaque = false
+        topBar.backgroundColor = UIColor (colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.5)
         
         userProImage?.image = UIImage(named: "noone")
         userProImage?.layer.borderColor = UIColor.clear.cgColor
-        userProImage?.layer.borderWidth = 4
+        userProImage?.layer.borderWidth = 1
         userProImage?.layer.masksToBounds = false
-        let setValue = 86
-        userProImage?.frame = CGRect(x: 0, y: 0, width: CGFloat(setValue), height: CGFloat(setValue))
-        userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/1.5
+        userProImage?.layer.cornerRadius = (userProImage?.frame.height)!/2
         userProImage?.clipsToBounds = true
         userProImage?.isUserInteractionEnabled = true
         
         editProfileButton.layer.masksToBounds = false
-        editProfileButton.layer.borderWidth = 3
+        editProfileButton.layer.borderWidth = 1
         editProfileButton.layer.cornerRadius = (editProfileButton.frame.height)/2
         editProfileButton.tintColor = UIColor.forestGreen
         editProfileButton.layer.borderColor = UIColor.forestGreen.cgColor
@@ -72,49 +90,41 @@ class ProfileViewController: UIViewController {
         editProfileButton.isUserInteractionEnabled = true
         editProfileButton.addTarget(self, action:#selector (editProfile(sender:)), for: .touchUpInside)
         
-        signOutButton.layer.masksToBounds = false
-        signOutButton.layer.borderWidth = 2
-        signOutButton.layer.cornerRadius = (editProfileButton.frame.height)/2
         signOutButton.tintColor = UIColor.forestGreen
-        signOutButton.layer.borderColor = UIColor.forestGreen.cgColor
-        signOutButton.backgroundColor = UIColor.white
         signOutButton.buttonFonts()
-        signOutButton.clipsToBounds = true
-        signOutButton.isUserInteractionEnabled = true
-        rightProfileButton.customView?.frame.size.width = 100
+      
         
-        
-        changePassButton.layer.masksToBounds = false
-        changePassButton.layer.cornerRadius = 20
-        changePassButton.tintColor = UIColor.white
-        changePassButton.layer.borderColor = UIColor.forestGreen.cgColor
-        changePassButton.backgroundColor = UIColor.forestGreen
-        changePassButton.buttonFonts()
-        changePassButton.clipsToBounds = true
+        changePassButton.tintColor = UIColor.forestGreen
+        changePassButton.smallButtonFonts()
         changePassButton.isUserInteractionEnabled = true
 
-        changeEmailButt.layer.masksToBounds = false
-        changeEmailButt.layer.cornerRadius = 20
-        changeEmailButt.tintColor = UIColor.white
-        changeEmailButt.layer.borderColor = UIColor.forestGreen.cgColor
-        changeEmailButt.backgroundColor = UIColor.forestGreen
-        changeEmailButt.buttonFonts()
-        changeEmailButt.clipsToBounds = true
+
+        changeEmailButt.tintColor = UIColor.forestGreen
+        changeEmailButt.smallButtonFonts()
         changeEmailButt.isUserInteractionEnabled = true
 
-        topBar.backgroundColor = UIColor.lightGray
+        userNameText.isUserInteractionEnabled = false
+        userNumberText.isUserInteractionEnabled  = false
+        userAddText.isUserInteractionEnabled  = false
+        userNameText.userInputFonts()
+        userNumberText.userInputFonts()
+        userAddText.userTypedFonts()
+        userNameText.borderStyle = UITextBorderStyle.none
+        userNumberText.borderStyle = UITextBorderStyle.none
+        userNameText.backgroundColor = UIColor.viewLightGray
+        userNumberText.backgroundColor = UIColor.viewLightGray
+        userAddText.backgroundColor = UIColor.viewLightGray
+        
         
         frDBref = FIRDatabase.database().reference()
         
         fetchUserInfo()
-        userNameText.isUserInteractionEnabled = false
-        userNumberText.isUserInteractionEnabled  = false
-        userEmailText.isUserInteractionEnabled = false
-        userAddText.isUserInteractionEnabled  = false
+        
         
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(imageTapped(sender:)))
         userProImage?.addGestureRecognizer(tap)
+        
         
     }
     
@@ -126,6 +136,9 @@ class ProfileViewController: UIViewController {
             userNameText.isUserInteractionEnabled  = true
             userNumberText.isUserInteractionEnabled  = true
             userAddText.isUserInteractionEnabled  = true
+            userNameText.backgroundColor = UIColor.white
+            userNumberText.backgroundColor = UIColor.white
+            userAddText.backgroundColor = UIColor.white
         }
         else
         {
@@ -136,6 +149,9 @@ class ProfileViewController: UIViewController {
             userNameText.isUserInteractionEnabled  = false
             userNumberText.isUserInteractionEnabled  = false
             userAddText.isUserInteractionEnabled  = false
+            userNameText.backgroundColor = UIColor.viewLightGray
+            userNumberText.backgroundColor = UIColor.viewLightGray
+            userAddText.backgroundColor = UIColor.viewLightGray
         }
         
     }
@@ -149,29 +165,29 @@ class ProfileViewController: UIViewController {
         {
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! ProfileImageLibraryViewController
-//            addChildViewController(vc)
-//            vc.view.frame = self.view.bounds
-//            view.addSubview(vc.view)
-//            vc.didMove(toParentViewController: self)
-//            performSegue(withIdentifier: "imageSegue", sender: self)
+            vc.delegate = self
             self.present(vc, animated: true, completion: nil)
             
-//            self.performSegue(withIdentifier: "imageSegue", sender: self)
-//            let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-//            let profileImageController = storyboard.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! UIViewController
-//            self.present(profileImageController, animated: true, completion: nil)
+
         }
     }
     
     
+    func dismissViewController()
+    {
+        self.dismiss(animated: false, completion: { () -> Void in
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
+            self.present(vc, animated: true, completion: nil)
+        })
+    }
+    
     
     private func fetchUserInfo()
     {
-        
+        self.activityIndicator.startAnimating()
         let newUser = User()
         newUser.initWithCurrentUser { () -> () in
             self.userNameText.text = newUser.name
-            self.userEmailText.text = newUser.email
             self.userNumberText.text = newUser.phoneNumber
 
             
@@ -182,30 +198,37 @@ class ProfileViewController: UIViewController {
 
         
 
-            if newUser.profileImage == ""
+            if newUser.profileImage == "default" || newUser.profileImage == ""
             {
                 
                 self.userProImage?.image = UIImage(named: "noone")
+                self.activityIndicator.stopAnimating()
+                
+               
             }
             else
             {
-                
                 Downloader.getDataFromUrl(url: URL.init(string: newUser.profileImage)!, completion: { (data, response, error) in
                     
                     self.userProImage?.layer.borderColor = UIColor.forestGreen.cgColor
                     if error != nil
                     {
                         print(error!)
+                        self.activityIndicator.stopAnimating()
                         return
                     }
                     
                     
                     DispatchQueue.main.async {
                         self.userProImage?.image = UIImage (data: data!)
+                        self.activityIndicator.stopAnimating()
+                        
                     }
+                    
                 })
             }
         }
+        
     }
     
     
@@ -270,7 +293,6 @@ class ProfileViewController: UIViewController {
                             
                             print("success")
                             frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
-                            self.userEmailText.text = emailText?.text
                         }
                     })
                     

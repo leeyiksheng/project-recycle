@@ -12,17 +12,21 @@ import FirebaseDatabase
 
 
 class ProfileImageLibraryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var camera: UIBarButtonItem!
     @IBOutlet weak var gallery: UIBarButtonItem!
     @IBOutlet weak var backProfile: UIBarButtonItem!
     @IBOutlet weak var confirmPic: UIBarButtonItem!
+    @IBOutlet weak var activityRun: UIActivityIndicatorView!
     
     let picker = UIImagePickerController()
     var chosenImage : UIImage?
     var currentImage: UIImage?
     var holdCurrentUserName : String?
+    var delegate : ProfileImageLibraryViewControllerProtocol?
+
     
     @IBAction func shootPhoto(_ sender: UIBarButtonItem)
     {
@@ -50,8 +54,16 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         picker.popoverPresentationController?.barButtonItem = sender //set the reference point to pop up
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityRun.hidesWhenStopped = true
+        activityRun.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityRun.layer.backgroundColor = UIColor.init(white: 0.0, alpha: 0.3).cgColor
+        
         self.view.backgroundColor = UIColor.viewLightGray
         frDBref = FIRDatabase.database().reference()
         
@@ -65,13 +77,16 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         camera.tintColor = UIColor.forestGreen
         
         
-        imageView?.layer.borderWidth = 5
+        imageView?.layer.borderWidth = 2
+        imageView.layer.cornerRadius = imageView.frame.size.height / 2
         imageView?.layer.masksToBounds = false
         imageView?.layer.borderColor = nil
         imageView?.clipsToBounds = true
         
+        activityRun.startAnimating()
         fetchUserImage()
         picker.delegate = self
+        
         
         
         // Do any additional setup after loading the view.
@@ -82,9 +97,10 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         let currentUser = User()
         currentUser.initWithCurrentUser { () -> () in
             self.holdCurrentUserName = currentUser.name
-            if currentUser.profileImage == ""
+            if currentUser.profileImage == "default" || currentUser.profileImage == ""
             {
                 self.imageView.image = UIImage(named: "noone")
+                self.activityRun.stopAnimating()
             }
             else
             {
@@ -98,6 +114,8 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
                     
                     DispatchQueue.main.async {
                         self.imageView?.image = UIImage(data:data!)
+                        self.activityRun.stopAnimating()
+                        
                     }
                 })
             }
@@ -133,7 +151,6 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
     {
         picker.dismiss(animated: true, completion: nil)
-        dismiss(animated: true, completion: nil)
 //        self.willMove(toParentViewController: nil)
 //        self.view.removeFromSuperview()
 //        self.removeFromParentViewController()
@@ -143,15 +160,9 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     
     @IBAction func CancelButtonPressed(_ sender: UIBarButtonItem)
     {
-        
-//        self.willMove(toParentViewController: nil)
-//        self.view.removeFromSuperview()
-//        self.removeFromParentViewController()
-        dismiss(animated: true, completion: nil) //not a good practice
-       //navigationController?.popToViewController(ProfileViewController(), animated: true)
-//        let storyboard = UIStoryboard(name: "Profile", bundle: nil)
-//        let profileController = storyboard.instantiateViewController(withIdentifier: "Profile") as! UIViewController
-//        self.present(profileController, animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            self.delegate?.dismissViewController()
+        })
     }
 
     @IBAction func ConfirmButtonPressed(_ sender: UIBarButtonItem)
@@ -162,14 +173,18 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         storageRef.put(uploadData!, metadata: nil, completion: { (metadata, error) in
             if error != nil
             {
-                print(error)
+                print(error?.localizedDescription)
                 return
             }
         let proImageUrl = metadata?.downloadURL()?.absoluteString
         let changeProfileImage = FIRAuth.auth()?.currentUser?.uid
             frDBref.child("users/\(changeProfileImage!)/profileImage").setValue(proImageUrl!)
         })
-        dismiss(animated: true, completion: nil) // not a good practice
+        
+//        self.dismiss(animated: true, completion: nil) // not a good practice
+        self.dismiss(animated: true, completion: {
+            self.delegate?.dismissViewController()
+        })
         
     }
     

@@ -30,23 +30,23 @@ extension UILabel {
     
     
     func smallTitleFonts() {
-        self.font = UIFont(name: "San Francisco Text", size: 14)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 14)
         self.textColor = UIColor.textDarkGray
     }
     
     func mediumTitleFonts(){
-        self.font = UIFont(name: "San Francisco Text", size: 16)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 16)
         self.textColor = UIColor.forestGreen
         
     }
     
     func largeTitleFonts() {
-        self.font = UIFont(name: "San Francisco Text", size: 18)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 18)
         self.textColor = UIColor.textDarkGray
     }
     
     func toolbarLabelTitle() {
-        self.font = UIFont(name: "San Francisco Text", size: 18)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 18)
         self.textColor = UIColor.black
     }
     
@@ -55,20 +55,25 @@ extension UILabel {
 extension UITextField {
     
     func userInputFonts() {
-        self.font = UIFont(name: "San Francisco Text", size: 14)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 14)
     }
 }
 
 extension UITextView {
     func userTypedFonts() {
-        self.font = UIFont(name: "San Francisco Text", size: 14)
+        self.font = UIFont(name: "SanFranciscoText-Semibold", size: 14)
     }
 }
 
 extension UIButton {
     
     func buttonFonts() {
-        self.titleLabel?.font = UIFont(name: "San Francisco Text", size: 18)
+        self.titleLabel?.font = UIFont(name: "SanFranciscoText-Semibold", size: 18)
+    }
+    
+    func smallButtonFonts() {
+        self.titleLabel?.font = UIFont(name: "SanFranciscoText-Light", size: 14)
+        
     }
 }
 
@@ -79,7 +84,7 @@ extension UINavigationController {
         self.navigationBar.barTintColor = UIColor.viewLightGray
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textLightGray]
         self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
-        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!]
+        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
         
     }
     
@@ -88,14 +93,14 @@ extension UINavigationController {
 extension UINavigationItem {
     
     func navigationItemAttributes() {
-        self.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
-        self.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
+        self.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!], for: .normal)
+        self.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!], for: .normal)
     }
 }
 
 extension UIBarButtonItem {
     func buttonFonts() {
-        self.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!], for: .normal)
+        self.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!], for: .normal)
     }
 }
 
