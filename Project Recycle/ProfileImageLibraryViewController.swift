@@ -161,7 +161,7 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     @IBAction func CancelButtonPressed(_ sender: UIBarButtonItem)
     {
         self.dismiss(animated: true, completion: {
-            self.delegate?.dismissViewController()
+            self.delegate?.dismissViewController(catchImage: self.imageView.image!)
         })
     }
 
@@ -183,7 +183,7 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         
 //        self.dismiss(animated: true, completion: nil) // not a good practice
         self.dismiss(animated: true, completion: {
-            self.delegate?.dismissViewController()
+            self.delegate?.dismissViewController(catchImage: self.imageView.image!)
         })
         
     }

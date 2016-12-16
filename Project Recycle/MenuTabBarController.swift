@@ -43,6 +43,7 @@ class MenuTabBarController: UITabBarController {
 //        self.tabBar.selectedItem?.badgeColor = UIColor.black
         self.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "San Francisco Text", size: 12)!], for: .normal)
         
+
     }
 
     override func didReceiveMemoryWarning() {
