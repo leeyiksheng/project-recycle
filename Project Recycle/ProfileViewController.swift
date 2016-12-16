@@ -12,7 +12,7 @@ import FirebaseDatabase
 var frDBref : FIRDatabaseReference!
 
 protocol ProfileImageLibraryViewControllerProtocol {
-    func dismissViewController()
+    func dismissViewController(catchImage: UIImage)
 }
 
 class ProfileViewController: UIViewController, ProfileImageLibraryViewControllerProtocol {
@@ -54,10 +54,8 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        
+    
 
-        
-        self.view.backgroundColor = UIColor.viewLightGray
         profileTitle.navigationItemAttributes()
         nameLabel.mediumTitleFonts()
         phoneLabel.mediumTitleFonts()
@@ -116,6 +114,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         userAddText.backgroundColor = UIColor.viewLightGray
         
         
+        
         frDBref = FIRDatabase.database().reference()
         
         fetchUserInfo()
@@ -126,6 +125,27 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         userProImage?.addGestureRecognizer(tap)
         
         
+    }
+    
+    func indicatorRun()
+    {
+        let container = UIView()
+        container.frame = view.frame
+        container.center = view.center
+        container.backgroundColor = UIColor.init(white: 0.5, alpha: 0.3)
+        container.tag = 100
+        
+        self.view.addSubview(container)
+        self.activityIndicator.startAnimating()
+    }
+    
+    func indicatorStop()
+    {
+        if let viewWithTag = self.view.viewWithTag(100)
+        {
+            viewWithTag.removeFromSuperview()
+        }
+        self.activityIndicator.stopAnimating()
     }
     
     func editProfile (sender: UIButton)
@@ -161,7 +181,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     
     func imageTapped(sender: UIGestureRecognizer)
     {
-        if let imagePressed = sender.view as? UIImageView
+        if let _ = sender.view as? UIImageView
         {
             
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! ProfileImageLibraryViewController
@@ -173,18 +193,20 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     }
     
     
-    func dismissViewController()
+    func dismissViewController(catchImage: UIImage)
     {
+        
         self.dismiss(animated: false, completion: { () -> Void in
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
             self.present(vc, animated: true, completion: nil)
         })
+        self.userProImage?.image = catchImage
     }
     
     
     private func fetchUserInfo()
     {
-        self.activityIndicator.startAnimating()
+        self.indicatorRun()
         let newUser = User()
         newUser.initWithCurrentUser { () -> () in
             self.userNameText.text = "  \(newUser.name)"
@@ -204,7 +226,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
             {
                 
                 self.userProImage?.image = UIImage(named: "noone")
-                self.activityIndicator.stopAnimating()
+                self.indicatorStop()
                 
                
             }
@@ -216,14 +238,14 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
                     if error != nil
                     {
                         print(error!)
-                        self.activityIndicator.stopAnimating()
+                        self.indicatorStop()
                         return
                     }
                     
                     
                     DispatchQueue.main.async {
                         self.userProImage?.image = UIImage (data: data!)
-                        self.activityIndicator.stopAnimating()
+                        self.indicatorStop()
                         
                     }
                     

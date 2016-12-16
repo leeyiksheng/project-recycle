@@ -40,7 +40,7 @@ class MenuTabBarController: UITabBarController {
         self.selectedViewController = self.viewControllers![0]
         self.tabBar.barTintColor = UIColor.viewLightGray
         self.tabBar.tintColor = UIColor.black
-        self.tabBar.selectedItem?.badgeColor = UIColor.black
+//        self.tabBar.selectedItem?.badgeColor = UIColor.black
         self.tabBarItem.setTitleTextAttributes([NSFontAttributeName: UIFont(name: "San Francisco Text", size: 12)!], for: .normal)
         
 
