@@ -11,7 +11,6 @@
 		A102F66F1E0270C000AF701E /* SanFranciscoText-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */; };
 		A102F6711E0270E500AF701E /* SanFranciscoDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */; };
 		A10C309B1DF15B55006D2F9F /* GeneralRecylables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */; };
-		A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */; };
 		A13D9A361DEECBEB00313699 /* RecycleGeneralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */; };
 		A14586B61DF11ACD00CAB9F0 /* UIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */; };
 		A14586B81DF11AD700CAB9F0 /* AlternativeAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */; };
@@ -62,7 +61,6 @@
 		A102F66E1E0270C000AF701E /* SanFranciscoText-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoText-Semibold.otf"; sourceTree = "<group>"; };
 		A102F6701E0270E500AF701E /* SanFranciscoDisplay-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SanFranciscoDisplay-Regular.otf"; sourceTree = "<group>"; };
 		A10C309A1DF15B55006D2F9F /* GeneralRecylables.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralRecylables.swift; sourceTree = "<group>"; };
-		A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Kelvin's Storyboard.storyboard"; sourceTree = "<group>"; };
 		A13D9A351DEECBEB00313699 /* RecycleGeneralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecycleGeneralViewController.swift; sourceTree = "<group>"; };
 		A14586B51DF11ACD00CAB9F0 /* UIExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIExtensions.swift; sourceTree = "<group>"; };
 		A14586B71DF11AD700CAB9F0 /* AlternativeAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlternativeAddressViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +132,6 @@
 		A13D9A321DEECB9D00313699 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				A13D9A331DEECBBA00313699 /* Kelvin's Storyboard.storyboard */,
 				AF3DF0311DEEA9D2006A399C /* Profile.storyboard */,
 				AF3706341DED197900BF953F /* DriverStoryboard.storyboard */,
 				EB6267641DEBD0D600CC2C37 /* Home.storyboard */,
@@ -332,7 +329,6 @@
 				EB62676B1DEBD0D600CC2C37 /* LaunchScreen.storyboard in Resources */,
 				EB6267681DEBD0D600CC2C37 /* Assets.xcassets in Resources */,
 				EB24F3D11DFA6B2A003DFD60 /* Main.storyboard in Resources */,
-				A13D9A341DEECBBA00313699 /* Kelvin's Storyboard.storyboard in Resources */,
 				EB62677F1DEC1EFB00CC2C37 /* GoogleService-Info.plist in Resources */,
 				EB24F3CD1DFA6856003DFD60 /* Orders.storyboard in Resources */,
 				EB6267661DEBD0D600CC2C37 /* Home.storyboard in Resources */,

@@ -75,7 +75,7 @@ class GuideTableViewCell: UITableViewCell {
         viewContainer.topAnchor.constraint(equalTo: backImage.bottomAnchor, constant: -30).isActive = true
         viewContainer.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 12).isActive = true
         viewContainer.widthAnchor.constraint(equalToConstant: 390).isActive = true
-        viewContainer.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        viewContainer.heightAnchor.constraint(equalToConstant: 130).isActive = true
     }
     
     

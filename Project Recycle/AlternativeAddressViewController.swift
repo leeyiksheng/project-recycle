@@ -123,7 +123,7 @@ class AlternativeAddressViewController: UIViewController {
     
     let receiverNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "  RECEIVER NAME"
+        label.text = "  RECEIVER NAME*"
         label.addressLabelAttributes()
         return label
     }()
@@ -152,7 +152,7 @@ class AlternativeAddressViewController: UIViewController {
     
     let addressLabel: UILabel = {
         let label = UILabel()
-        label.text = "ADDRESS"
+        label.text = "ADDRESS*"
         label.addressLabelAttributes()
         return label
     }()
@@ -165,7 +165,7 @@ class AlternativeAddressViewController: UIViewController {
     
     let cityLabel: UILabel = {
         let label = UILabel()
-        label.text = "CITY"
+        label.text = "CITY*"
         label.addressLabelAttributes()
         return label
     }()
@@ -179,7 +179,7 @@ class AlternativeAddressViewController: UIViewController {
     
     let postcodeLabel: UILabel = {
         let label = UILabel()
-        label.text = "POSTCODE"
+        label.text = "POSTCODE*"
         label.addressLabelAttributes()
         return label
     }()
@@ -192,7 +192,7 @@ class AlternativeAddressViewController: UIViewController {
     
     let stateLabel: UILabel = {
         let label = UILabel()
-        label.text = "STATE"
+        label.text = "STATE*"
         label.addressLabelAttributes()
         return label
     }()
@@ -206,30 +206,17 @@ class AlternativeAddressViewController: UIViewController {
     
     let phoneNoLabel: UILabel = {
         let label = UILabel()
-        label.text = "PHONE NO"
+        label.text = "PHONE NO*"
         label.addressLabelAttributes()
         return label
     }()
     
-    let otherPhoneNoTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "  Phone Number"
-        tf.addressTextFieldAttributes()
-        return tf
-    }()
-    
-    let otherPhoneNoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "OTHER NO"
-        label.addressLabelAttributes()
-        return label
-    }()
     
     var navigationBarHeight: CGFloat = 0
-    let spaceBetweenLabel: CGFloat = 18
+    let spaceBetweenLabel: CGFloat = 28
     let spaceBetweenTextField: CGFloat = 4
     var userUID = ""
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -256,8 +243,6 @@ class AlternativeAddressViewController: UIViewController {
         view.addSubview(stateTextField)
         view.addSubview(phoneNoLabel)
         view.addSubview(phoneNoTextField)
-        view.addSubview(otherPhoneNoLabel)
-        view.addSubview(otherPhoneNoTextField)
         view.addSubview(confirmButton)
         
         
@@ -277,8 +262,7 @@ class AlternativeAddressViewController: UIViewController {
         setupStateTextField()
         setupPhoneNoLabel()
         setupPhoneNoTextField()
-        setupOtherPhoneNoLabel()
-        setupOtherPhoneNoTextField()
+
     }
     
     func handleBack() {
@@ -374,18 +358,6 @@ class AlternativeAddressViewController: UIViewController {
         phoneNoTextField.addressTextFieldHeight()
     }
     
-    func setupOtherPhoneNoLabel() {
-        otherPhoneNoLabel.topAnchor.constraint(equalTo: phoneNoTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
-        otherPhoneNoLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
-    }
-    
-    func setupOtherPhoneNoTextField() {
-        otherPhoneNoTextField.topAnchor.constraint(equalTo: otherPhoneNoLabel.bottomAnchor, constant: spaceBetweenTextField).isActive = true
-        otherPhoneNoTextField.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
-        otherPhoneNoTextField.widthAnchor.constraint(equalTo: inputsAddressContainerView.widthAnchor, constant: -16).isActive = true
-        otherPhoneNoTextField.addressTextFieldHeight()
-    }
-    
     func setupInputsAddressContainerView() {
         inputsAddressContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 12).isActive = true
         inputsAddressContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -424,7 +396,7 @@ extension UITextField {
     func addressTextFieldAttributes() {
         self.userInputFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.borderWidth = 2
+        self.layer.borderWidth = 1.5
         self.layer.borderColor = UIColor.forestGreen.cgColor
 
     }
