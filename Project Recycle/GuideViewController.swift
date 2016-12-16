@@ -28,8 +28,8 @@ class GuideViewController: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.dataSource = self
         tv.delegate = self
-        tv.rowHeight = 340
-        tv.register(GuideTableViewCell.self, forCellReuseIdentifier: "cell")
+        tv.rowHeight = 320
+        tv.register(GuideTableViewCell.self, forCellReuseIdentifier: "cell2")
         return tv
     }()
     
@@ -74,15 +74,14 @@ class GuideViewController: UIViewController {
         
         
         self.tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
-        self.tabBarController?.tabBar.barTintColor = UIColor.viewLightGray
-        self.tabBarController?.tabBar.tintColor = UIColor.textLightGray
+
         
         
         pickerView.isHidden = true
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         definesPresentationContext = true
-        searchController.searchBar.barTintColor = UIColor.forestGreen
+        searchController.searchBar.barTintColor = UIColor.textDarkGray
         searchController.dimsBackgroundDuringPresentation = false
         guideTableView.tableHeaderView = searchController.searchBar
         
@@ -262,7 +261,7 @@ extension GuideViewController: UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! GuideTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell2", for: indexPath) as! GuideTableViewCell
         let recylable : GeneralRecylables
         if filterRecylables.count == 0
         {

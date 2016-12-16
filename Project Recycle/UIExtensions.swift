@@ -20,7 +20,7 @@ extension UIColor {
     @nonobjc static let limeGreen = UIColor(r: 50, g: 205, b: 50)
     @nonobjc static let paleGreen = UIColor(r: 100, g: 251, b: 100)
     //texts
-    @nonobjc static let textDarkGray = UIColor(r: 169, g: 169, b: 169)
+    @nonobjc static let textDarkGray = UIColor(r: 125, g: 125, b: 125)
     @nonobjc static let textLightGray = UIColor(r: 192, g: 192, b: 192)
     @nonobjc static let viewLightGray = UIColor(r: 245, g: 245, b: 245)
     
@@ -75,10 +75,10 @@ extension UIButton {
 extension UINavigationController {
     
     func navigationBarAttributes() {
-        self.navigationBar.tintColor = UIColor.textLightGray
+        self.navigationBar.tintColor = UIColor.textDarkGray
         self.navigationBar.barTintColor = UIColor.viewLightGray
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textLightGray]
-        self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
+        self.navigationBar.titleTextAttributes = titleDict as? [String : Any]
         self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "San Francisco Text", size: 18)!]
         
     }
