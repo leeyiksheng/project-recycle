@@ -69,7 +69,7 @@ class GuideDetailViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
-        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         navigationItem.title = matCat
         
         

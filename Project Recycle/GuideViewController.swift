@@ -37,7 +37,7 @@ class GuideViewController: UIViewController {
     lazy var pickerView: UIPickerView = {
         let pv = UIPickerView()
         pv.translatesAutoresizingMaskIntoConstraints = false
-        pv.backgroundColor = UIColor.textDarkGray
+        pv.backgroundColor = UIColor.viewLightGray
         pv.dataSource = self
         pv.delegate = self
         return pv
@@ -71,7 +71,7 @@ class GuideViewController: UIViewController {
         navigationItem.title = "Disassemble Guide"
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
-        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         
         
         self.tabBarHeight = (self.tabBarController?.tabBar.frame.height)!
@@ -108,7 +108,7 @@ class GuideViewController: UIViewController {
         else
         {
             
-            sortLabel.text = "SORT BY"
+            sortLabel.text = "SORT BY >"
             pickerView.isHidden = true
         }
     }
@@ -160,7 +160,7 @@ class GuideViewController: UIViewController {
     
     
     func setupSortLabel() {
-        sortLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: self.navigationBarHeight + 8).isActive = true
+        sortLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: self.navigationBarHeight).isActive = true
         sortLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         sortLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         sortLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -174,10 +174,10 @@ class GuideViewController: UIViewController {
     }
     
     func setupPickerView() {
-        pickerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0 - tabBarHeight).isActive = true
+        pickerView.topAnchor.constraint(equalTo: sortLabel.bottomAnchor).isActive = true
         pickerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         pickerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        pickerView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        pickerView.heightAnchor.constraint(equalToConstant: self.view.frame.height - tabBarHeight - 50 - navigationBarHeight).isActive = true
     }
     
     

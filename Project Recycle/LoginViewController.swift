@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     let emailTextField: UITextField = {
         let tf = UITextField()
         tf.loginTextFieldAttributes()
+        tf.keyboardType = UIKeyboardType.emailAddress
         tf.attributedPlaceholder = NSAttributedString(string: "  Email Address", attributes: [NSForegroundColorAttributeName: UIColor.textLightGray])
         return tf
     }()
@@ -88,6 +89,7 @@ class LoginViewController: UIViewController {
         setupBackButton()
     }
     
+    
     //MARK: SignUp Views
     
     let nameSignUpTextField: UITextField = {
@@ -110,6 +112,7 @@ class LoginViewController: UIViewController {
     
     let emailSignUpTextField: UITextField = {
         let tf = UITextField()
+        tf.keyboardType = UIKeyboardType.emailAddress
         tf.loginTextFieldAttributes()
         tf.attributedPlaceholder = NSAttributedString(string: "  Email Address", attributes: [NSForegroundColorAttributeName: UIColor.textLightGray])
         return tf
@@ -222,6 +225,8 @@ class LoginViewController: UIViewController {
     
     var usersFRDBRef : FIRDatabaseReference = FIRDatabase.database().reference(withPath: "users")
     var signUpButtonPress = false
+    var emailTextFieldTopAnchor: NSLayoutConstraint?
+    var nameSignUpTextFieldTopAnchor: NSLayoutConstraint?
 
     
     //MARK: View Functions®
@@ -246,6 +251,9 @@ class LoginViewController: UIViewController {
         filter.frame = self.view.frame
         filter.backgroundColor = UIColor.black
         filter.alpha = 0.2
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        filter.addGestureRecognizer(tap)
+        
         self.view.addSubview(filter)
         self.view.addSubview(emailTextField)
         self.view.addSubview(passwordTextField)
@@ -257,15 +265,42 @@ class LoginViewController: UIViewController {
         setupPasswordTextField()
         setupLoginButton()
         setupSignUpButton()
-        
-        //Signup
-        
+        setupKeyboardObservers()
     }
     
+   
+    override func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector:#selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func handleKeyboardWillShow(notification: NSNotification) {
+        print(notification.userInfo)
+        let userInfo = notification.userInfo! as NSDictionary
+        let keyboardFrame = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        let viewHeight = self.view.frame.height
+        
+        emailTextFieldTopAnchor?.constant = viewHeight - 126 - keyboardHeight
+        nameSignUpTextFieldTopAnchor?.constant = viewHeight - 228 - keyboardHeight
+    }
 
     
+    func handleKeyboardWillHide() {
+        emailTextFieldTopAnchor?.constant = 275
+        nameSignUpTextFieldTopAnchor?.constant = 165
+    }
+    
+    
     func setupEmailTextField() {
-        emailTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 275).isActive = true
+        emailTextFieldTopAnchor = emailTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 275)
+        emailTextFieldTopAnchor?.isActive = true
         emailTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
         emailTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
@@ -295,7 +330,8 @@ class LoginViewController: UIViewController {
     //MARK: -> Constraints for signup
     
     func setupNameSignUpTextField() {
-        nameSignUpTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 165).isActive = true
+        nameSignUpTextFieldTopAnchor = nameSignUpTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 165)
+        nameSignUpTextFieldTopAnchor?.isActive = true
         nameSignUpTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
         nameSignUpTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
         nameSignUpTextField.signUpTextFieldHeight()

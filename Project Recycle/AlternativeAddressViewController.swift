@@ -226,7 +226,7 @@ class AlternativeAddressViewController: UIViewController {
         navigationItem.title = "New Address"
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
-        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         view.backgroundColor = UIColor.viewLightGray
         view.addSubview(inputsAddressContainerView)
         view.addSubview(receiverNameLabel)
@@ -282,7 +282,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupAddressLabelsetup() {
-        addressLabel.topAnchor.constraint(equalTo: receiverNameTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        addressLabel.topAnchor.constraint(lessThanOrEqualTo: receiverNameTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
         addressLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -311,7 +311,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupCityLabel() {
-        cityLabel.topAnchor.constraint(equalTo: alternativeAddress3TextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        cityLabel.topAnchor.constraint(lessThanOrEqualTo: alternativeAddress3TextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
         cityLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -323,7 +323,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupPostcodeLabel() {
-        postcodeLabel.topAnchor.constraint(equalTo: cityTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        postcodeLabel.topAnchor.constraint(lessThanOrEqualTo: cityTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
         postcodeLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -335,7 +335,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupStateLabel() {
-        stateLabel.topAnchor.constraint(equalTo: postcodeTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        stateLabel.topAnchor.constraint(lessThanOrEqualTo: postcodeTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
         stateLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -347,7 +347,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupPhoneNoLabel() {
-        phoneNoLabel.topAnchor.constraint(equalTo: stateTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        phoneNoLabel.topAnchor.constraint(lessThanOrEqualTo: stateTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
         phoneNoLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -355,6 +355,7 @@ class AlternativeAddressViewController: UIViewController {
         phoneNoTextField.topAnchor.constraint(equalTo: phoneNoLabel.bottomAnchor, constant: spaceBetweenTextField).isActive = true
         phoneNoTextField.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
         phoneNoTextField.widthAnchor.constraint(equalTo: inputsAddressContainerView.widthAnchor, constant: -16).isActive = true
+        phoneNoTextField.bottomAnchor.constraint(lessThanOrEqualTo: inputsAddressContainerView.bottomAnchor, constant: -20).isActive = true
         phoneNoTextField.addressTextFieldHeight()
     }
     
@@ -367,7 +368,7 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupConfirmButton() {
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true

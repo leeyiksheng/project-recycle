@@ -16,6 +16,7 @@ class RecycleGeneralViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "greenScenery")
         imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -257,7 +258,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupLabelForBigItems() {
-        infoLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: 20).isActive = true
+        infoLabel.topAnchor.constraint(equalTo: headerImageView.bottomAnchor, constant: -30).isActive = true
         infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         infoLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
         infoLabel.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -36).isActive = true
@@ -331,7 +332,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupConfirmButton() {
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30 - tabBarHeight).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20 - tabBarHeight).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true

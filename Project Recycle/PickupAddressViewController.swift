@@ -97,7 +97,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .done, target: self, action: #selector(handleBack))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleAddAddress))
         navigationItem.title = "Select Pick Up Address"
-        navigationBarHeight = self.navigationController!.navigationBar.frame.height
+        navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
         view.backgroundColor = UIColor.viewLightGray
@@ -192,14 +192,14 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func setupPickUpAddressTableView() {
-        pickUpAddressTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 20).isActive = true
+        pickUpAddressTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 8).isActive = true
         pickUpAddressTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         pickUpAddressTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         pickUpAddressTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100).isActive = true
     }
     
     func setupConfirmButton() {
-        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: 300).isActive = true

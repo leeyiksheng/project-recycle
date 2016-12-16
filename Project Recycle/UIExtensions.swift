@@ -82,9 +82,9 @@ extension UINavigationController {
     func navigationBarAttributes() {
         self.navigationBar.tintColor = UIColor.textDarkGray
         self.navigationBar.barTintColor = UIColor.viewLightGray
-        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textLightGray]
+        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textDarkGray]
         self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
-        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
+//        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
         
     }
     
@@ -148,3 +148,16 @@ extension CAGradientLayer {
     
     
 }
+
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}
+
