@@ -120,8 +120,12 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
-        self.pickUpAddressTableView.reloadData()
+        
+        if OrderList.count == 0 {
+            self.myActivityIndicator.stopAnimating()
+            self.view.addSubview(self.noOrdersLabel)
+            self.setupNoOrdersLabel()
+        }
     }
 
     func handleBack() {
@@ -140,15 +144,6 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
             if let dictionary = snapshot.value as? [String] {
                 print(dictionary)
                 self.OrderList = []
-                
-                if dictionary.count < 2 {
-                    DispatchQueue.main.async(execute: {
-                        self.pickUpAddressTableView.reloadData()
-                        self.myActivityIndicator.stopAnimating()
-                        self.view.addSubview(self.noOrdersLabel)
-                        self.setupNoOrdersLabel()
-                    })
-                }
                 
                 for values in dictionary {
                     self.fetchAddresses(addressIDs: values)
@@ -242,6 +237,21 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
         let addressChosed = self.OrderList[indexPath.row]
         addressChosed.deleteAddress()
+        
+        if addressChosed.noAddressString {
+            self.OrderList = []
+            self.pickUpAddressTableView.reloadData()
+            self.myActivityIndicator.stopAnimating()
+            self.view.addSubview(self.noOrdersLabel)
+            self.setupNoOrdersLabel()
+        }
+        
+        if OrderList.count == 0 {
+            self.pickUpAddressTableView.reloadData()
+            self.myActivityIndicator.stopAnimating()
+            self.view.addSubview(self.noOrdersLabel)
+            self.setupNoOrdersLabel()
+        }
 
     }
 

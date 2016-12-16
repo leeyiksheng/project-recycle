@@ -17,6 +17,7 @@ class NewAddresses {
     var name = ""
     var userUID = ""
     var addressID = ""
+    var noAddressString = false
     
     convenience init(UID: (String), address: (String), receiverName: (String), receiverContact: (String)) {
         self.init()
@@ -37,6 +38,11 @@ class NewAddresses {
         fetchUserAddressUIDsFromDatabaseWith(databaseReference: userDatabaseReferenceID, completion: {(uidArray) in
             let deletedUidAddressesArray = uidArray.filter { $0 != self.addressID }
             
+            if deletedUidAddressesArray.count == 0 {
+                self.noAddressString = true
+            } else {
+                self.noAddressString = false
+            }
             
         let userDatabaseUpdate = ["addressID": deletedUidAddressesArray]
         userDatabaseReference.updateChildValues(userDatabaseUpdate)
