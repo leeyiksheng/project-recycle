@@ -84,7 +84,7 @@ extension UINavigationController {
         self.navigationBar.barTintColor = UIColor.viewLightGray
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textDarkGray]
         self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
-//        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
+        //        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
         
     }
     
@@ -106,7 +106,10 @@ extension UIBarButtonItem {
 
 extension UITabBar {
     func addDropShadow() {
-
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowRadius = 8
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.3
     }
 }
 
@@ -124,7 +127,7 @@ extension UIImageView {
         self.contentMode = .scaleAspectFill
         self.backgroundColor = UIColor.forestGreen
     }
-
+    
     
 }
 
@@ -136,7 +139,7 @@ extension CAGradientLayer {
         let forestGreen = UIColor(r: 34, g: 139, b: 34).cgColor
         let limeGreen = UIColor(r: 50, g: 205, b: 50).cgColor
         let paleGreen = UIColor(r: 100, g: 251, b: 100).cgColor
-//        self.locations = [0.0, 0.15, 0.35, 0.6]
+        //        self.locations = [0.0, 0.15, 0.35, 0.6]
         self.startPoint = CGPoint(x: 1, y: 1)
         self.endPoint = CGPoint(x: 0, y: 0)
         self.colors = [darkGreen, forestGreen, limeGreen, paleGreen]
