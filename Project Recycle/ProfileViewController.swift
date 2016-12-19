@@ -28,6 +28,11 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     @IBOutlet weak var signOutButton: UIButton!
     @IBOutlet weak var changePassButton: UIButton!
     @IBOutlet weak var changeEmailButt: UIButton!
+    @IBOutlet weak var changeReceiverAddressesButton: UIButton! {
+        didSet {
+            changeReceiverAddressesButton.addTarget(self, action: #selector(handleChangeReceiverAddressesButtonTouchUpInside), for: .touchUpInside)
+        }
+    }
     
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -503,6 +508,15 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
             let alert = UIAlertController(title: "Update Successful", message: "You have successfully update your password", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
             present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    func handleChangeReceiverAddressesButtonTouchUpInside() {
+        let addressListViewController = storyboard?.instantiateViewController(withIdentifier: "addressListViewController")
+        if addressListViewController != nil {
+            present(addressListViewController!, animated: true, completion: nil)
+        } else {
+            return
         }
     }
     

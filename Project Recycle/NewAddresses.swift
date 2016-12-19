@@ -19,12 +19,64 @@ class NewAddresses {
     var addressID = ""
     var noAddressString = false
     
+    init() {
+        formattedAddress = ""
+        contact = ""
+        name = ""
+        userUID = ""
+        addressID = ""
+        noAddressString = false
+    }
+    
     convenience init(UID: (String), address: (String), receiverName: (String), receiverContact: (String)) {
         self.init()
         formattedAddress = address
         contact = receiverContact
         name = receiverName
         userUID = UID
+    }
+    
+    init(withAddressID addressID: String) {
+        let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses/\(addressID)")
+        addressDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.value != nil {
+                let addressDictionary = snapshot.value as! [String: String]
+                
+                if addressDictionary["formattedAddress"] != nil {
+                    self.formattedAddress = addressDictionary["formattedAddress"]!
+                } else {
+                    print("Error: formattedAddress is nil.")
+                    return
+                }
+                
+                if addressDictionary["receiverContact"] != nil {
+                    self.contact = addressDictionary["receiverContact"]!
+                } else {
+                    print("Error: receiverContact is nil.")
+                    return
+                }
+                
+                if addressDictionary["receiverName"] != nil {
+                    self.name = addressDictionary["receiverName"]!
+                } else {
+                    print("Error: receiverName is nil.")
+                    return
+                }
+                
+                if addressDictionary["userID"] != nil {
+                    self.userUID = addressDictionary["userID"]!
+                } else {
+                    print("Error: userID is nil.")
+                    return
+                }
+                
+                let addressInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "addressInitializationCompletionNotification"))
+                NotificationCenter.default.post(addressInitializationCompletionNotification)
+            } else {
+                print("Error: Address snapshot for \(addressID) is nil.")
+                return
+            }
+        })
     }
     
     
