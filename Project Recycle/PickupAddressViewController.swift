@@ -34,7 +34,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(submitOrder), for: .touchUpInside)
         button.isUserInteractionEnabled = false
         button.isEnabled = false

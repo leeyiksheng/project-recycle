@@ -174,7 +174,7 @@ class RecycleGeneralViewController: UIViewController {
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(moveToNextController), for: .touchUpInside)
         return button
     }()
@@ -256,7 +256,7 @@ class RecycleGeneralViewController: UIViewController {
     func setupHeaderImageView() {
         
         headerImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        headerImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.height).isActive = true
         headerImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         headerImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }

@@ -20,7 +20,7 @@ class GuideTableViewCell: UITableViewCell {
     let viewContainer: UIView = {
         let vc = UIView()
         vc.translatesAutoresizingMaskIntoConstraints = false
-        vc.layer.cornerRadius = 10
+        vc.layer.cornerRadius = 4
         vc.clipsToBounds = true
         vc.backgroundColor = UIColor.white
         return vc
@@ -47,6 +47,7 @@ class GuideTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.translatesAutoresizingMaskIntoConstraints = false
+        self.selectionStyle = .none
         contentView.backgroundColor = UIColor.viewLightGray
         contentView.addSubview(backImage)
         contentView.addSubview(viewContainer)
@@ -62,6 +63,16 @@ class GuideTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+//        if highlighted {
+//            self.backgroundColor = UIColor.forestGreen.withAlphaComponent(0.2)
+//        } else {
+//        }
+//    }
+//    
+    
+    
     
     func setupBackImage() {
         backImage.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true

@@ -115,7 +115,7 @@ class GuideViewController: UIViewController {
         else
         {
             
-            sortLabel.text = "SORT BY >"
+            sortLabel.text = holdCategories
             pickerView.isHidden = true
         }
     }

@@ -64,7 +64,7 @@ class PickupAddressTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
+//        self.selectionStyle = .none
         self.backgroundColor = UIColor.viewLightGray
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.backgroundColor = UIColor.viewLightGray
@@ -89,13 +89,21 @@ class PickupAddressTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-   
+//    override func setSelected(_ selected: Bool, animated: Bool) {
+//        if selected {
+//            self.backgroundColor = UIColor.forestGreen.withAlphaComponent(0.8)
+//            self.containerView.backgroundColor = UIColor.forestGreen.withAlphaComponent(0.2)
+//        } else {
+//            self.backgroundColor = UIColor.viewLightGray
+//            self.containerView.backgroundColor = UIColor.white
+//        }
+//    }
     
     func setupContainerView() {
-        containerView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         containerView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16).isActive = true
         containerView.widthAnchor.constraint(equalToConstant: 382).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 256).isActive = true
+        containerView.heightAnchor.constraint(equalToConstant: 236).isActive = true
     }
     
     func setupReceiverNameLabel() {
