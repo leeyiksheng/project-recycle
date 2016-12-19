@@ -19,8 +19,8 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     @IBOutlet weak var gallery: UIBarButtonItem!
     @IBOutlet weak var backProfile: UIBarButtonItem!
     @IBOutlet weak var confirmPic: UIBarButtonItem!
-    @IBOutlet weak var activityRun: UIActivityIndicatorView!
     
+    var actionIndicator = UIActivityIndicatorView()
     let picker = UIImagePickerController()
     var chosenImage : UIImage?
     var currentImage: UIImage?
@@ -60,9 +60,9 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityRun.hidesWhenStopped = true
-        activityRun.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-        activityRun.layer.backgroundColor = UIColor.init(white: 0.0, alpha: 0.3).cgColor
+        
+        
+        actionIndicator.hidesWhenStopped = true
         
         self.view.backgroundColor = UIColor.viewLightGray
         frDBref = FIRDatabase.database().reference()
@@ -83,13 +83,50 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
         imageView?.layer.borderColor = nil
         imageView?.clipsToBounds = true
         
-        activityRun.startAnimating()
+        self.activityRun()
         fetchUserImage()
         picker.delegate = self
         
         
         
         // Do any additional setup after loading the view.
+    }
+    
+    func activityRun()
+    {
+        let container = UIView()
+        container.frame = view.frame
+        container.center = view.center
+        container.backgroundColor = UIColor.init(white: 0.5, alpha: 0.3)
+        container.tag = 100
+        
+        let loadingView: UIView = UIView()
+        loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        loadingView.center = view.center
+        loadingView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+        
+        self.actionIndicator.frame = CGRect (x: 0, y: 0, width: 40, height: 40)
+        self.actionIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        self.actionIndicator.center = CGPoint(x: loadingView.frame.size.width/2, y: loadingView.frame.size.height/2)
+        
+        loadingView.addSubview(self.actionIndicator)
+        container.addSubview(loadingView)
+        self.view.addSubview(container)
+        self.actionIndicator.startAnimating()
+
+    }
+    
+    func activityStop()
+    {
+        self.actionIndicator.stopAnimating()
+        if let viewWithTag = self.view.viewWithTag(100)
+        {
+            viewWithTag.removeFromSuperview()
+        }
+
     }
     
     private func fetchUserImage()
@@ -100,7 +137,7 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
             if currentUser.profileImage == "default" || currentUser.profileImage == ""
             {
                 self.imageView.image = UIImage(named: "noone")
-                self.activityRun.stopAnimating()
+                self.activityStop()
             }
             else
             {
@@ -114,7 +151,7 @@ class ProfileImageLibraryViewController: UIViewController, UIImagePickerControll
                     
                     DispatchQueue.main.async {
                         self.imageView?.image = UIImage(data:data!)
-                        self.activityRun.stopAnimating()
+                        self.activityStop()
                         
                     }
                 })

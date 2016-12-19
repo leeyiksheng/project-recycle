@@ -42,17 +42,6 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//          for font family search
-//        for name in UIFont.familyNames
-//        {
-//            print(name)
-//            for namename in UIFont.fontNames(forFamilyName: name)
-//            {
-//                print(namename)
-//            }
-//        }
-
-        
         
         activityIndicator.hidesWhenStopped = true
 
@@ -67,7 +56,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         topBar.shadowImage? = UIImage()
         topBar.isTranslucent = true
         topBar.isOpaque = false
-        topBar.backgroundColor = UIColor (colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.5)
+        topBar.backgroundColor = UIColor (colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.0)
         
         userProImage?.image = UIImage(named: "noone")
         userProImage?.layer.borderColor = UIColor.clear.cgColor
@@ -88,7 +77,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         editProfileButton.isUserInteractionEnabled = true
         editProfileButton.addTarget(self, action:#selector (editProfile(sender:)), for: .touchUpInside)
         
-        signOutButton.tintColor = UIColor.forestGreen
+        signOutButton.tintColor = UIColor.white
         signOutButton.buttonFonts()
       
         
@@ -220,8 +209,8 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         self.indicatorRun()
         let newUser = User()
         newUser.initWithCurrentUser { () -> () in
-            self.userNameText.text = "  \(newUser.name)"
-            self.userNumberText.text = "  \(newUser.phoneNumber)"
+            self.userNameText.text = "\(newUser.name)"
+            self.userNumberText.text = "\(newUser.phoneNumber)"
 
             if newUser.addressIDArray.count != 0
             {
@@ -282,7 +271,7 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
 //        let holdNumber = userNumberText.text
         let changeRequest = FIRAuth.auth()?.currentUser?.uid
         frDBref.child("users/\(changeRequest!)/phoneNumber").setValue(userNumberText.text)
-//        userNumberText.text = "  \(holdNumber!)"
+//        userNumberText.text = "\(holdNumber!)"
     }
     
     
@@ -317,69 +306,59 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     }
         
         
-        
-//        
-//        let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
-//        noti.addTextField(configurationHandler: {(textField: UITextField!) in
-//            textField.placeholder = "Enter a new Email"
-//            self.emailText = textField.text!
-//        })
-//        noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
-//            textFeed.placeholder = "Enter password to confirm update password"
-//            textFeed.isSecureTextEntry = true
-//            self.passText = textFeed.text!
-//        })
-//        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-//        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-//            
-//            
-//            
-//            self.editEmailWithPassword(emailKey: (noti.textFields?.first)!, passKey: (noti.textFields?.last)!)
-//            print(noti.textFields?.first!)
-//            print(noti.textFields?.last!)
-//                    }))
-//        present(noti,animated: true, completion:  nil)
-//    }
-//    
-//    
+    
     func editEmailWithPassword(emailKey: UITextField, passKey: UITextField)
     {
         let changeRequest = FIRAuth.auth()?.currentUser
-//            print((emailKey.text)!)
-//            print((passKey.text)!)
-//        
-////            if passKey.text! == FIRAuth.auth().pass
-//        
-////        let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: passKey.text!)
-///            changeRequest?.reauthenticate(with: credential) { error in
-////                if error != nil
-////                {
-////                    print("error:::::")
-////                    print(error?.localizedDescription)
-////                }
-////                else
-////                {
-//                    print(emailKey.text!)
-                    changeRequest?.updateEmail((emailKey.text)!, completion: {(error) in
-                        if (error == nil)
+        //should compare password
+        if changeRequest != nil
+        {
+            changeRequest?.updateEmail((emailKey.text)!, completion: {(error) in
+            if (error == nil)
+            {
+                print("success")
+                frDBref.child("users/\((changeRequest?.uid)!)/email").setValue((emailKey.text)!)
+                self.secondAlert(message: "updateEmailSuccess")
+            }
+            else
+            {
+                print("erorrrr :::::")
+                print(error?.localizedDescription)
+                self.secondAlert(message: "Loginagain")
+            }
+                })
+        }
+
+    }
+    
+    func editPassword(oldPass: UITextField, newPass: UITextField, conPass: UITextField)
+    {
+        
+            let changeRequest = FIRAuth.auth()?.currentUser
+        
+            if changeRequest != nil
+            {
+                if newPass.text != conPass.text
+                {
+                    self.secondAlert(message: "Not match")
+                }
+                else
+                {
+                    changeRequest?.updatePassword((newPass.text)!, completion: {(error) in
+                        if error != nil
                         {
-                            print("success")
-                            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue((emailKey.text)!)
+                            self.secondAlert(message: "Loginagain")
+                            print(error?.localizedDescription)
                         }
                         else
                         {
-////                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
-////                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
-                            print("erorrrr :::::")
-                             print(error?.localizedDescription)
+                            self.secondAlert(message: "match")
                         }
                     })
-    
-//      }
-//    }
-    
-
+                }
+            }
     }
+
     
     
 
@@ -417,67 +396,27 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     
     @IBAction func changePassButtPressed(_ sender: UIButton)
     {
-        var oldPassText: UITextField?
-        var newPassText: UITextField?
-        var conPassText: UITextField?
+        
         let noti = UIAlertController(title: "Change Password", message: "Fill in the fields to change password", preferredStyle: .alert)
         noti.addTextField(configurationHandler: {(old: UITextField!) in
             old.placeholder = "Enter current password"
             old.isSecureTextEntry = true
-            oldPassText = old
         })
         noti.addTextField(configurationHandler: {(new: UITextField!) in
             new.placeholder = "Enter a new password"
             new.isSecureTextEntry = true
-            newPassText = new
         })
         noti.addTextField(configurationHandler: {(con: UITextField!) in
             con.placeholder = "Confirm your new password"
             con.isSecureTextEntry = true
-            conPassText = con
         })
         
         noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
         noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-            if newPassText?.text != conPassText?.text
-            {
-                self.secondAlert(message : "Not match")
-                
-            }
-            else
-            {
-                let changeRequest = FIRAuth.auth()?.currentUser
-                
-                let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (oldPassText?.text)!)
-                
-                changeRequest?.reauthenticate(with: credential, completion: {(error) in
-                    if ((error) != nil)
-                    {
-                        print(error!)
-                        
-                    }
-                    else
-                    {
-                        changeRequest?.updatePassword((newPassText?.text)!, completion: {(error) in
-                            if error != nil
-                            {
-                                print(error?.localizedDescription)
-                            }
-                            else
-                            {
-                                
-                                self.secondAlert(message: "match")
-                                
-                            }
-                            
-                        })
-                        
-                        
-                        
-                    }
-                })
-            }
-        }))
+            
+            self.editPassword(oldPass: noti.textFields![0], newPass: noti.textFields![1], conPass: noti.textFields![2])
+            
+                    }))
         
         present(noti, animated: true, completion: nil)
         
@@ -487,13 +426,25 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     {
         if message == "Not match"
         {
-            let alert = UIAlertController(title: "Not match", message: "New Password is not match to confirm password", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Not match", message: "New Password is not match to confirm password. Or You should try SIGN OUT & SIGN IN again to enable you to change password.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
         else if message == "match"
         {
-            let alert = UIAlertController(title: "Update Successful", message: "You have successfully update your password", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Update Password Successful", message: "You have successfully update your password. Remember to SIGN OUT & SIGN IN again to proceed for other actions.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        else if message == "updateEmailSuccess"
+        {
+            let alert = UIAlertController(title: "Update Email Successful", message: "You have successfully update your Email. Make sure you SIGN OUT & SIGN IN again to proceed other actions.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
+        else if message == "Loginagain"
+        {
+            let alert = UIAlertController(title: "Update Unsuccessful", message: "Please log out and log in again to enable updates and more.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title:"OK", style: UIAlertActionStyle.default, handler: nil))
             present(alert, animated: true, completion: nil)
         }
