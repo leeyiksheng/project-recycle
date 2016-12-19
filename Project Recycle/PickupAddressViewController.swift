@@ -215,9 +215,19 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PickupAddressTableViewCell
-
+        
+        
+        let customSelectedView = UIView()
+        let gradient = CAGradientLayer()
+        gradient.frame = customSelectedView.bounds
+        gradient.gradientBackground()
+        customSelectedView.layer.insertSublayer(gradient, at: 0)
+        customSelectedView.backgroundColor = UIColor.textLightGray
+        
         let firstAddress = OrderList[indexPath.row]
-
+        
+        cell.selectedBackgroundView = customSelectedView
+        
         cell.contentView.backgroundColor = UIColor.viewLightGray
         cell.receiverNameDetailsLabel.text = firstAddress.name
         cell.addressDescriptionLabel.text = firstAddress.formattedAddress
@@ -268,7 +278,7 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         print(44)
     }
 
-
+    
 
 
 }

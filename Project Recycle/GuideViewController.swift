@@ -58,6 +58,7 @@ class GuideViewController: UIViewController {
     var i = 0
     var navigationBarHeight : CGFloat = 0
     var tabBarHeight : CGFloat = 0
+    var showSearchBar = true
     
 
     
@@ -68,8 +69,8 @@ class GuideViewController: UIViewController {
         view.addSubview(guideTableView)
         view.addSubview(pickerView)
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Search", style: .done, target: self, action: #selector(handleSearch))
-        navigationItem.title = "Disassemble Guide"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "search"), style: .done, target: self, action: #selector(handleSearch))
+        navigationItem.title = "Disassembly Guide"
         navigationController?.navigationBarAttributes()
         navigationItem.navigationItemAttributes()
         navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
@@ -85,8 +86,6 @@ class GuideViewController: UIViewController {
         definesPresentationContext = true
         searchController.searchBar.barTintColor = UIColor.textDarkGray
         searchController.dimsBackgroundDuringPresentation = false
-        guideTableView.tableHeaderView = searchController.searchBar
-        
         setupSortLabel()
         setupGuideTableView()
         setupPickerView()
@@ -96,6 +95,13 @@ class GuideViewController: UIViewController {
     
 
     func handleSearch() {
+        if showSearchBar {
+            guideTableView.tableHeaderView = searchController.searchBar
+            showSearchBar = false
+        } else {
+            guideTableView.tableHeaderView = nil
+            showSearchBar = true
+        }
         
     }
     
@@ -164,7 +170,7 @@ class GuideViewController: UIViewController {
         sortLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: self.navigationBarHeight).isActive = true
         sortLabel.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         sortLabel.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        sortLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        sortLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func setupGuideTableView() {
