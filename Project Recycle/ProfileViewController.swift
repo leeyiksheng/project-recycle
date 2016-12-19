@@ -34,9 +34,10 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
     @IBOutlet weak var phoneLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
-    var personalDetails: [User] = []
+    var activityIndicator = UIActivityIndicatorView()
+    var emailText = ""
+    var passText = ""
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,9 +53,8 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
 //        }
 
         
+        
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
-    
 
         profileTitle.navigationItemAttributes()
         nameLabel.mediumTitleFonts()
@@ -109,9 +109,9 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         userAddText.userTypedFonts()
         userNameText.borderStyle = UITextBorderStyle.none
         userNumberText.borderStyle = UITextBorderStyle.none
-        userNameText.backgroundColor = UIColor.viewLightGray
-        userNumberText.backgroundColor = UIColor.viewLightGray
-        userAddText.backgroundColor = UIColor.viewLightGray
+        userNameText.backgroundColor = UIColor.white
+        userNumberText.backgroundColor = UIColor.white
+        userAddText.backgroundColor = UIColor.white
         
         
         
@@ -135,17 +135,33 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
         container.backgroundColor = UIColor.init(white: 0.5, alpha: 0.3)
         container.tag = 100
         
+        let loadingView: UIView = UIView()
+        loadingView.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        loadingView.center = view.center
+        loadingView.backgroundColor = UIColor.init(white: 0.3, alpha: 0.7)
+        loadingView.clipsToBounds = true
+        loadingView.layer.cornerRadius = 10
+        
+    
+        self.activityIndicator.frame = CGRect (x: 0, y: 0, width: 40, height: 40)
+        self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        self.activityIndicator.center = CGPoint(x: loadingView.frame.size.width/2, y: loadingView.frame.size.height/2)
+    
+        loadingView.addSubview(self.activityIndicator)
+        container.addSubview(loadingView)
+        
         self.view.addSubview(container)
         self.activityIndicator.startAnimating()
     }
     
     func indicatorStop()
     {
+        self.activityIndicator.stopAnimating()
         if let viewWithTag = self.view.viewWithTag(100)
         {
             viewWithTag.removeFromSuperview()
         }
-        self.activityIndicator.stopAnimating()
+        
     }
     
     func editProfile (sender: UIButton)
@@ -156,9 +172,9 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
             userNameText.isUserInteractionEnabled  = true
             userNumberText.isUserInteractionEnabled  = true
             userAddText.isUserInteractionEnabled  = true
-            userNameText.backgroundColor = UIColor.white
-            userNumberText.backgroundColor = UIColor.white
-            userAddText.backgroundColor = UIColor.white
+            userNameText.backgroundColor = UIColor.viewLightGray
+            userNumberText.backgroundColor = UIColor.viewLightGray
+            userAddText.backgroundColor = UIColor.viewLightGray
         }
         else
         {
@@ -169,25 +185,20 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
             userNameText.isUserInteractionEnabled  = false
             userNumberText.isUserInteractionEnabled  = false
             userAddText.isUserInteractionEnabled  = false
-            userNameText.backgroundColor = UIColor.viewLightGray
-            userNumberText.backgroundColor = UIColor.viewLightGray
-            userAddText.backgroundColor = UIColor.viewLightGray
+            userNameText.backgroundColor = UIColor.white
+            userNumberText.backgroundColor = UIColor.white
+            userAddText.backgroundColor = UIColor.white
         }
         
     }
-    
-    
-    
-    
+
     func imageTapped(sender: UIGestureRecognizer)
     {
         if let _ = sender.view as? UIImageView
         {
-            
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "ProfileImageLibrary") as! ProfileImageLibraryViewController
             vc.delegate = self
             self.present(vc, animated: true, completion: nil)
-            
 
         }
     }
@@ -280,116 +291,98 @@ class ProfileViewController: UIViewController, ProfileImageLibraryViewController
    
     @IBAction func editEmailButtPressed(_ sender: UIButton)
     {
+        let noti = UIAlertController(title: "Change email", message: "Please enter a new email", preferredStyle: .alert)
+        noti.addTextField(configurationHandler: {(textField : UITextField!) in
+            textField.placeholder = "Enter a new email"
+            self.emailText = textField.text!
+        })
         
-        var emailText: UITextField?
-        var passText: UITextField?
-        let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
-        noti.addTextField(configurationHandler: {(textField: UITextField!) in
-            textField.placeholder = "Enter a new Email"
-            emailText = textField
-        })
-        noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
-            textFeed.placeholder = "Enter password to confirm update password"
+        noti.addTextField(configurationHandler: {(textFeed : UITextField!) in
+            textFeed.placeholder = "Enter password to update"
             textFeed.isSecureTextEntry = true
-            passText = textFeed
+            self.passText = textFeed.text!
         })
-        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
-        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
+        
+        noti.addAction(UIAlertAction(title:"Cancel", style: UIAlertActionStyle.default, handler: nil))
+        noti.addAction(UIAlertAction(title:"Update", style: UIAlertActionStyle.default, handler: {(action) -> Void in
             
-            let changeRequest = FIRAuth.auth()?.currentUser
-            
-            let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: (passText?.text)!)
-            
-            changeRequest?.reauthenticate(with: credential, completion: {(error) in
-                if let error = error
-                {
-                    print("error:::::")
-                    print(error.localizedDescription)
-                }
-                else
-                {
-                    
-                    changeRequest?.updateEmail((emailText?.text)!, completion: {(error) in
-                        if (error != nil)
-                        {
-                            print(error?.localizedDescription)
-                        }
-                        else
-                        {
-//                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
-//                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
-                            
-                            print("success")
-                            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue(emailText!.text)
-                        }
-                    })
-                    
-                }
-                
-                
-                
-            })
-            
+//            print(self.emailText)
+//            print(self.passText)
+            self.editEmailWithPassword(emailKey: noti.textFields![0], passKey: noti.textFields![1])
+        
         }))
-        present(noti,animated: true, completion:  nil)
+        
+        present(noti, animated: true, completion: nil)
+
     }
-    
-//    @IBAction func editAddButtPressed(_ sender: UIButton)
-//    {
-//        var add1: UITextField!
-//        var add2: UITextField!
-//        var add3: UITextField!
-//        var post: UITextField!
-//        var siti: UITextField!
-//        var state: UITextField!
+        
+        
+        
 //        
-//        let noti = UIAlertController(title: "Change Address", message: "Please enter your address", preferredStyle: .alert)
-//        noti.addTextField(configurationHandler: {(line1: UITextField!) in
-//            line1.placeholder = "First Line Address"
-//            add1 = line1!
+//        let noti = UIAlertController(title: "Change Email", message: "Please enter a new email", preferredStyle: .alert)
+//        noti.addTextField(configurationHandler: {(textField: UITextField!) in
+//            textField.placeholder = "Enter a new Email"
+//            self.emailText = textField.text!
 //        })
-//        noti.addTextField(configurationHandler: {(line2: UITextField!) in
-//            line2.placeholder = "Second Line Address"
-//            add2 = line2!
-//        })
-//        noti.addTextField(configurationHandler: {(line3: UITextField!) in
-//            line3.placeholder = "Third Line Address"
-//            add3 = line3!
-//        })
-//        noti.addTextField(configurationHandler: {(code: UITextField!) in
-//            code.placeholder = "Postcode"
-//            post = code!
-//        })
-//        noti.addTextField(configurationHandler: {(town: UITextField!) in
-//            town.placeholder = "City"
-//            siti = town!
-//        })
-//        noti.addTextField(configurationHandler: {(district: UITextField!) in
-//            district.placeholder = "State"
-//            state = district!
+//        noti.addTextField(configurationHandler: {(textFeed: UITextField!) in
+//            textFeed.placeholder = "Enter password to confirm update password"
+//            textFeed.isSecureTextEntry = true
+//            self.passText = textFeed.text!
 //        })
 //        noti.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: nil))
 //        noti.addAction(UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: { (action) -> Void in
-//            let changeRequest = FIRAuth.auth()?.currentUser?.uid
-//            frDBref.child("users/\(changeRequest!)/address/firstLine").setValue(add1!.text)
-//            frDBref.child("users/\(changeRequest!)/address/secondLine").setValue(add2!.text)
-//            frDBref.child("users/\(changeRequest!)/address/thirdLine").setValue(add3!.text)
-//            frDBref.child("users/\(changeRequest!)/address/postcode").setValue(post!.text)
-//            frDBref.child("users/\(changeRequest!)/address/city").setValue(siti!.text)
-//            frDBref.child("users/\(changeRequest!)/address/state").setValue(state!.text)
-//            if add3.text != nil
-//            {
-//                self.userAddText.text = "\(add1.text!), \(add2.text!), \(add3.text!), \(post.text!) \(siti.text!), \(state.text!)"
-//            }
-//            else
-//            {
-//                self.userAddText.text = "\(add1.text!), \(add2.text!), \(post.text!) \(siti.text!), \(state.text!)"
-//            }
-//        }))
-//        present(noti, animated: true, completion: nil)
+//            
+//            
+//            
+//            self.editEmailWithPassword(emailKey: (noti.textFields?.first)!, passKey: (noti.textFields?.last)!)
+//            print(noti.textFields?.first!)
+//            print(noti.textFields?.last!)
+//                    }))
+//        present(noti,animated: true, completion:  nil)
+//    }
+//    
+//    
+    func editEmailWithPassword(emailKey: UITextField, passKey: UITextField)
+    {
+        let changeRequest = FIRAuth.auth()?.currentUser
+//            print((emailKey.text)!)
+//            print((passKey.text)!)
+//        
+////            if passKey.text! == FIRAuth.auth().pass
+//        
+////        let credential = FIREmailPasswordAuthProvider.credential(withEmail: (changeRequest?.email)!, password: passKey.text!)
+///            changeRequest?.reauthenticate(with: credential) { error in
+////                if error != nil
+////                {
+////                    print("error:::::")
+////                    print(error?.localizedDescription)
+////                }
+////                else
+////                {
+//                    print(emailKey.text!)
+                    changeRequest?.updateEmail((emailKey.text)!, completion: {(error) in
+                        if (error == nil)
+                        {
+                            print("success")
+                            frDBref.child("users/\((changeRequest?.uid)!)/email").setValue((emailKey.text)!)
+                        }
+                        else
+                        {
+////                            let alertController = UIAlertController(title: "Update Email", message: "You have successfully updated your email", preferredStyle: .alert)
+////                            alertController.addAction(UIAlertAction(title: "OK, Thanks", style: UIAlertActionStyle.default, handler: nil))
+                            print("erorrrr :::::")
+                             print(error?.localizedDescription)
+                        }
+                    })
+    
+//      }
 //    }
     
-    //////////////////////////////////////////////////////////////////
+
+    }
+    
+    
+
     
     @IBAction func signOutButtPressed(_ sender: UIButton)
     {
