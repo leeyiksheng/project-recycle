@@ -18,10 +18,41 @@ class CurrentOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var orderStateLabel: UILabel!
     @IBOutlet weak var driverNameLabel: UILabel!
     @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var overlayShadowView: UIView!
+    @IBOutlet weak var bodyView: UIView!
+    @IBOutlet weak var headerView: UIView! {
+        didSet {
+            headerView.backgroundColor = UIColor.darkMagenta
+        }
+    }
     @IBOutlet weak var imageCollectionView: UICollectionView! {
         didSet {
-            self.imageCollectionView.delegate = self
-            self.imageCollectionView.dataSource = self
+            imageCollectionView.delegate = self
+            imageCollectionView.dataSource = self
+        }
+    }
+    @IBOutlet weak var userIcon: UIImageView! {
+        didSet {
+            userIcon.image = UIImage(named: "UserIcon")
+            userIcon.layer.cornerRadius = 5.0
+            userIcon.layer.masksToBounds = true
+            userIcon.layer.shouldRasterize = true
+        }
+    }
+    @IBOutlet weak var userContactIcon: UIImageView! {
+        didSet {
+            userContactIcon.image = UIImage(named: "PhoneIcon")
+            userContactIcon.layer.cornerRadius = 5.0
+            userContactIcon.layer.masksToBounds = true
+            userContactIcon.layer.shouldRasterize = true
+        }
+    }
+    @IBOutlet weak var driverIcon: UIImageView! {
+        didSet {
+            driverIcon.image = UIImage(named: "DriverIcon")
+            driverIcon.layer.cornerRadius = 5.0
+            driverIcon.layer.masksToBounds = true
+            driverIcon.layer.shouldRasterize = true
         }
     }
     
@@ -49,22 +80,27 @@ extension CurrentOrderTableViewCell: UICollectionViewDataSource {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
             return cell
         case 1:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "glassCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "paperCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
             return cell
         case 3:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plasticCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
             return cell
         default:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = UIImage.init(named: "redErrorIcon")
+            cell.layer.cornerRadius = 8.0
             return cell
         }
     }

@@ -19,6 +19,11 @@ extension UIColor {
     @nonobjc static let forestGreen = UIColor(r: 34, g: 139, b: 34)
     @nonobjc static let limeGreen = UIColor(r: 50, g: 205, b: 50)
     @nonobjc static let paleGreen = UIColor(r: 100, g: 251, b: 100)
+    @nonobjc static let darkMagenta = UIColor(r: 139, g: 34, b: 139)
+    @nonobjc static let darkCyan = UIColor(r: 13, g: 55, b: 55)
+    @nonobjc static let olive = UIColor(r: 55, g: 55, b: 13)
+    @nonobjc static let darkRed = UIColor(r: 139, g: 34, b: 34)
+    @nonobjc static let darkBlue = UIColor(r: 34, g: 34, b: 139)
     //texts
     @nonobjc static let textDarkGray = UIColor(r: 125, g: 125, b: 125)
     @nonobjc static let textLightGray = UIColor(r: 192, g: 192, b: 192)
@@ -78,20 +83,16 @@ extension UIButton {
 }
 
 extension UINavigationController {
-    
     func navigationBarAttributes() {
         self.navigationBar.tintColor = UIColor.textDarkGray
         self.navigationBar.barTintColor = UIColor.viewLightGray
         let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor.textDarkGray]
         self.navigationBar.titleTextAttributes = titleDict as! [String : Any]
-//        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
-        
+        //        self.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!]
     }
-    
 }
 
 extension UINavigationItem {
-    
     func navigationItemAttributes() {
         self.leftBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!], for: .normal)
         self.rightBarButtonItem?.setTitleTextAttributes([ NSFontAttributeName: UIFont(name: "SanFranciscoText-Semibold", size: 18)!], for: .normal)
@@ -106,13 +107,14 @@ extension UIBarButtonItem {
 
 extension UITabBar {
     func addDropShadow() {
-
+        self.layer.shadowOffset = CGSize(width: 0, height: 0)
+        self.layer.shadowRadius = 8
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = 0.3
     }
 }
 
-
 extension UIImageView {
-    
     func roundShape() {
         self.layer.cornerRadius = self.frame.height/2
         self.clipsToBounds = true
@@ -124,31 +126,20 @@ extension UIImageView {
         self.contentMode = .scaleAspectFill
         self.backgroundColor = UIColor.forestGreen
     }
-
-    
 }
 
 extension CAGradientLayer {
-    
-    
     func mainPageBackground() {
         let darkGreen = UIColor(r: 0, g: 100, b: 0).cgColor
         let forestGreen = UIColor(r: 34, g: 139, b: 34).cgColor
         let limeGreen = UIColor(r: 50, g: 205, b: 50).cgColor
         let paleGreen = UIColor(r: 100, g: 251, b: 100).cgColor
-//        self.locations = [0.0, 0.15, 0.35, 0.6]
+        //        self.locations = [0.0, 0.15, 0.35, 0.6]
         self.startPoint = CGPoint(x: 1, y: 1)
         self.endPoint = CGPoint(x: 0, y: 0)
         self.colors = [darkGreen, forestGreen, limeGreen, paleGreen]
-        
-        
-        
-        
     }
-    
-    
 }
-
 
 extension UIViewController {
     func hideKeyboardWhenTappedAround() {

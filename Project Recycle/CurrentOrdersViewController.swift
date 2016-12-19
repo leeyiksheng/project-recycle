@@ -12,9 +12,10 @@ import QuartzCore
 
 class CurrentOrdersViewController: UIViewController {
     
-    //MARK - Interface Builder Outlets
+    //MARK - UITableView Related Variables
     
     @IBOutlet weak var currentOrdersTableView: UITableView!
+    var emptyMessageLabel: UILabel = UILabel()
     
     //MARK - Order Item Arrays
     
@@ -32,19 +33,36 @@ class CurrentOrdersViewController: UIViewController {
     var isDatabaseEmpty : Bool = false
     var isTableViewBeingSorted : Bool = false
     var isUserSearchingTableView : Bool = false
+    
     var searchController = UISearchController(searchResultsController: nil)
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+    
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: UIControlEvents.valueChanged)
+        refreshControl.tintColor = UIColor.white
+        refreshControl.backgroundColor = UIColor.forestGreen
+        
+        return refreshControl
+    }()
     
     //MARK: - View functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        disableSortButton()
+        
         currentOrdersTableView.delegate = self
         currentOrdersTableView.dataSource = self
+        currentOrdersTableView.backgroundColor = UIColor.viewLightGray
+        currentOrdersTableView.addSubview(refreshControl)
+        currentOrdersTableView.isUserInteractionEnabled = false
         
         setupSearchBar()
+        setupSearchResultsEmptyMessageLabel()
         setupActivityLoader()
+        initializeObservers()
         
         generateCurrentOrders(completion: { () -> () in
             
@@ -71,30 +89,52 @@ class CurrentOrdersViewController: UIViewController {
     //MARK: - Order Fetching Observer Functions
     
     func fetchNewProcessingOrders() {
+        userProcessingOrdersDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.value as? [String] == nil {
+                self.activityIndicator.stopAnimating()
+                self.currentOrdersTableView.isUserInteractionEnabled = true
+                self.isDatabaseEmpty = true
+                self.currentOrdersTableView.separatorStyle = .none
+                self.currentOrdersTableView.backgroundView = self.emptyMessageLabel
+            }
+        })
+        
         userProcessingOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
             guard let orderUID = snapshot.value as? String else {
                 print("Error: Snapshot is empty, please check if database reference is valid.")
                 self.isDatabaseEmpty = true
                 self.activityIndicator.stopAnimating()
+                self.currentOrdersTableView.isUserInteractionEnabled = true
                 return
             }
             
             let order = RecycleOrder.init(processingOrderWithOrderUID: orderUID)
-            self.currentOrderItemsArray.append(order)
+            self.currentOrderItemsArray.insert(order, at: 0)
         })
     }
     
     func fetchNewProcessedOrders() {
+        userProcessedOrdersDatabaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.value as? [String] == nil {
+                self.activityIndicator.stopAnimating()
+                self.currentOrdersTableView.isUserInteractionEnabled = true
+                self.isDatabaseEmpty = true
+                self.currentOrdersTableView.separatorStyle = .none
+                self.currentOrdersTableView.backgroundView = self.emptyMessageLabel
+            }
+        })
+        
         userProcessedOrdersDatabaseReference.observe(FIRDataEventType.childAdded, with: { (snapshot) in
             guard let orderUID = snapshot.value as? String else {
                 print("Error: Snapshot is empty, please check if database reference is valid.")
                 self.isDatabaseEmpty = true
                 self.activityIndicator.stopAnimating()
+                self.currentOrdersTableView.isUserInteractionEnabled = true
                 return
             }
             
             let order = RecycleOrder.init(processedOrderWithOrderUID: orderUID)
-            self.currentOrderItemsArray.append(order)
+            self.currentOrderItemsArray.insert(order, at: 0)
         })
     }
     
@@ -165,34 +205,85 @@ class CurrentOrdersViewController: UIViewController {
         // currentOrdersTableView.reloadRows(at: <#T##[IndexPath]#>, with: <#T##UITableViewRowAnimation#>) // for udpate = use with .value
         // currentOrdersTableView.endUpdates()
         
-        self.activityIndicator.stopAnimating()
+        searchController.searchBar.isUserInteractionEnabled = true
+        currentOrdersTableView.isUserInteractionEnabled = true
+        activityIndicator.stopAnimating()
     }
     
-    //MARK: - Observer Functions
+    //MARK: - Notification Functions
     
     func initializeObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserDidTapOrderStatusAscendingActionNotification), name: Notification.Name(rawValue: "userDidTapOrderStatusAscendingActionNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserDidTapOrderStatusDescendingActionNotification), name: Notification.Name(rawValue: "userDidTapOrderStatusDescendingActionNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserDidTapTimeActionAscendingNotification), name: Notification.Name(rawValue: "userDidTapTimeActionAscendingNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserDidTapTimeActionDescendingNotification), name: Notification.Name(rawValue: "userDidTapTimeActionDescendingNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserWillExitCurrentOrdersSegmentNotification), name: Notification.Name(rawValue: "userWillExitCurrentOrdersSegmentNotification"), object: nil)
     }
     
     func handleUserDidTapOrderStatusAscendingActionNotification() {
-        
+        sortContentForSortingCategory(category: "orderStatus", arrangement: "ascending")
+        currentOrdersTableView.reloadData()
     }
     
     func handleUserDidTapOrderStatusDescendingActionNotification() {
-        
+        sortContentForSortingCategory(category: "orderStatus", arrangement: "descending")
+        currentOrdersTableView.reloadData()
     }
     
     func handleUserDidTapTimeActionAscendingNotification() {
-        
+        sortContentForSortingCategory(category: "time", arrangement: "ascending")
+        currentOrdersTableView.reloadData()
     }
     
     func handleUserDidTapTimeActionDescendingNotification() {
-        
+        sortContentForSortingCategory(category: "time", arrangement: "descending")
+        currentOrdersTableView.reloadData()
     }
     
+    func handleUserWillExitCurrentOrdersSegmentNotification() {
+        if searchController.isActive {
+            searchController.isActive = false
+        }
+    }
+    
+    func disableSortButton() {
+        let disableSortButtonNotification = Notification(name: Notification.Name(rawValue: "disableSortButtonNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(disableSortButtonNotification)
+    }
+    
+    func enableSortButton() {
+        let enableSortButtonNotification = Notification(name: Notification.Name(rawValue: "enableSortButtonNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(enableSortButtonNotification)
+    }
+    
+    func disableMenuSegmentedControl() {
+        let disableMenuSegmentedControlNotification = Notification(name: Notification.Name(rawValue: "disableMenuSegmentedControlNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(disableMenuSegmentedControlNotification)
+    }
+    
+    func enableMenuSegmentedControl() {
+        let enableMenuSegmentedControlNotification = Notification(name: Notification.Name(rawValue: "enableMenuSegmentedControlNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(enableMenuSegmentedControlNotification)
+    }
+    
+    //MARK: - Table View Refresh Functions
+    
+    func handleRefresh(refreshControl: UIRefreshControl) {
+        print("Refreshing table view.")
+        
+        userProcessedOrdersDatabaseReference.removeAllObservers()
+        userProcessingOrdersDatabaseReference.removeAllObservers()
+        
+        currentOrderItemsArray.removeAll()
+        
+        fetchNewProcessedOrders()
+        fetchNewProcessingOrders()
+        
+        currentOrdersTableView.reloadData()
+        
+        refreshControl.endRefreshing()
+    }
+
     //MARK: - Miscellaneous Functions
     
     func setupActivityLoader() {
@@ -207,18 +298,53 @@ class CurrentOrdersViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.barTintColor = UIColor.forestGreen
+        searchController.searchBar.backgroundColor = UIColor.forestGreen
         searchController.dimsBackgroundDuringPresentation = false
         
         currentOrdersTableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.isUserInteractionEnabled = false
     }
     
     func createFormattedDateWith(timeInterval: Double) -> String {
-        let dateInTimeInterval = Date.init(timeIntervalSinceReferenceDate: timeInterval)
+        let dateInTimeInterval = Date(timeIntervalSinceReferenceDate: timeInterval)
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .medium
         
         return dateFormatter.string(from: dateInTimeInterval)
+    }
+    
+    func setupSearchResultsEmptyMessageLabel() {
+        emptyMessageLabel = UILabel(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
+        
+        emptyMessageLabel.text = "No orders found :("
+        emptyMessageLabel.textColor = UIColor.darkGreen
+        emptyMessageLabel.numberOfLines = 0
+        emptyMessageLabel.textAlignment = NSTextAlignment.center
+        emptyMessageLabel.font = UIFont(name: "San Francisco Text", size: 20)
+        emptyMessageLabel.sizeToFit()
+    }
+    
+    //MARK: - Debugging Functions
+    
+    func printAllOrderItemsOrderStatus(array: [RecycleOrder]) {
+        for order : RecycleOrder in array {
+            if order.orderStatus != nil {
+                print(order.orderStatus!.rawValue)
+            } else {
+                print("Error: Order status is nil.")
+            }
+        }
+    }
+    
+    func printAllOrderItemsCreationTimestamp(array: [RecycleOrder]) {
+        for order : RecycleOrder in array {
+            if order.creationTimestamp != nil {
+                print(order.creationTimestamp!)
+            } else {
+                print("Error: creationTimestamp is nil.")
+            }
+        }
     }
 }
 
@@ -237,14 +363,12 @@ extension CurrentOrdersViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         isUserSearchingTableView = true
-        let userDidBeginEditingSearchBarTextNotification = Notification(name: Notification.Name(rawValue: "userDidBeginEditingSearchBarTextNotification"), object: nil, userInfo: nil)
-        NotificationCenter.default.post(userDidBeginEditingSearchBarTextNotification)
+        disableSortButton()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         isUserSearchingTableView = false
-        let userTappedSearchBarCancelButtonNotification = Notification(name: Notification.Name(rawValue: "userTappedSearchBarCancelButtonNotification"), object: nil, userInfo: nil)
-        NotificationCenter.default.post(userTappedSearchBarCancelButtonNotification)
+        enableSortButton()
     }
 }
 
@@ -260,6 +384,9 @@ extension CurrentOrdersViewController: UISearchResultsUpdating {
 }
 
 extension CurrentOrdersViewController: UITableViewDataSource {
+    
+    //MARK: - Search & Sort Functions
+    
     func filterContentForSearchText(_ searchText: String) {
         filteredCurrentOrderItemsArray = currentOrderItemsArray.filter({ (orderItem: RecycleOrder) -> Bool in
             return orderItem.keywords.lowercased().contains(searchText.lowercased())
@@ -271,19 +398,23 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         switch category {
         case "orderStatus":
             if arrangement == "ascending" {
-                // currentOrderItemsArray.sort(by: { $0.orderStatus })
+                currentOrderItemsArray.sort(by: { ($0.0.orderStatus?.rawValue)! < ($0.1.orderStatus?.rawValue)!  })
+                printAllOrderItemsOrderStatus(array: currentOrderItemsArray)
             } else if arrangement == "descending" {
-                
+                currentOrderItemsArray.sort(by: { ($0.0.orderStatus?.rawValue)! > ($0.1.orderStatus?.rawValue)! })
+                printAllOrderItemsOrderStatus(array: currentOrderItemsArray)
             } else {
-                
+                print("Error: Invalid arrangement provided.")
             }
         case "time":
             if arrangement == "ascending" {
-                
+                currentOrderItemsArray.sort(by: { ($0.0.creationTimestamp)! < ($0.1.creationTimestamp)! })
+                printAllOrderItemsCreationTimestamp(array: currentOrderItemsArray)
             } else if arrangement == "descending" {
-                
+                currentOrderItemsArray.sort(by: { ($0.0.creationTimestamp)! > ($0.1.creationTimestamp)! })
+                printAllOrderItemsCreationTimestamp(array: currentOrderItemsArray)
             } else {
-                
+                print("Error: Invalid arrangement provided.")
             }
         default:
             isTableViewBeingSorted = false
@@ -292,26 +423,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         }
     }
     
+    //MARK: - Table View Data Source Functions
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         if !currentOrderItemsArray.isEmpty {
-            self.currentOrdersTableView.separatorStyle = .none
+            currentOrdersTableView.backgroundView = UIView()
+            currentOrdersTableView.separatorStyle = .none
             return 1
-        } else {
-            if isDatabaseEmpty {
-                let emptyMessageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-                
-                emptyMessageLabel.text = "No orders placed :("
-                emptyMessageLabel.textColor = UIColor.darkGreen
-                emptyMessageLabel.numberOfLines = 0
-                emptyMessageLabel.textAlignment = NSTextAlignment.center
-                emptyMessageLabel.font = UIFont.init(name: "San Francisco Text", size: 20)
-                emptyMessageLabel.sizeToFit()
-                
-                self.currentOrdersTableView.backgroundView = emptyMessageLabel
-                self.currentOrdersTableView.separatorStyle = .none
-            } else {
-                return 1
-            }
         }
         return 0
     }
@@ -319,24 +437,17 @@ extension CurrentOrdersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if filteredCurrentOrderItemsArray.count == 0 {
             if searchController.searchBar.isFirstResponder {
-                
-                let emptyMessageLabel = UILabel.init(frame: CGRect.init(x: 0, y: 0, width: self.view.bounds.size.width, height: self.view.bounds.size.height))
-                
-                emptyMessageLabel.text = "No results found."
-                emptyMessageLabel.textColor = UIColor.darkGreen
-                emptyMessageLabel.numberOfLines = 0
-                emptyMessageLabel.textAlignment = NSTextAlignment.center
-                emptyMessageLabel.font = UIFont.init(name: "San Francisco Text", size: 20)
-                emptyMessageLabel.sizeToFit()
-                
-                self.currentOrdersTableView.backgroundView = emptyMessageLabel
-                self.currentOrdersTableView.separatorStyle = .none
-                
+                currentOrdersTableView.backgroundView = emptyMessageLabel
+                currentOrdersTableView.separatorStyle = .none
                 return 0
             } else {
+                currentOrdersTableView.backgroundView = UIView()
+                currentOrdersTableView.separatorStyle = .none
                 return currentOrderItemsArray.count
             }
         } else {
+            currentOrdersTableView.backgroundView = UIView()
+            currentOrdersTableView.separatorStyle = .none
             return filteredCurrentOrderItemsArray.count
         }
     }
@@ -345,8 +456,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CurrentOrderTableViewCell
         
         cell.layer.backgroundColor = UIColor.viewLightGray.cgColor
-        
-        cell.overlayView.layer.cornerRadius = 20.0
+        cell.overlayView.layer.cornerRadius = 15.0
         cell.overlayView.layer.masksToBounds = true
         
         let orderItem: RecycleOrder
@@ -360,9 +470,11 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         if orderItem.creationTimestamp != nil {
             cell.creationTimestampLabel.text = createFormattedDateWith(timeInterval: orderItem.creationTimestamp!)
             cell.creationTimestampLabel.smallTitleFonts()
+            cell.creationTimestampLabel.textColor = UIColor.white
         } else {
             cell.creationTimestampLabel.text = "Error: Timestamp is nil."
             cell.creationTimestampLabel.smallTitleFonts()
+            cell.creationTimestampLabel.textColor = UIColor.white
         }
         
         if orderItem.receiverName != nil {
@@ -393,12 +505,16 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItem.assignedDriver != nil {
             cell.orderStateLabel.text = "Processed"
-            cell.orderStateLabel.largeTitleFonts()
+            cell.orderStateLabel.smallTitleFonts()
+            cell.orderStateLabel.textColor = UIColor.white
+            cell.headerView.backgroundColor = UIColor.darkBlue
             cell.driverNameLabel.text = orderItem.assignedDriver?.name
             cell.driverNameLabel.mediumTitleFonts()
         } else {
             cell.orderStateLabel.text = "Processing"
-            cell.orderStateLabel.largeTitleFonts()
+            cell.orderStateLabel.smallTitleFonts()
+            cell.orderStateLabel.textColor = UIColor.white
+            cell.headerView.backgroundColor = UIColor.darkRed
             cell.driverNameLabel.text = "Assignment pending"
             cell.driverNameLabel.mediumTitleFonts()
         }
@@ -407,13 +523,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItem.hasAluminium != nil {
             aluminiumImage: if orderItem.hasAluminium! {
-                guard let aluminiumImage = UIImage.init(named: "aluminium") else {
+                guard let aluminiumImage = UIImage.init(named: "ColorAluminium") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break aluminiumImage
                 }
                 cell.iconArray.append(aluminiumImage)
             } else {
-                guard let aluminiumImage = UIImage.init(named: "aluminiumIcon") else {
+                guard let aluminiumImage = UIImage.init(named: "GreyAluminium") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break aluminiumImage
                 }
@@ -423,13 +539,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItem.hasGlass != nil {
             glassImage: if orderItem.hasGlass! {
-                guard let glassImage = UIImage.init(named: "glass") else {
+                guard let glassImage = UIImage.init(named: "ColorGlass") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break glassImage
                 }
                 cell.iconArray.append(glassImage)
             } else {
-                guard let glassImage = UIImage.init(named: "glassIcon") else {
+                guard let glassImage = UIImage.init(named: "GreyGlass") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break glassImage
                 }
@@ -439,13 +555,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItem.hasPaper != nil {
             paperImage: if orderItem.hasPaper! {
-                guard let paperImage = UIImage.init(named: "paper") else {
+                guard let paperImage = UIImage.init(named: "ColorPaper") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break paperImage
                 }
                 cell.iconArray.append(paperImage)
             } else {
-                guard let paperImage = UIImage.init(named: "paperIcon") else {
+                guard let paperImage = UIImage.init(named: "GreyPaper") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break paperImage
                 }
@@ -455,13 +571,13 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         
         if orderItem.hasPlastic != nil {
             plasticImage: if orderItem.hasPlastic! {
-                guard let plasticImage = UIImage.init(named: "plastic") else {
+                guard let plasticImage = UIImage.init(named: "ColorPlastic") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break plasticImage
                 }
                 cell.iconArray.append(plasticImage)
             } else {
-                guard let plasticImage = UIImage.init(named: "plasticIcon") else {
+                guard let plasticImage = UIImage.init(named: "GreyPlastic") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break plasticImage
                 }
