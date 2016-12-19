@@ -10,9 +10,14 @@ import UIKit
 
 class OrdersViewController: UIViewController {
 
-    @IBOutlet weak var sortBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var sortBarButtonItem: UIBarButtonItem! {
+        didSet {
+            sortBarButtonItem.tintColor = UIColor.forestGreen
+        }
+    }
     @IBOutlet weak var unsortBarButtonItem: UIBarButtonItem! {
         didSet {
+            unsortBarButtonItem.title = ""
             unsortBarButtonItem.isEnabled = false
         }
     }
@@ -37,6 +42,7 @@ class OrdersViewController: UIViewController {
         initializeObservers()
         
         setupMenuSegmentedControl()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,18 +86,24 @@ class OrdersViewController: UIViewController {
     
     @IBAction func onSortBarButtonItemTouchUpInside(_ sender: UIBarButtonItem) {
         setupSortingAlert()
+        
         unsortBarButtonItem.isEnabled = true
+        unsortBarButtonItem.title = "Unsort"
     }
     
     @IBAction func onUnsortBarButtonItemTouchUpInside(_ sender: UIBarButtonItem) {
-        
+        let userDidTapTimeDescendingActionNotification = Notification(name: Notification.Name(rawValue: "userDidTapTimeActionDescendingNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(userDidTapTimeDescendingActionNotification)
+        unsortBarButtonItem.isEnabled = false
+        unsortBarButtonItem.title = ""
     }
     
     func setupSortingAlert() {
         let sortingAlert = UIAlertController.init(title: "Sorting", message: "Select a category to sort with.", preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (cancelAction) in
-            
+            self.unsortBarButtonItem.isEnabled = false
+            self.unsortBarButtonItem.title = ""
         })
         
         let orderStatusAscendingAction = UIAlertAction.init(title: "Order Status (Ascending)", style: .default, handler: { (orderStatusAction) in
@@ -140,24 +152,50 @@ class OrdersViewController: UIViewController {
     }
     
     func initializeObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserDidBeginEditingSearchBarTextNotification), name: Notification.Name(rawValue: "userDidBeginEditingSearchBarTextNotification"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleUserTappedSearchBarCancelButtonNotification), name: Notification.Name(rawValue: "userTappedSearchBarCancelButtonNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDisableSortButtonNotification), name: Notification.Name(rawValue: "disableSortButtonNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEnableSortButtonNotification), name: Notification.Name(rawValue: "disableSortButtonNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDisableMenuSegmentedControl), name: Notification.Name(rawValue: "disableMenuSegmentedControlNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleEnableMenuSegmentedControl), name: Notification.Name(rawValue: "enableMenuSegmentedControlNotification"), object: nil)
     }
     
-    func handleUserDidBeginEditingSearchBarTextNotification() {
+    func handleDisableSortButtonNotification() {
         sortBarButtonItem.isEnabled = false
     }
     
-    func handleUserTappedSearchBarCancelButtonNotification() {
+    func handleEnableSortButtonNotification() {
         sortBarButtonItem.isEnabled = true
     }
+    
+    func handleDisableMenuSegmentedControl() {
+        menuSegmentedControl.isUserInteractionEnabled = false
+    }
+    
+    func handleEnableMenuSegmentedControl() {
+        menuSegmentedControl.isUserInteractionEnabled = true
+    }
+    
+//    func showSmallPopup() {
+//        popupView.isHidden = false
+//        popupView.layer.cornerRadius = 10.0
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = popupView.layer.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        view.addSubview(blurEffectView)
+//    }
     
     @IBAction func onMenuSegmentedControlValueChanged(_ sender: UISegmentedControl) {
         switch sender.selectedSegmentIndex {
         case 0:
+            let userWillExitCompletedOrdersSegmentNotification = Notification(name: Notification.Name(rawValue: "userWillExitCompletedOrdersSegmentNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(userWillExitCompletedOrdersSegmentNotification)
+            
             currentOrdersContainerView.isHidden = false
             orderHistoryContainerView.isHidden = true
         case 1:
+            let userWillExitCurrentOrdersSegmentNotification = Notification(name: Notification.Name(rawValue: "userWillExitCurrentOrdersSegmentNotification"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(userWillExitCurrentOrdersSegmentNotification)
+            
             currentOrdersContainerView.isHidden = true
             orderHistoryContainerView.isHidden = false
         default: print("Error: Segmented control value out of bounds.")

@@ -29,6 +29,8 @@ class OrderHistoryViewController: UIViewController {
         completedOrdersTableView.delegate = self
         completedOrdersTableView.dataSource = self
         
+        initializeObservers()
+        
         generateCompletedOrders(completion: { () -> () in
             
         })
@@ -39,7 +41,6 @@ class OrderHistoryViewController: UIViewController {
     }
     
     func generateCompletedOrders(completion: @escaping () -> ()) {
-        observeOrderIntializationCompletionNotification()
         guard let currentUserUID: String = FIRAuth.auth()?.currentUser?.uid else {
             print("Error: User not authenticated.")
             return
@@ -79,12 +80,17 @@ class OrderHistoryViewController: UIViewController {
         return dateFormatter.string(from: dateInTimeInterval)
     }
     
-    func observeOrderIntializationCompletionNotification() {
+    func initializeObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleOrderIntializationCompletionNotification), name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserWillExitCompletedOrdersSegmentNotification), name: Notification.Name(rawValue: "userWillExitCompletedOrdersSegmentNotification"), object: nil)
     }
     
     func handleOrderIntializationCompletionNotification(_ notification: Notification) {
         completedOrdersTableView.reloadData()
+    }
+    
+    func handleUserWillExitCompletedOrdersSegmentNotification() {
+        
     }
 }
 
