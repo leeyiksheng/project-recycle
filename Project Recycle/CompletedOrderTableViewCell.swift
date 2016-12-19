@@ -18,6 +18,35 @@ class CompletedOrderTableViewCell: UITableViewCell {
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var orderValueLabel: UILabel!
     @IBOutlet weak var orderStateLabel: UILabel!
+    @IBOutlet weak var shadowView: ShadowView!
+    @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var receiverAddressTitleLabel: UILabel!
+    @IBOutlet weak var bodyView: UIView!
+    @IBOutlet weak var userIcon: UIImageView! {
+        didSet {
+            userIcon.image = UIImage(named: "UserIcon")
+            userIcon.layer.cornerRadius = 5.0
+            userIcon.layer.masksToBounds = true
+            userIcon.layer.shouldRasterize = true
+        }
+    }
+    @IBOutlet weak var contactIcon: UIImageView! {
+        didSet {
+            contactIcon.image = UIImage(named: "PhoneIcon")
+            contactIcon.layer.cornerRadius = 5.0
+            contactIcon.layer.masksToBounds = true
+            contactIcon.layer.shouldRasterize = true
+        }
+    }
+    @IBOutlet weak var driverIcon: UIImageView! {
+        didSet {
+            driverIcon.image = UIImage(named: "DriverIcon")
+            driverIcon.layer.cornerRadius = 5.0
+            driverIcon.layer.masksToBounds = true
+            driverIcon.layer.shouldRasterize = true
+        }
+    }
     
     var iconArray: [UIImage] = []
     
@@ -41,11 +70,34 @@ extension CompletedOrderTableViewCell: UICollectionViewDelegate {
 
 extension CompletedOrderTableViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "iconCell", for: indexPath) as! IconCollectionViewCell
-        
-        cell.iconImageView?.image = iconArray[indexPath.row]
-        
-        return cell
+        switch indexPath.row {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            
+            cell.layer.cornerRadius = 8.0
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "glassCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
+            return cell
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "paperCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
+            return cell
+        case 3:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "plasticCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = iconArray[indexPath.row]
+            cell.layer.cornerRadius = 8.0
+            return cell
+        default:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
+            cell.iconImageView?.image = UIImage.init(named: "redErrorIcon")
+            cell.layer.cornerRadius = 8.0
+            return cell
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

@@ -11,7 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 
-class AlternativeAddressViewController: UIViewController {
+class AlternativeAddressViewController: UIViewController, UIScrollViewDelegate {
 
 
 
@@ -31,7 +31,7 @@ class AlternativeAddressViewController: UIViewController {
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(handleNewAddress), for: .touchUpInside)
         return button
     }()
@@ -210,13 +210,19 @@ class AlternativeAddressViewController: UIViewController {
         label.addressLabelAttributes()
         return label
     }()
-    
+  
     
     var navigationBarHeight: CGFloat = 0
-    let spaceBetweenLabel: CGFloat = 28
+    var spaceBetweenLabel: CGFloat = 28
     let spaceBetweenTextField: CGFloat = 4
     var userUID = ""
-    
+    var inputsAddressContainerViewBottomAnchor: NSLayoutConstraint?
+    var addressLabelTopConstraint: NSLayoutConstraint?
+    var phoneNoLabelTopConstraint: NSLayoutConstraint?
+    var cityLabelTopConstraint: NSLayoutConstraint?
+    var postcodeLabelTopConstraint: NSLayoutConstraint?
+    var stateLabelTopConstraint: NSLayoutConstraint?
+    var inputsAddressContainerViewTopAnchor: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -228,6 +234,8 @@ class AlternativeAddressViewController: UIViewController {
         navigationItem.navigationItemAttributes()
         navigationBarHeight = self.navigationController!.navigationBar.frame.height + UIApplication.shared.statusBarFrame.height
         view.backgroundColor = UIColor.viewLightGray
+        self.hideKeyboardWhenTappedAround()
+        
         view.addSubview(inputsAddressContainerView)
         view.addSubview(receiverNameLabel)
         view.addSubview(receiverNameTextField)
@@ -262,11 +270,63 @@ class AlternativeAddressViewController: UIViewController {
         setupStateTextField()
         setupPhoneNoLabel()
         setupPhoneNoTextField()
-
+        setupKeyboardObservers()
     }
     
     func handleBack() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector:#selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    func handleKeyboardWillShow(notification:NSNotification) {
+        let userInfo = notification.userInfo! as NSDictionary
+        let keyboardFrame = userInfo.value(forKey: UIKeyboardFrameEndUserInfoKey) as! NSValue
+        let keyboardRectangle = keyboardFrame.cgRectValue
+        let keyboardHeight = keyboardRectangle.height
+        
+        if !(navigationController?.isNavigationBarHidden)! {
+            navigationController?.setNavigationBarHidden(navigationController?.isNavigationBarHidden == false, animated: true)
+        }
+        
+        self.spaceBetweenLabel = 8
+        
+        inputsAddressContainerViewBottomAnchor?.constant = spaceBetweenLabel
+        addressLabelTopConstraint?.constant = spaceBetweenLabel
+        phoneNoLabelTopConstraint?.constant = spaceBetweenLabel
+        cityLabelTopConstraint?.constant = spaceBetweenLabel
+        postcodeLabelTopConstraint?.constant = spaceBetweenLabel
+        stateLabelTopConstraint?.constant = spaceBetweenLabel
+        inputsAddressContainerViewTopAnchor?.constant = 0
+        inputsAddressContainerViewBottomAnchor?.constant = 0 - keyboardHeight
+
+    }
+    
+    func handleKeyboardWillHide(notification:NSNotification) {
+        navigationController?.setNavigationBarHidden(navigationController?.isNavigationBarHidden == false, animated: true)
+        self.spaceBetweenLabel = 28
+        
+        inputsAddressContainerViewBottomAnchor?.constant = spaceBetweenLabel
+        addressLabelTopConstraint?.constant = spaceBetweenLabel
+        phoneNoLabelTopConstraint?.constant = spaceBetweenLabel
+        cityLabelTopConstraint?.constant = spaceBetweenLabel
+        postcodeLabelTopConstraint?.constant = spaceBetweenLabel
+        stateLabelTopConstraint?.constant = spaceBetweenLabel
+        inputsAddressContainerViewTopAnchor?.constant = navigationBarHeight + 12
+        inputsAddressContainerViewBottomAnchor?.constant = -96
+
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return navigationController?.isNavigationBarHidden == true
+    }
+    
+    override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
+        return UIStatusBarAnimation.slide
     }
     
     func setupReceiverNameLabel() {
@@ -282,7 +342,8 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupAddressLabelsetup() {
-        addressLabel.topAnchor.constraint(lessThanOrEqualTo: receiverNameTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        addressLabelTopConstraint = addressLabel.topAnchor.constraint(lessThanOrEqualTo: receiverNameTextField.bottomAnchor, constant: spaceBetweenLabel)
+        addressLabelTopConstraint?.isActive = true
         addressLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -311,7 +372,8 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupCityLabel() {
-        cityLabel.topAnchor.constraint(lessThanOrEqualTo: alternativeAddress3TextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        cityLabelTopConstraint = cityLabel.topAnchor.constraint(lessThanOrEqualTo: alternativeAddress3TextField.bottomAnchor, constant: spaceBetweenLabel)
+        cityLabelTopConstraint?.isActive = true
         cityLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -323,7 +385,8 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupPostcodeLabel() {
-        postcodeLabel.topAnchor.constraint(lessThanOrEqualTo: cityTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        postcodeLabelTopConstraint = postcodeLabel.topAnchor.constraint(lessThanOrEqualTo: cityTextField.bottomAnchor, constant: spaceBetweenLabel)
+        postcodeLabelTopConstraint?.isActive = true
         postcodeLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -335,7 +398,8 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupStateLabel() {
-        stateLabel.topAnchor.constraint(lessThanOrEqualTo: postcodeTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        stateLabelTopConstraint = stateLabel.topAnchor.constraint(lessThanOrEqualTo: postcodeTextField.bottomAnchor, constant: spaceBetweenLabel)
+        stateLabelTopConstraint?.isActive = true
         stateLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -347,7 +411,8 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupPhoneNoLabel() {
-        phoneNoLabel.topAnchor.constraint(lessThanOrEqualTo: stateTextField.bottomAnchor, constant: spaceBetweenLabel).isActive = true
+        phoneNoLabelTopConstraint = phoneNoLabel.topAnchor.constraint(lessThanOrEqualTo: stateTextField.bottomAnchor, constant: spaceBetweenLabel)
+        phoneNoLabelTopConstraint?.isActive = true
         phoneNoLabel.leftAnchor.constraint(equalTo: receiverNameLabel.leftAnchor).isActive = true
     }
     
@@ -360,10 +425,12 @@ class AlternativeAddressViewController: UIViewController {
     }
     
     func setupInputsAddressContainerView() {
-        inputsAddressContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 12).isActive = true
+        inputsAddressContainerViewTopAnchor = inputsAddressContainerView.topAnchor.constraint(equalTo: view.topAnchor, constant: navigationBarHeight + 12)
+        inputsAddressContainerViewTopAnchor?.isActive = true
         inputsAddressContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsAddressContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
-        inputsAddressContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -96).isActive = true
+        inputsAddressContainerViewBottomAnchor = inputsAddressContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -96)
+        inputsAddressContainerViewBottomAnchor?.isActive = true
         
     }
     
@@ -397,7 +464,7 @@ extension UITextField {
     func addressTextFieldAttributes() {
         self.userInputFonts()
         self.translatesAutoresizingMaskIntoConstraints = false
-        self.layer.borderWidth = 1.5
+        self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.forestGreen.cgColor
 
     }

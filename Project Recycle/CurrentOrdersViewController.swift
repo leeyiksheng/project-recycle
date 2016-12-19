@@ -21,8 +21,6 @@ class CurrentOrdersViewController: UIViewController {
     
     var currentOrderItemsArray: [RecycleOrder] = []
     var filteredCurrentOrderItemsArray: [RecycleOrder] = []
-    var processingOrderItems: [RecycleOrder] = []
-    var processedOrderItems: [RecycleOrder] = []
     
     //MARK - Firebase Database References
     
@@ -147,7 +145,7 @@ class CurrentOrdersViewController: UIViewController {
                 return
             }
             
-            guard let indexToBeRemoved: Int = self.processingOrderItems.index(where: {$0.orderUID == removedOrderID}) else {
+            guard let indexToBeRemoved: Int = self.currentOrderItemsArray.index(where: {$0.orderUID == removedOrderID}) else {
                 print("Error: No matching order ID found in local array. Please check for data corruption.")
                 return
             }
@@ -166,7 +164,7 @@ class CurrentOrdersViewController: UIViewController {
                 return
             }
             
-            guard let indexToBeRemoved: Int = self.processedOrderItems.index(where: {$0.orderUID == removedOrderID}) else {
+            guard let indexToBeRemoved: Int = self.currentOrderItemsArray.index(where: {$0.orderUID == removedOrderID}) else {
                 print("Error: No matching order ID found in local array. Please check for data corruption.")
                 return
             }
@@ -456,7 +454,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CurrentOrderTableViewCell
         
         cell.layer.backgroundColor = UIColor.viewLightGray.cgColor
-        cell.overlayView.layer.cornerRadius = 15.0
+        cell.overlayView.layer.cornerRadius = 4.0
         cell.overlayView.layer.masksToBounds = true
         
         let orderItem: RecycleOrder

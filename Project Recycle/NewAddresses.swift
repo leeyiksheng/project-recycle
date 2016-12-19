@@ -70,6 +70,13 @@ class NewAddresses {
                     return
                 }
                 
+                if addressDictionary["addressID"] != nil {
+                    self.addressID = addressDictionary["addressID"]!
+                } else {
+                    print("Error: addressID is nil.")
+                    return
+                }
+                
                 let addressInitializationCompletionNotification = Notification(name: Notification.Name(rawValue: "addressInitializationCompletionNotification"))
                 NotificationCenter.default.post(addressInitializationCompletionNotification)
             } else {
@@ -96,14 +103,11 @@ class NewAddresses {
                 self.noAddressString = false
             }
             
-        let userDatabaseUpdate = ["addressID": deletedUidAddressesArray]
-        userDatabaseReference.updateChildValues(userDatabaseUpdate)
-    })
-    
+            let userDatabaseUpdate = ["addressID": deletedUidAddressesArray]
+            userDatabaseReference.updateChildValues(userDatabaseUpdate)
+        })
     }
-
-
-
+    
     func submitAddress() {
         let userDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(self.userUID)")
         let addressDatabaseReference = FIRDatabase.database().reference(withPath: "addresses")
@@ -112,7 +116,8 @@ class NewAddresses {
             "formattedAddress": self.formattedAddress,
             "receiverContact": self.contact,
             "receiverName": self.name,
-            "userID": userUID
+            "userID": userUID,
+            "addressID": addressUID
             ] as [String : Any]
         let userAddressUIDDatabaseReference = FIRDatabase.database().reference(withPath: "users/\(userUID)/addressID")
         

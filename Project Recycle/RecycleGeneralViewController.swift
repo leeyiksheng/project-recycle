@@ -174,7 +174,7 @@ class RecycleGeneralViewController: UIViewController {
         button.setTitle("Confirm", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.backgroundColor = (UIColor.forestGreen).cgColor
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.addTarget(self, action: #selector(moveToNextController), for: .touchUpInside)
         return button
     }()
@@ -256,7 +256,7 @@ class RecycleGeneralViewController: UIViewController {
     func setupHeaderImageView() {
         
         headerImageView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        headerImageView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        headerImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: UIApplication.shared.statusBarFrame.height).isActive = true
         headerImageView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         headerImageView.heightAnchor.constraint(equalToConstant: 125).isActive = true
     }
@@ -271,7 +271,7 @@ class RecycleGeneralViewController: UIViewController {
     
     func setupPaperButton() {
         paperButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
-        paperButton.topAnchor.constraint(equalTo: infoLabel.bottomAnchor, constant: 30).isActive = true
+        paperButton.topAnchor.constraint(greaterThanOrEqualTo: infoLabel.bottomAnchor, constant: 35).isActive = true
         paperButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         paperButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
         paperButton.setImage(#imageLiteral(resourceName: "paper"), for: .normal)
@@ -298,7 +298,7 @@ class RecycleGeneralViewController: UIViewController {
     
     func setupAluminiumButton() {
         aluminiumButton.leftAnchor.constraint(equalTo: paperButton.leftAnchor).isActive = true
-        aluminiumButton.topAnchor.constraint(equalTo: paperLabel.bottomAnchor, constant : 30).isActive = true
+        aluminiumButton.topAnchor.constraint(greaterThanOrEqualTo: paperLabel.bottomAnchor, constant : 35).isActive = true
         aluminiumButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         aluminiumButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
     }
@@ -311,7 +311,7 @@ class RecycleGeneralViewController: UIViewController {
     
     func setupPlasticButton() {
         plasticButton.rightAnchor.constraint(equalTo: glassButton.rightAnchor).isActive = true
-        plasticButton.topAnchor.constraint(equalTo: glassLabel.bottomAnchor, constant : 30).isActive = true
+        plasticButton.topAnchor.constraint(greaterThanOrEqualTo: glassLabel.bottomAnchor, constant : 35).isActive = true
         plasticButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         plasticButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
     }
@@ -323,7 +323,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupOtherButton() {
-        otherButton.topAnchor.constraint(equalTo: aluminiumLabel.bottomAnchor, constant: 30).isActive = true
+        otherButton.topAnchor.constraint(greaterThanOrEqualTo: aluminiumLabel.bottomAnchor, constant: 35).isActive = true
         otherButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         otherButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
         otherButton.widthAnchor.constraint(equalToConstant: 75).isActive = true
@@ -336,6 +336,7 @@ class RecycleGeneralViewController: UIViewController {
     }
     
     func setupConfirmButton() {
+        confirmButton.topAnchor.constraint(equalTo: otherLabel.bottomAnchor, constant: 50).isActive = true
         confirmButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20 - tabBarHeight).isActive = true
         confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: 50).isActive = true

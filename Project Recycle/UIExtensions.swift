@@ -55,6 +55,15 @@ extension UILabel {
         self.textColor = UIColor.black
     }
     
+    func addDropShadow() {
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 3)
+        self.layer.shadowRadius = 9
+        self.layer.shadowOpacity = 0.7
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
+        self.layer.shouldRasterize = true
+        self.layer.rasterizationScale = UIScreen.main.scale
+    }
 }
 
 extension UITextField {
@@ -129,7 +138,7 @@ extension UIImageView {
 }
 
 extension CAGradientLayer {
-    func mainPageBackground() {
+    func gradientBackground() {
         let darkGreen = UIColor(r: 0, g: 100, b: 0).cgColor
         let forestGreen = UIColor(r: 34, g: 139, b: 34).cgColor
         let limeGreen = UIColor(r: 50, g: 205, b: 50).cgColor

@@ -20,7 +20,7 @@ class GuideDetailViewController: UIViewController {
     let viewContainer: UIView = {
         let vc = UIView()
         vc.translatesAutoresizingMaskIntoConstraints = false
-        vc.layer.cornerRadius = 5
+        vc.layer.cornerRadius = 4
         vc.clipsToBounds = true
         vc.backgroundColor = UIColor.white
         return vc

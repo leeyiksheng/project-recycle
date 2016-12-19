@@ -80,6 +80,7 @@ extension CurrentOrderTableViewCell: UICollectionViewDataSource {
         case 0:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "aluminiumCell", for: indexPath) as! IconCollectionViewCell
             cell.iconImageView?.image = iconArray[indexPath.row]
+            
             cell.layer.cornerRadius = 8.0
             return cell
         case 1:
