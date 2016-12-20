@@ -243,6 +243,8 @@ class RecycleGeneralViewController: UIViewController {
         setupOtherLabel()
         setupConfirmButton()
         
+        initializeObservers()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -250,6 +252,42 @@ class RecycleGeneralViewController: UIViewController {
         
         
 
+    }
+    
+    func initializeObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserSubmittedOrderNotification), name: Notification.Name(rawValue: "userSubmittedOrderNotification"), object: nil)
+    }
+    
+    func handleUserSubmittedOrderNotification() {
+        
+        resetButtons()
+        
+        let informAlert = UIAlertController(title: "Order Successfully Submitted", message: "Thank you for submitting an order with us. We will process your order and assign a driver as soon as possible. In the meantime, you might want to check out our disassembly guide down below if you're recycling larger items.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        informAlert.addAction(okAction)
+        present(informAlert, animated: true, completion: nil)
+    }
+    
+    func resetButtons() {
+        self.glassButtonTapped = false
+        glassButton.backgroundColor = UIColor.viewLightGray
+        glassButton.layer.borderWidth = 0
+        
+        self.paperButtonTapped = false
+        paperButton.backgroundColor = UIColor.viewLightGray
+        paperButton.layer.borderWidth = 0
+        
+        self.plasticButtonTapped = false
+        plasticButton.backgroundColor = UIColor.viewLightGray
+        plasticButton.layer.borderWidth = 0
+        
+        self.aluminiumButtonTapped = false
+        aluminiumButton.backgroundColor = UIColor.viewLightGray
+        aluminiumButton.layer.borderWidth = 0
+        
+        self.otherButtonTapped = false
+        otherButton.backgroundColor = UIColor.viewLightGray
+        otherButton.layer.borderWidth = 0
     }
     
     

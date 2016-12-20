@@ -70,6 +70,10 @@ class PickupAddressViewController: UIViewController, UITableViewDelegate, UITabl
         let order = notification.object as! RecycleOrder
         order.submitOrder()
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        
+        let userSubmittedOrderNotification = Notification(name: Notification.Name(rawValue: "userSubmittedOrderNotification"), object: nil, userInfo: nil)
+        NotificationCenter.default.post(userSubmittedOrderNotification)
+        
         NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
     }
 
