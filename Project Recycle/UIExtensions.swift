@@ -137,6 +137,19 @@ extension UIImageView {
     }
 }
 
+extension UIImage{
+    
+    func alpha(value:CGFloat)->UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+        
+    }
+}
+
 extension CAGradientLayer {
     func gradientBackground() {
         let darkGreen = UIColor(r: 0, g: 100, b: 0).cgColor

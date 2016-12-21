@@ -94,7 +94,7 @@ class OrderHistoryViewController: UIViewController {
                 return
             }
             
-            let order = RecycleOrder.init(processingOrderWithOrderUID: orderUID)
+            let order = RecycleOrder.init(completedOrderWithOrderUID: orderUID)
             self.completedOrderItemsArray.insert(order, at: 0)
         })
     }
@@ -125,9 +125,14 @@ class OrderHistoryViewController: UIViewController {
     func observeOrderIntializationCompletionNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleOrderIntializationCompletionNotification), name: Notification.Name(rawValue: "OrderInitializationCompletionNotification"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleCompletedOrderDeletionNotification(_:)), name: Notification.Name(rawValue: "CompletedOrderDeletionNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDriverInitializationCompletionNotification), name: Notification.Name(rawValue: "DriverInitializationCompletionNotification"), object: nil)
     }
     
     //MARK: - Notification Handler Functions
+    
+    func handleDriverInitializationCompletionNotification() {
+        completedOrdersTableView.reloadData()
+    }
     
     func handleCompletedOrderDeletionNotification(_ notification: Notification) {
         completedOrdersTableView.beginUpdates()
@@ -407,8 +412,8 @@ extension OrderHistoryViewController: UITableViewDataSource {
             orderItem = filteredCompletedOrderItemsArray[indexPath.row]
         }
         
-        if orderItem.creationTimestamp != nil {
-            cell.completionTimestampLabel.text = createFormattedDateWith(timeInterval: orderItem.creationTimestamp!)
+        if orderItem.completionTimestamp != nil {
+            cell.completionTimestampLabel.text = createFormattedDateWith(timeInterval: orderItem.completionTimestamp!)
             cell.completionTimestampLabel.smallTitleFonts()
             cell.completionTimestampLabel.textColor = UIColor.white
         } else {
@@ -448,14 +453,14 @@ extension OrderHistoryViewController: UITableViewDataSource {
             cell.orderStateLabel.smallTitleFonts()
             cell.orderStateLabel.textColor = UIColor.white
             cell.headerView.backgroundColor = UIColor.forestGreen
-            cell.driverNameLabel.text = orderItem.assignedDriver?.name
+            cell.driverNameLabel.text = orderItem.assignedDriver!.name
             cell.driverNameLabel.mediumTitleFonts()
         } else {
             print("Error: This order item is not a completed order. Please check the database.")
         }
         
         if orderItem.orderValue != nil {
-            cell.orderValueLabel.text = "\(orderItem.orderValue)"
+            cell.orderValueLabel.text = "RM " + String(format: "%.2f", orderItem.orderValue!)
             cell.orderValueLabel.mediumTitleFonts()
         }
         
@@ -469,10 +474,11 @@ extension OrderHistoryViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(aluminiumImage)
             } else {
-                guard let aluminiumImage = UIImage.init(named: "GreyAluminium") else {
+                guard var aluminiumImage = UIImage.init(named: "GreyAluminium") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break aluminiumImage
                 }
+                aluminiumImage = aluminiumImage.alpha(value: 0.5)
                 cell.iconArray.append(aluminiumImage)
             }
         }
@@ -485,10 +491,11 @@ extension OrderHistoryViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(glassImage)
             } else {
-                guard let glassImage = UIImage.init(named: "GreyGlass") else {
+                guard var glassImage = UIImage.init(named: "GreyGlass") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break glassImage
                 }
+                glassImage = glassImage.alpha(value: 0.5)
                 cell.iconArray.append(glassImage)
             }
         }
@@ -501,10 +508,11 @@ extension OrderHistoryViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(paperImage)
             } else {
-                guard let paperImage = UIImage.init(named: "GreyPaper") else {
+                guard var paperImage = UIImage.init(named: "GreyPaper") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break paperImage
                 }
+                paperImage = paperImage.alpha(value: 0.5)
                 cell.iconArray.append(paperImage)
             }
         }
@@ -517,10 +525,11 @@ extension OrderHistoryViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(plasticImage)
             } else {
-                guard let plasticImage = UIImage.init(named: "GreyPlastic") else {
+                guard var plasticImage = UIImage.init(named: "GreyPlastic") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break plasticImage
                 }
+                plasticImage = plasticImage.alpha(value: 0.5)
                 cell.iconArray.append(plasticImage)
             }
         }

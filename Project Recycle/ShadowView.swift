@@ -20,7 +20,7 @@ class ShadowView : UIView {
         self.layer.cornerRadius = 4.0
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 4)
-        self.layer.shadowRadius = 8
+        self.layer.shadowRadius = 9.0
         self.layer.shadowOpacity = 0.7
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: .allCorners, cornerRadii: CGSize(width: 8, height: 8)).cgPath
         self.layer.shouldRasterize = true

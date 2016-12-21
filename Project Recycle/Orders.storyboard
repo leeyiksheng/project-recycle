@@ -470,7 +470,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ubU-lH-UZ0" customClass="ShadowView" customModule="Project_Recycle" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="16" width="351" height="263.5"/>
+                                                    <rect key="frame" x="24" y="24" width="335" height="247.5"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTl-YS-CDv" userLabel="Overlay View">
@@ -743,14 +743,14 @@
                                             </subviews>
                                             <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="hTl-YS-CDv" secondAttribute="bottom" constant="16" id="LYt-LH-mX4"/>
-                                                <constraint firstAttribute="bottom" secondItem="ubU-lH-UZ0" secondAttribute="bottom" constant="16" id="Oxn-i5-GMm"/>
-                                                <constraint firstItem="ubU-lH-UZ0" firstAttribute="leading" secondItem="hSl-yp-AQR" secondAttribute="leading" constant="16" id="Y1f-zt-UE9"/>
-                                                <constraint firstItem="hTl-YS-CDv" firstAttribute="top" secondItem="hSl-yp-AQR" secondAttribute="top" constant="16" id="Y62-86-JdO"/>
-                                                <constraint firstAttribute="trailing" secondItem="ubU-lH-UZ0" secondAttribute="trailing" constant="16" id="bmG-Np-ffm"/>
-                                                <constraint firstItem="ubU-lH-UZ0" firstAttribute="top" secondItem="hSl-yp-AQR" secondAttribute="top" constant="16" id="lAk-Rg-41N"/>
-                                                <constraint firstAttribute="trailing" secondItem="hTl-YS-CDv" secondAttribute="trailing" constant="16" id="nKH-gN-ojQ"/>
-                                                <constraint firstItem="hTl-YS-CDv" firstAttribute="leading" secondItem="hSl-yp-AQR" secondAttribute="leading" constant="16" id="wZF-wQ-nl2"/>
+                                                <constraint firstItem="hTl-YS-CDv" firstAttribute="leading" secondItem="hSl-yp-AQR" secondAttribute="leading" constant="16" id="EMH-cc-7F9"/>
+                                                <constraint firstItem="hTl-YS-CDv" firstAttribute="top" secondItem="hSl-yp-AQR" secondAttribute="top" constant="16" id="LyA-tb-Bgp"/>
+                                                <constraint firstAttribute="bottom" secondItem="ubU-lH-UZ0" secondAttribute="bottom" constant="24" id="Oxn-i5-GMm"/>
+                                                <constraint firstItem="ubU-lH-UZ0" firstAttribute="leading" secondItem="hSl-yp-AQR" secondAttribute="leading" constant="24" id="Y1f-zt-UE9"/>
+                                                <constraint firstAttribute="trailing" secondItem="ubU-lH-UZ0" secondAttribute="trailing" constant="24" id="bmG-Np-ffm"/>
+                                                <constraint firstAttribute="trailing" secondItem="hTl-YS-CDv" secondAttribute="trailing" constant="16" id="fpz-NU-k9B"/>
+                                                <constraint firstItem="ubU-lH-UZ0" firstAttribute="top" secondItem="hSl-yp-AQR" secondAttribute="top" constant="24" id="lAk-Rg-41N"/>
+                                                <constraint firstAttribute="bottom" secondItem="hTl-YS-CDv" secondAttribute="bottom" constant="16" id="sWr-B8-4nP"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>

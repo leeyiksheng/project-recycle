@@ -512,7 +512,7 @@ extension CurrentOrdersViewController: UITableViewDataSource {
             cell.orderStateLabel.text = "Processing"
             cell.orderStateLabel.smallTitleFonts()
             cell.orderStateLabel.textColor = UIColor.white
-            cell.headerView.backgroundColor = UIColor.darkRed
+            cell.headerView.backgroundColor = UIColor.darkGray
             cell.driverNameLabel.text = "Assignment pending"
             cell.driverNameLabel.mediumTitleFonts()
         }
@@ -527,10 +527,11 @@ extension CurrentOrdersViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(aluminiumImage)
             } else {
-                guard let aluminiumImage = UIImage.init(named: "GreyAluminium") else {
+                guard var aluminiumImage = UIImage.init(named: "GreyAluminium") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break aluminiumImage
                 }
+                aluminiumImage = aluminiumImage.alpha(value: 0.5)
                 cell.iconArray.append(aluminiumImage)
             }
         }
@@ -543,10 +544,11 @@ extension CurrentOrdersViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(glassImage)
             } else {
-                guard let glassImage = UIImage.init(named: "GreyGlass") else {
+                guard var glassImage = UIImage.init(named: "GreyGlass") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break glassImage
                 }
+                glassImage = glassImage.alpha(value: 0.5)
                 cell.iconArray.append(glassImage)
             }
         }
@@ -559,10 +561,11 @@ extension CurrentOrdersViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(paperImage)
             } else {
-                guard let paperImage = UIImage.init(named: "GreyPaper") else {
+                guard var paperImage = UIImage.init(named: "GreyPaper") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break paperImage
                 }
+                paperImage = paperImage.alpha(value: 0.5)
                 cell.iconArray.append(paperImage)
             }
         }
@@ -575,10 +578,11 @@ extension CurrentOrdersViewController: UITableViewDataSource {
                 }
                 cell.iconArray.append(plasticImage)
             } else {
-                guard let plasticImage = UIImage.init(named: "GreyPlastic") else {
+                guard var plasticImage = UIImage.init(named: "GreyPlastic") else {
                     cell.iconArray.append(UIImage.init(named: "redErrorIcon")!)
                     break plasticImage
                 }
+                plasticImage = plasticImage.alpha(value: 0.5)
                 cell.iconArray.append(plasticImage)
             }
         }
