@@ -305,7 +305,7 @@
 				TargetAttributes = {
 					EB62675C1DEBD0D500CC2C37 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 373E2M9KW2;
+						DevelopmentTeam = 887UUJEAD3;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -563,11 +563,11 @@
 			baseConfigurationReference = C259F24EA06BF4DD31BDF919 /* Pods-Project Recycle.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 373E2M9KW2;
+				DEVELOPMENT_TEAM = 887UUJEAD3;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle.clington";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle.CalvinKL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -579,11 +579,11 @@
 			baseConfigurationReference = 136394DC7A6BD0E1C087E6CB /* Pods-Project Recycle.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 373E2M9KW2;
+				DEVELOPMENT_TEAM = 887UUJEAD3;
 				INFOPLIST_FILE = "Project Recycle/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle.clington";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yikshenglee.Project-Recycle.CalvinKL";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
